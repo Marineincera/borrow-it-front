@@ -14,6 +14,20 @@ import { ValidationComponent } from './pages/validation/validation.component';
 import { AuthentificationComponent } from './pages/authentification/authentification.component';
 import { LoanMonitoringComponent } from './pages/loan-monitoring/loan-monitoring.component';
 import { ItemCreationComponent } from './pages/item/item-creation/item-creation.component';
+import { HeaderComponent } from './components/common/header/header.component';
+import { FooterComponent } from './components/common/footer/footer.component';
+import { PrivateItemComponent } from './components/item/private-item/private-item.component';
+import { PublicSmallItemComponent } from './components/item/public-small-item/public-small-item.component';
+import { PublicDescriptionItemComponent } from './components/item/public-description-item/public-description-item.component';
+import { PublicSmallUserComponent } from './components/user/public-small-user/public-small-user.component';
+import { PublicDescriptionUserComponent } from './components/user/public-description-user/public-description-user.component';
+import { PublicOpinionComponent } from './components/opinion/public-opinion/public-opinion.component';
+import { PrivateOpinionComponent } from './components/opinion/private-opinion/private-opinion.component';
+import { PublicSmallLoanComponent } from './components/loan/public-small-loan/public-small-loan.component';
+import { PrivateLoanComponent } from './components/loan/private-loan/private-loan.component';
+import { ListComponent } from './components/list/list.component';
+import { ListSelectComponent } from './components/list/list-select/list-select.component';
+import { CollectionComponent } from './components/collection/collection.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +42,21 @@ import { ItemCreationComponent } from './pages/item/item-creation/item-creation.
     ValidationComponent,
     AuthentificationComponent,
     LoanMonitoringComponent,
-    ItemCreationComponent
+    ItemCreationComponent,
+    HeaderComponent,
+    FooterComponent,
+    PrivateItemComponent,
+    PublicSmallItemComponent,
+    PublicDescriptionItemComponent,
+    PublicSmallUserComponent,
+    PublicDescriptionUserComponent,
+    PublicOpinionComponent,
+    PrivateOpinionComponent,
+    PublicSmallLoanComponent,
+    PrivateLoanComponent,
+    ListComponent,
+    ListSelectComponent,
+    CollectionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,12 @@
+:host{
+    background-color: green;
+    display: flex;
+    justify-content: space-between;
+}
+
+div{
+    display: flex;
+    flex-direction: column;
+    background-color: greenyellow;
+    width: 20%;
+}

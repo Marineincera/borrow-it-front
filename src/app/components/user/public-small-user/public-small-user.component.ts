@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-public-small-user',
@@ -7,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PublicSmallUserComponent implements OnInit {
 
+  @Input()
+  userReceived: User;
+  
   constructor() { }
 
   ngOnInit(): void {

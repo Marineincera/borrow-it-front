@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ItemService } from 'src/app/shared/services/item.service';
 import { Item } from 'src/app/shared/models/item';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-list',
@@ -11,25 +12,35 @@ export class ListComponent implements OnInit {
 
   constructor(private itemService: ItemService) { }
 
-  items: Array<Item>;
-  userClicks: number;
+  @Input()
+  itemsToDisplay : Item[];
+  items: Array<Item> = [];
+  users:  Array<User>;
+  filter : number;
   
   ngOnInit(): void {
-    this.userClicks = 0;
-    this.addItemsToList();
+    this.filter = 0;
+    this.initializeArray(this.itemsToDisplay);
   }
 
-  addItemsToList(){
-    this.userClicks = this.userClicks + 1;
-    this.itemService.getItemFilter(4 * this.userClicks).subscribe((data: Array<Item>) => {
-      this.items = data
-      console.log(this.userClicks)
-    })
+  initializeArray(arrayParam: Array<any>) {
+    this.filter = this.filter + 4;
+    if(this.itemsToDisplay){
+     for(let i = this.filter - 4; i < this.filter; i++){
+       this.items.push(this.itemsToDisplay[i]);
+     }
+      console.log(this.items)
+    }
+  }
+  
+  addItemsToList(array){
+    this.initializeArray(array)
   }
 
-  closeList(){
-    this.userClicks = 0;
-    this.addItemsToList()
+  closeList(array: Array<any>){
+    array.splice(4,(array.length-4))
+    this.ngOnInit()
   }
+  
 
 }

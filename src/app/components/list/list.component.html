@@ -4,6 +4,6 @@
         <app-public-small-item [itemReceived]="item"></app-public-small-item>
     </div>
 
-    <p (click)="addItemsToList()">Voir plus +</p>
-    <p *ngIf="userClicks > 1" (click)="closeList()"> Voir moins - </p>
+    <p (click)="addItemsToList(itemsToDisplay)">Voir plus +</p>
+    <p *ngIf="filter > 4" (click)="closeList(items)"> Voir moins - </p>
 </section>

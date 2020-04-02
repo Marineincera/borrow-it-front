@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Item } from 'src/app/shared/models/item';
 
 @Component({
   selector: 'app-public-small-item',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class PublicSmallItemComponent implements OnInit {
 
   constructor() { }
+  @Input() 
+  itemReceived : Item;
 
   ngOnInit(): void {
   }

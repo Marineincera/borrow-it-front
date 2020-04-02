@@ -1,1 +1,7 @@
-<p>public-small-item works!</p>
+<div *ngIf="itemReceived">
+    <h1>{{itemReceived.title}}</h1>
+    <h2>Image</h2>
+    <img src="{{itemReceived.image}}" alt="">
+    <h2>{{itemReceived.itemStatus.name}}</h2>
+    <p>description</p>
+</div>

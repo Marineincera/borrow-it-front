@@ -2,9 +2,7 @@ import { Item } from './item';
 
 export class ItemStatus {
     id: number;
-    availaible?: boolean;
-    unavailable?: boolean;
-    borrowed?: boolean;
+    name: string;
     items?: Array<Item>;
 
     constructor(itemStatus: ItemStatus){

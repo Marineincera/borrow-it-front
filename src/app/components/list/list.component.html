@@ -1,1 +1,9 @@
 <p>list works!</p>
+<section *ngIf="items">
+    <div *ngFor="let item of items">
+        <app-public-small-item [itemReceived]="item"></app-public-small-item>
+    </div>
+
+    <p (click)="addItemsToList()">Voir plus +</p>
+    <p *ngIf="userClicks > 1" (click)="closeList()"> Voir moins - </p>
+</section>

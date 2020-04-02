@@ -1,9 +1,13 @@
-<p>list works!</p>
-<section *ngIf="items">
-    <div *ngFor="let item of items">
-        <app-public-small-item [itemReceived]="item"></app-public-small-item>
+<h1>{{title}}</h1>
+<section>
+    <div *ngFor="let element of array" class="element">
+        <div *ngIf="!users">
+                <app-public-small-item [itemReceived]="element"></app-public-small-item>
+        </div>
+        <div *ngIf="users">
+            <app-public-small-user [userReceived]="element"></app-public-small-user>
+        </div>
     </div>
-
-    <p (click)="addItemsToList(itemsToDisplay)">Voir plus +</p>
-    <p *ngIf="filter > 4" (click)="closeList(items)"> Voir moins - </p>
 </section>
+    <p (click)="addElementsToList(arrayToDisplay)">Voir plus +</p>
+    <p *ngIf="filter > 4" (click)="closeList(array)"> Voir moins - </p>

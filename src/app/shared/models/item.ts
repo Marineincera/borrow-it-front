@@ -1,19 +1,23 @@
-import { User } from './user';
 import { Category } from './category';
-import { Tag } from './tag';
+import { GameConsole } from './game-console';
 import { ItemStatus } from './item-status';
 import { Loan } from './loan';
+import { Tag } from './tag';
+import { User } from './user';
+import { Evaluation } from './evaluation';
 
 export class Item {
-    id: number;
+    id?: number;
     title: string;
     image: string;
     note?: number;
     user: User;
     category: Category;
-    tags: Array<Tag>;
-    itemStatus: ItemStatus;
-    loans: Array<Loan>;
+    tags?: Array<Tag>;
+    itemStatus?: ItemStatus;
+    loans?: Array<Loan>;
+    console?: GameConsole;
+    evaluations?: Array<Evaluation>;
 
     constructor(item: Item){
         Object.assign(item, this)

@@ -34,6 +34,7 @@ import { PublicOpinionComponent } from "./components/opinion/public-opinion/publ
 import { PublicSmallItemComponent } from "./components/item/public-small-item/public-small-item.component";
 import { PublicSmallLoanComponent } from "./components/loan/public-small-loan/public-small-loan.component";
 import { PublicSmallUserComponent } from "./components/user/public-small-user/public-small-user.component";
+import { TagsContainerComponent } from "./components/common/tags-container/tags-container.component";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSelectModule } from "@angular/material/select";
@@ -59,6 +60,7 @@ import { MatIconModule } from "@angular/material/icon";
 
     CollectionComponent,
     ConceptIntroductionComponent,
+    EvaluationComponent,
     FooterComponent,
     HeaderComponent,
     ListComponent,
@@ -72,7 +74,7 @@ import { MatIconModule } from "@angular/material/icon";
     PrivateOpinionComponent,
     PublicSmallLoanComponent,
     PrivateLoanComponent,
-    EvaluationComponent,
+    TagsContainerComponent,
   ],
   imports: [
     AppRoutingModule,

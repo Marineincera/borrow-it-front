@@ -28,3 +28,7 @@
     ></app-evaluation>
   </mat-card>
 </div>
+<app-tags-container
+  *ngIf="itemToDisplay"
+  [tags]="itemToDisplay.tags"
+></app-tags-container>

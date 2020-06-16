@@ -11,14 +11,7 @@ import { Item } from "src/app/shared/models/item";
 export class ItemPageComponent implements OnInit, OnDestroy {
   itemToDisplay: Item;
   itemReceived;
-  // notesList = [
-  //   {value: 0, viewValue: '0'},
-  //   {value: 1, viewValue: '1'},
-  //   {value: 2, viewValue: '2'},
-  //   {value: 3, viewValue: '3'},
-  //   {value: 4, viewValue: '4'},
-  //   {value: 5, viewValue: '5'}
-  // ];
+  tags;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,10 +22,16 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Get ID of the selected item
     const id = this.route.snapshot.paramMap.get("id");
+    this.getItem(id);
+  }
+
+  getItem(id: string) {
     this.itemReceived = this.itemService
       .getOneItem(parseInt(id))
       .subscribe((data: Item) => {
         this.itemToDisplay = data;
+        this.tags = data.tags;
+        console.log(this.tags);
       });
   }
 

@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Bellota:ital,wght@1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
+
+section {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 3.125rem;
+}
+
+.grey {
+  color: grey;
+  font-size: 70px;
+  font-family: "Amatic SC", cursive;
+}
+
+.black {
+  font-family: "Bellota", cursive;
+  font-size: 30px;
+}

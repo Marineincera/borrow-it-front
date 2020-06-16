@@ -1,0 +1,5 @@
+<section *ngIf="tagsToDisplay.length > 0">
+  <div *ngFor="let tag of tagsToDisplay">
+    <h1 class="{{ tag[1] }}">{{ tag[2] }}</h1>
+  </div>
+</section>

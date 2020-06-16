@@ -1,0 +1,19 @@
+<span *ngIf="evaluations">Note: </span>
+<span>{{ generalNote }}</span>
+<span> / {{ numberOfNotes }}</span>
+<!-- <div *ngIf="evaluations.length < 1"></div> -->
+<div>
+  <mat-form-field>
+    <mat-label>Donne ta note</mat-label>
+    <mat-select [(value)]="selected">
+      <mat-option value="1">1</mat-option>
+      <mat-option value="2">2</mat-option>
+      <mat-option value="3">3</mat-option>
+      <mat-option value="4"> 4</mat-option>
+      <mat-option value="5"> 5</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)="newEvaluation(selected)">
+    Enregistrer
+  </button>
+</div>

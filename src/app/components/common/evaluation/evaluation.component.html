@@ -1,8 +1,10 @@
-<span *ngIf="evaluations">Note: </span>
-<span>{{ generalNote }}</span>
-<span> / {{ numberOfNotes }}</span>
+<div *ngIf="evaluationsLocalArray.length > 0">
+  <span *ngIf="evaluations.length > 1">Note: </span>
+  <span>{{ generalNote }}</span>
+  <span> / {{ numberOfNotes }} notes</span>
+</div>
 <!-- <div *ngIf="evaluations.length < 1"></div> -->
-<div>
+<div class="select">
   <mat-form-field>
     <mat-label>Donne ta note</mat-label>
     <mat-select [(value)]="selected">

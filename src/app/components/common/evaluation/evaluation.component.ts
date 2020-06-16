@@ -1,8 +1,11 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { Evaluation } from "src/app/shared/models/evaluation";
 import { EvaluationService } from "src/app/shared/services/evaluation.service";
+// tslint:disable-next-line: quotemark
 import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
+import { Tag } from "src/app/shared/models/tag";
+import { TagService } from "src/app/shared/services/tag.service";
 
 @Component({
   selector: "app-evaluation",

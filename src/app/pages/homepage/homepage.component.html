@@ -1,0 +1,9 @@
+<p>homepage works!</p>
+<app-header ></app-header>
+<div *ngIf="items">
+    <app-list [arrayToDisplay]="items"></app-list>
+</div>
+<div *ngIf="users">
+    <app-list [arrayToDisplay]="users"></app-list>
+</div>
+<app-footer></app-footer>

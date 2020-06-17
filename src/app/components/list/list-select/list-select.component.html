@@ -1,37 +1,39 @@
 <mat-tab-group mat-align-tabs="start" animationDuration="0ms" *ngIf="items">
   <mat-tab label="Bibliothèque">
     <mat-tab-group mat-align-tabs="end" animationDuration="0ms">
-      <mat-tab label="Tout"> <app-list [list]="items"></app-list></mat-tab>
-      <mat-tab label="Livres"> <app-list [list]="books"></app-list></mat-tab>
+      <mat-tab label="Tout"> <app-list [itemsList]="items"></app-list></mat-tab>
+      <mat-tab label="Livres">
+        <app-list [itemsList]="books"></app-list
+      ></mat-tab>
       <mat-tab label="Jeux vidéo">
-        <app-list [list]="videoGames"></app-list
+        <app-list [itemsList]="videoGames"></app-list
       ></mat-tab>
     </mat-tab-group>
   </mat-tab>
   <mat-tab label="Objets Disponibles">
     <mat-tab-group mat-align-tabs="end" animationDuration="0ms">
       <mat-tab label="Tout">
-        <app-list [list]="availableItems"></app-list
+        <app-list [itemsList]="availableItems"></app-list
       ></mat-tab>
       <mat-tab label="Livres">
-        <app-list [list]="availableBooks"></app-list
+        <app-list [itemsList]="availableBooks"></app-list
       ></mat-tab>
       <mat-tab label="Jeux vidéo">
-        <app-list [list]="availableVideoGames"></app-list
+        <app-list [itemsList]="availableVideoGames"></app-list
       ></mat-tab>
     </mat-tab-group>
   </mat-tab>
   <mat-tab label="Objets prêtés">
     <mat-tab-group mat-align-tabs="end" animationDuration="0ms">
       <mat-tab label="Tout">
-        <app-list [list]="unavailableItems"></app-list>
+        <app-list [itemsList]="unavailableItems"></app-list>
         ></mat-tab
       >
       <mat-tab label="Livres">
-        <app-list [list]="unavailableBooks"></app-list
+        <app-list [itemsList]="unavailableBooks"></app-list
       ></mat-tab>
       <mat-tab label="Jeux vidéo">
-        <app-list [list]="unavailableVideoGames"></app-list
+        <app-list [itemsList]="unavailableVideoGames"></app-list
       ></mat-tab>
     </mat-tab-group>
   </mat-tab>

@@ -4,7 +4,7 @@
       <mat-tab label="Tout"> <app-list [list]="items"></app-list></mat-tab>
       <mat-tab label="Livres"> <app-list [list]="books"></app-list></mat-tab>
       <mat-tab label="Jeux vidéo">
-        <app-list [list]="videoGame"></app-list
+        <app-list [list]="videoGames"></app-list
       ></mat-tab>
     </mat-tab-group>
   </mat-tab>
@@ -13,9 +13,11 @@
       <mat-tab label="Tout">
         <app-list [list]="availableItems"></app-list
       ></mat-tab>
-      <mat-tab label="Livres"> <app-list [list]="books"></app-list></mat-tab>
+      <mat-tab label="Livres">
+        <app-list [list]="availableBooks"></app-list
+      ></mat-tab>
       <mat-tab label="Jeux vidéo">
-        <app-list [list]="videoGame"></app-list
+        <app-list [list]="availableVideoGames"></app-list
       ></mat-tab>
     </mat-tab-group>
   </mat-tab>
@@ -25,9 +27,11 @@
         <app-list [list]="unavailableItems"></app-list>
         ></mat-tab
       >
-      <mat-tab label="Livres"> <app-list [list]="books"></app-list></mat-tab>
+      <mat-tab label="Livres">
+        <app-list [list]="unavailableBooks"></app-list
+      ></mat-tab>
       <mat-tab label="Jeux vidéo">
-        <app-list [list]="videoGame"></app-list
+        <app-list [list]="unavailableVideoGames"></app-list
       ></mat-tab>
     </mat-tab-group>
   </mat-tab>

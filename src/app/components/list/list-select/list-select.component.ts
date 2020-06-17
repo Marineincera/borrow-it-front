@@ -15,7 +15,11 @@ export class ListSelectComponent implements OnInit {
   availableItems: Array<Item>;
   unavailableItems: Array<Item>;
   books: Array<Item>;
-  videoGame: Array<Item>;
+  availableBooks: Array<Item>;
+  unavailableBooks: Array<Item>;
+  videoGames: Array<Item>;
+  availableVideoGames: Array<Item>;
+  unavailableVideoGames: Array<Item>;
 
   constructor() {}
 
@@ -25,7 +29,15 @@ export class ListSelectComponent implements OnInit {
       this.availableItems = this.orderItems(this.items, "status", 1);
       this.unavailableItems = this.orderItems(this.items, "status", 2);
       this.books = this.orderItems(this.items, "category", 1);
-      this.videoGame = this.orderItems(this.items, "category", 2);
+      this.videoGames = this.orderItems(this.items, "category", 2);
+      this.availableBooks = this.orderItems(this.books, "status", 1);
+      this.unavailableBooks = this.orderItems(this.books, "status", 2);
+      this.availableVideoGames = this.orderItems(this.videoGames, "status", 1);
+      this.unavailableVideoGames = this.orderItems(
+        this.videoGames,
+        "status",
+        2
+      );
     } else {
       this.users = this.list;
     }

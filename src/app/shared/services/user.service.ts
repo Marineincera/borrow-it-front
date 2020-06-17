@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
-import { User } from '../models/user';
-import { WshelperService } from './wshelper.service';
+import { Injectable } from "@angular/core";
+import { User } from "../models/user";
+import { WshelperService } from "./wshelper.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class UserService {
+  static URL = "http://localhost:3000/users";
 
-  static URL = 'http://localhost:3000/users'
-
-  constructor(private service: WshelperService) { }
+  constructor(private service: WshelperService) {}
 
   getAllUsers() {
-    return this.service.get(UserService.URL );
+    return this.service.get(UserService.URL);
   }
 
   postUser(user: User) {
@@ -20,14 +19,14 @@ export class UserService {
   }
 
   getOneUser(id: number) {
-    return this.service.get(UserService.URL + id.toString());
+    return this.service.get(UserService.URL + "/" + id.toString());
   }
 
   delete(id) {
-    return this.service.delete(UserService.URL + 'delete/' + id);
+    return this.service.delete(UserService.URL + "/delete/" + id);
   }
 
   update(id, user) {
-    return this.service.put(UserService.URL + 'modify/' + id, user);
+    return this.service.put(UserService.URL + "/modify/" + id, user);
   }
 }

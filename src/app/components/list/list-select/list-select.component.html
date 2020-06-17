@@ -1,1 +1,34 @@
-<p>list-select works!</p>
+<mat-tab-group mat-align-tabs="start" animationDuration="0ms" *ngIf="items">
+  <mat-tab label="Bibliothèque">
+    <mat-tab-group mat-align-tabs="end" animationDuration="0ms">
+      <mat-tab label="Tout"> <app-list [list]="items"></app-list></mat-tab>
+      <mat-tab label="Livres"> <app-list [list]="books"></app-list></mat-tab>
+      <mat-tab label="Jeux vidéo">
+        <app-list [list]="videoGame"></app-list
+      ></mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+  <mat-tab label="Objets Disponibles">
+    <mat-tab-group mat-align-tabs="end" animationDuration="0ms">
+      <mat-tab label="Tout">
+        <app-list [list]="availableItems"></app-list
+      ></mat-tab>
+      <mat-tab label="Livres"> <app-list [list]="books"></app-list></mat-tab>
+      <mat-tab label="Jeux vidéo">
+        <app-list [list]="videoGame"></app-list
+      ></mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+  <mat-tab label="Objets prêtés">
+    <mat-tab-group mat-align-tabs="end" animationDuration="0ms">
+      <mat-tab label="Tout">
+        <app-list [list]="unavailableItems"></app-list>
+        ></mat-tab
+      >
+      <mat-tab label="Livres"> <app-list [list]="books"></app-list></mat-tab>
+      <mat-tab label="Jeux vidéo">
+        <app-list [list]="videoGame"></app-list
+      ></mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+</mat-tab-group>

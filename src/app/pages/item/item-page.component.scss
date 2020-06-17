@@ -14,7 +14,7 @@
 
 .item {
   width: 25rem;
-  height: 500px;
+  height: 31.25rem;
 }
 
 .owner {
@@ -29,11 +29,27 @@
   align-items: flex-end;
   justify-content: space-around;
   width: 18.75rem;
+  margin-bottom: 2.5rem;
   img {
-    width: 50px;
-    height: 50px;
+    width: 3.125rem;
+    height: 3.125rem;
     border-radius: 50%;
     border: 1px solid grey;
     vertical-align: top;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .displayer {
+    flex-direction: column-reverse;
+  }
+
+  .item {
+    width: 55vw;
+    height: 100vh;
+  }
+
+  .details {
+    width: 80%;
   }
 }

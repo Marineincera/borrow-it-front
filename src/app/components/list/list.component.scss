@@ -1,9 +1,35 @@
-section{
-    display: flex;
-    flex-wrap: wrap;
+section {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //   display: grid;
+  //   grid-template-rows: 15% auto;
+  //   grid-template-areas:
+  //     "title title title title"
+  //     "main main main main";
 }
 
-.element{
-    width: 25%;
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4vw;
 }
 
+.element {
+  width: 25%;
+}
+
+.title {
+  font-size: 3.125rem;
+  font-family: "Amatic SC", cursive;
+  text-align: center;
+  padding: 5vh;
+  border: 2px solid #eadda6;
+}
+
+.more {
+  display: flex;
+  margin-bottom: 3vh;
+  align-self: center;
+}

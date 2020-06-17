@@ -1,9 +1,8 @@
-<p>homepage works!</p>
-<app-header ></app-header>
-<div *ngIf="items">
+<section>
+  <div *ngIf="items" class="items">
     <app-list [arrayToDisplay]="items"></app-list>
-</div>
-<div *ngIf="users">
+  </div>
+  <div *ngIf="users" class="users">
     <app-list [arrayToDisplay]="users"></app-list>
-</div>
-<app-footer></app-footer>
+  </div>
+</section>

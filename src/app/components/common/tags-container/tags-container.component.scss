@@ -9,11 +9,19 @@ section {
 
 .grey {
   color: grey;
-  font-size: 70px;
+  font-size: 4.375rem;
   font-family: "Amatic SC", cursive;
 }
 
 .black {
   font-family: "Bellota", cursive;
-  font-size: 30px;
+  font-size: 1.875rem;
+}
+
+h2 {
+  color: grey;
+  font-size: 1.875rem;
+  font-family: "Amatic SC", cursive;
+  margin-left: 2.5rem;
+  margin-top: 40px;
 }

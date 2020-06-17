@@ -9,6 +9,9 @@ import { User } from "src/app/shared/models/user";
 })
 export class ListSelectComponent implements OnInit {
   @Input() list: Array<any>;
+  @Input() itemsList: Array<Item>;
+  @Input() usersList: Array<User>;
+
   items: Array<Item>;
   users: Array<User>;
 
@@ -24,8 +27,8 @@ export class ListSelectComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.list[0].title) {
-      this.items = this.list;
+    if (this.itemsList) {
+      this.items = this.itemsList;
       this.availableItems = this.orderItems(this.items, "status", 1);
       this.unavailableItems = this.orderItems(this.items, "status", 2);
       this.books = this.orderItems(this.items, "category", 1);

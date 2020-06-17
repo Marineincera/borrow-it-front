@@ -13,6 +13,8 @@ export class ListComponent implements OnInit {
 
   @Input()
   list: Array<any>;
+  @Input() itemsList: Array<Item>;
+  @Input() usersList: Array<User>;
 
   array: Array<any> = [];
   users = false;
@@ -20,24 +22,21 @@ export class ListComponent implements OnInit {
   filter: number;
 
   ngOnInit(): void {
-    this.determineTypeOfArray(this.list);
-    this.filter = 0;
-    this.initializeArray(this.list);
-  }
-
-  determineTypeOfArray(array) {
-    if (Object.getOwnPropertyDescriptor(array[0], "pseudo")) {
-      this.users = true;
+    if (this.itemsList) {
+      this.filter = 0;
+      this.initializeArray(this.itemsList);
+    }
+    if (this.usersList) {
+      this.filter = 0;
+      this.initializeArray(this.usersList);
     }
   }
 
-  initializeArray(arrayParam: Array<any>) {
+  initializeArray(list: Array<any>) {
     this.filter = this.filter + 4;
-    if (this.list) {
-      for (let i = this.filter - 4; i < this.filter; i++) {
-        this.array.push(this.list[i]);
-      }
-      console.log(this.array);
+    const array = [];
+    for (let i = this.filter - 4; i < this.filter; i++) {
+      this.array.push(list[i]);
     }
   }
 

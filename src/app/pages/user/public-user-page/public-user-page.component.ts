@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
+import { Item } from "src/app/shared/models/item";
 
 @Component({
   selector: "app-public-user-page",
@@ -11,6 +12,7 @@ import { User } from "src/app/shared/models/user";
 export class PublicUserPageComponent implements OnInit {
   userReceived;
   userToDisplay: User;
+  items: Array<Item>;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +31,7 @@ export class PublicUserPageComponent implements OnInit {
       .getOneUser(parseInt(id))
       .subscribe((data: User) => {
         this.userToDisplay = data;
+        this.items = data.items;
         console.log(this.userToDisplay);
       });
   }

@@ -6,7 +6,6 @@
   <img src="{{ userToDisplay.avatar }}" alt="{{ userToDisplay.pseudo }}" />
 </section>
 
-<app-list-select
-  *ngIf="userToDisplay"
-  [list]="userToDisplay.items"
-></app-list-select>
+<div *ngIf="items">
+  <app-list-select [itemsList]="items"></app-list-select>
+</div>

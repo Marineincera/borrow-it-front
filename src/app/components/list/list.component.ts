@@ -26,13 +26,9 @@ export class ListComponent implements OnInit {
   }
 
   determineTypeOfArray(array) {
-    // if (Object.getOwnPropertyDescriptor(array[0], "pseudo")) {
-    //   this.users = true;
-    //   this.title = "Membres";
-    // }
-    // if (Object.getOwnPropertyDescriptor(array[0], "note")) {
-    //   this.title = "Objets Disponibles";
-    // }
+    if (Object.getOwnPropertyDescriptor(array[0], "pseudo")) {
+      this.users = true;
+    }
   }
 
   initializeArray(arrayParam: Array<any>) {

@@ -1,1 +1,12 @@
-<p>public-user works!</p>
+<section *ngIf="userToDisplay">
+  <mat-card class="user">
+    <h1>{{ userToDisplay.pseudo }}</h1>
+    <h2>Habite à {{ userToDisplay.city }}</h2>
+  </mat-card>
+  <img src="{{ userToDisplay.avatar }}" alt="{{ userToDisplay.pseudo }}" />
+</section>
+
+<app-list-select
+  *ngIf="userToDisplay"
+  [list]="userToDisplay.items"
+></app-list-select>

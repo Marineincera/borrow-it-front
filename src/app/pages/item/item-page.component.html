@@ -1,1 +1,34 @@
-<p>item works!</p>
+<div *ngIf="itemToDisplay" class="displayer">
+  <img
+    src="{{ itemToDisplay.image }}"
+    alt="{{ itemToDisplay.title }}"
+    class="item"
+  />
+  <mat-card class="details">
+    <h1>{{ itemToDisplay.title }}</h1>
+    <h2>Catégorie: {{ itemToDisplay.category.name }}</h2>
+    <h3 *ngIf="itemToDisplay.console">
+      Console : {{ itemToDisplay.console.name }}
+    </h3>
+    <h3>{{ itemToDisplay.itemStatus.name }}</h3>
+    <div class="owner">
+      <h3>Propriétaire :</h3>
+      <mat-card class="owner-card">
+        <h3>{{ itemToDisplay.user.pseudo }}</h3>
+        <img
+          src="{{ itemToDisplay.user.avatar }}"
+          alt="{{ itemToDisplay.user.pseudo }}"
+        />
+      </mat-card>
+    </div>
+
+    <app-evaluation
+      [evaluations]="itemToDisplay.evaluations"
+      [item]="itemToDisplay"
+    ></app-evaluation>
+  </mat-card>
+</div>
+<app-tags-container
+  *ngIf="itemToDisplay"
+  [tags]="itemToDisplay.tags"
+></app-tags-container>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Item } from "src/app/shared/models/item";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-public-small-item",
@@ -11,11 +12,15 @@ export class PublicSmallItemComponent implements OnInit {
   itemReceived: Item;
 
   city;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     if (this.itemReceived) {
       this.city = this.itemReceived.user.city;
     }
+  }
+
+  openPublicSmallItem(id: number) {
+    this.router.navigate(["/item/" + id]);
   }
 }

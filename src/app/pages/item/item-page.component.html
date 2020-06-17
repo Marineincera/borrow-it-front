@@ -1,9 +1,24 @@
 <div *ngIf="itemToDisplay" class="displayer">
-  <img
-    src="{{ itemToDisplay.image }}"
-    alt="{{ itemToDisplay.title }}"
-    class="item"
-  />
+  <div class="left">
+    <div class="span-and-text">
+      <span class="material-icons">
+        chevron_left
+      </span>
+
+      <p (click)="returnToHomepage()" class="return">RETOUR</p>
+    </div>
+    <div class="span-and-text">
+      <span class="material-icons">
+        place
+      </span>
+      <p>{{ itemToDisplay.user.city }}</p>
+    </div>
+    <img
+      src="{{ itemToDisplay.image }}"
+      alt="{{ itemToDisplay.title }}"
+      class="item"
+    />
+  </div>
   <mat-card class="details">
     <h1>{{ itemToDisplay.title }}</h1>
     <h2>Catégorie: {{ itemToDisplay.category.name }}</h2>

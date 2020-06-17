@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { Item } from "src/app/shared/models/item";
 import { ItemService } from "src/app/shared/services/item.service";
 import { UserService } from "src/app/shared/services/user.service";

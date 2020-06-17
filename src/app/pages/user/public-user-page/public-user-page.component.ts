@@ -37,8 +37,11 @@ export class PublicUserPageComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.userReceived) {
-      this.userReceived.unsuscribe();
-    }
+    // if (this.userReceived) {
+    //   this.userReceived.unsuscribe();
+    // }
+  }
+  returnToHomepage() {
+    this.router.navigate(["/homepage"]);
   }
 }

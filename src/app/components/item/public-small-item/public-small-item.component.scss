@@ -19,6 +19,10 @@ h1 {
   text-align: center;
 }
 
+h1:hover {
+  text-decoration: underline;
+}
+
 .title {
   height: 25%;
 }
@@ -26,4 +30,8 @@ h1 {
 .city {
   text-align: center;
   margin-top: 1vh;
+}
+
+.matcard:hover {
+  background-color: #eadda6;
 }

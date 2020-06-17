@@ -36,8 +36,12 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.itemReceived) {
-      this.itemReceived.unsuscribe();
-    }
+    // if (this.itemReceived) {
+    //   this.itemReceived.unsuscribe();
+    // }
+  }
+
+  returnToHomepage() {
+    this.router.navigate(["/homepage"]);
   }
 }

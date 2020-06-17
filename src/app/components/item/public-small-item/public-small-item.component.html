@@ -1,6 +1,8 @@
-<div class="container" *ngIf="itemReceived">
-  <h1>{{ itemReceived.title }}</h1>
-  <img src="{{ itemReceived.image }}" alt="" />
-  <!-- <h2>{{itemReceived.itemStatus.name}}</h2> -->
-  <!-- <p>description</p> -->
-</div>
+<mat-card>
+  <div class="container" *ngIf="itemReceived">
+    <div class="title">
+      <h1>{{ itemReceived.title }}</h1>
+    </div>
+    <img src="{{ itemReceived.image }}" alt="{{ itemReceived.title }}" />
+  </div>
+</mat-card>

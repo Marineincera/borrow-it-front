@@ -1,5 +1,7 @@
 img {
-  width: 15vw;
+  width: 182px;
+  margin-top: 4vh;
+  height: 265px;
 }
 
 .container {
@@ -8,14 +10,15 @@ img {
   height: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
 }
 
 h1 {
   font-size: 20px;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-self: center;
+}
+
+.title {
+  height: 25%;
 }

@@ -4,5 +4,11 @@
       <h1>{{ itemReceived.title }}</h1>
     </div>
     <img src="{{ itemReceived.image }}" alt="{{ itemReceived.title }}" />
+    <div class="city">
+      <span class="material-icons">
+        place
+      </span>
+      <h2>{{ itemReceived.user.city }}</h2>
+    </div>
   </div>
 </mat-card>

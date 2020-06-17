@@ -1,4 +1,26 @@
-img{
-    width: 80%;
-    height: 80%;
+img {
+  width: 200px;
+  margin-top: 6vh;
+  height: 165px;
+  border-radius: 50%;
+}
+
+.container {
+  border: 3px solid white;
+  // height: 80vh;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.title {
+  height: 25%;
+  text-align: center;
 }

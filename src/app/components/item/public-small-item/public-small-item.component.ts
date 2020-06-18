@@ -17,6 +17,7 @@ export class PublicSmallItemComponent implements OnInit {
   ngOnInit(): void {
     if (this.itemReceived) {
       this.city = this.itemReceived.user.city;
+      console.log(this.itemReceived);
     }
   }
 

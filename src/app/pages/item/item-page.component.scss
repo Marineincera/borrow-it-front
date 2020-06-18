@@ -27,6 +27,29 @@ h3 {
   height: 31.25rem;
 }
 
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+span {
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+  color: #eadda6;
+}
+
+.span-and-text {
+  display: flex;
+  align-items: center;
+  font-family: "Bellota", cursive;
+  font-size: 30px;
+  color: #eadda6;
+}
+
+.return:hover {
+  text-decoration: underline overline #eadda6;
+}
+
 .owner {
   justify-content: center;
   display: flex;

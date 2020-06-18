@@ -1,4 +1,8 @@
-<mat-card *ngIf="userReceived">
+<mat-card
+  *ngIf="userReceived"
+  class="matcard"
+  (click)="openPublicSmallUser(userReceived.id)"
+>
   <div class="container">
     <div class="title">
       <h1>{{ userReceived.pseudo }}</h1>

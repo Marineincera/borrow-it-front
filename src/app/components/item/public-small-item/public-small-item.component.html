@@ -1,4 +1,8 @@
-<mat-card *ngIf="itemReceived">
+<mat-card
+  *ngIf="itemReceived"
+  class="matcard"
+  (click)="openPublicSmallItem(itemReceived.id)"
+>
   <div class="container">
     <div class="title">
       <h1>{{ itemReceived.title }}</h1>
@@ -8,7 +12,7 @@
       <span class="material-icons">
         place
       </span>
-      <h2>{{ city }}</h2>
+      <h2 *ngIf="city">{{ city }}</h2>
     </div>
   </div>
 </mat-card>

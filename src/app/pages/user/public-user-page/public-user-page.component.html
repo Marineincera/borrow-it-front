@@ -1,8 +1,21 @@
 <section *ngIf="userToDisplay">
-  <mat-card class="user">
-    <h1>{{ userToDisplay.pseudo }}</h1>
-    <h2>Habite à {{ userToDisplay.city }}</h2>
-  </mat-card>
+  <div class="span-and-text">
+    <span class="material-icons">
+      chevron_left
+    </span>
+    <p (click)="returnToHomepage()" class="return">RETOUR</p>
+  </div>
+  <div>
+    <mat-card class="user">
+      <h1>{{ userToDisplay.pseudo }}</h1>
+      <div class="place">
+        <span class="material-icons">
+          place
+        </span>
+        <h2>{{ userToDisplay.city }}</h2>
+      </div>
+    </mat-card>
+  </div>
   <img src="{{ userToDisplay.avatar }}" alt="{{ userToDisplay.pseudo }}" />
 </section>
 

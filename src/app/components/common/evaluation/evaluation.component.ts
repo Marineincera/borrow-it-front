@@ -60,8 +60,8 @@ export class EvaluationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.newNote) {
-      this.newNote.unsuscribe();
-    }
+    // if (this.newNote) {
+    //   this.newNote.unsuscribe();
+    // }
   }
 }

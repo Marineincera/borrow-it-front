@@ -5,7 +5,7 @@ import { ItemPageComponent } from "./pages/item/item-page.component";
 import { ItemCreationPageComponent } from "./pages/item/item-creation/item-creation-page.component";
 import { PublicUserPageComponent } from "./pages/user/public-user-page/public-user-page.component";
 import { PrivateUserComponent } from "./components/user/private-user/private-user.component";
-import { LoginComponent } from "./pages/login/login.component";
+
 import { AuthentificationComponent } from "./components/common/authentification/authentification.component";
 
 const routes: Routes = [

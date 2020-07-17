@@ -48,7 +48,6 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
-import { LoginComponent } from "./pages/login/login.component";
 
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
@@ -88,7 +87,6 @@ import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dial
     TagsContainerComponent,
     RegistrationComponent,
     ConnexionComponent,
-    LoginComponent,
     ConfirmDialogComponent,
   ],
   imports: [

@@ -32,7 +32,6 @@ export class PublicUserPageComponent implements OnInit {
       .subscribe((data: User) => {
         this.userToDisplay = data;
         this.items = data.items;
-        console.log(this.userToDisplay);
       });
   }
 

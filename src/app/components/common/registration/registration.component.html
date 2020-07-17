@@ -1,0 +1,51 @@
+<section>
+  <form [formGroup]="newUser" (ngSubmit)="registration()">
+    <div class="form-cases">
+      <input placeholder="Pseudo" type="text" formControlName="pseudo" />
+    </div>
+    <div
+      *ngIf="
+        newUser.controls['pseudo'].errors && newUser.controls['pseudo'].touched
+      "
+    >
+      <div [hidden]="!newUser.controls['pseudo'].errors.required" class="error">
+        L'identifiant est obligatoire
+      </div>
+    </div>
+    <div class="form-cases">
+      <input placeholder="Email" type="email" formControlName="email" />
+    </div>
+    <div
+      *ngIf="newUser.get('email').errors && newUser.get('email').touched"
+      class="error-msg"
+    >
+      <div [hidden]="newUser.get('email').errors.invalid" class="error">
+        Ce champ doit être un email
+      </div>
+      <div [hidden]="!newUser.get('email').errors.required" class="error">
+        L'email est obligatoire pour s'inscrire
+      </div>
+    </div>
+    <div class="form-cases">
+      <input placeholder="Ville" type="text" formControlName="city" />
+    </div>
+    <div class="form-cases">
+      <input
+        placeholder="Mot de passe"
+        type="text"
+        formControlName="password"
+      />
+    </div>
+    <div
+      *ngIf="newUser.get('password').errors && newUser.get('password').touched"
+      class="error-msg"
+    >
+      <div [hidden]="newUser.get('password').errors.invalid" class="error">
+        Le mot de passe doit contenir au moins une majuscule
+      </div>
+    </div>
+    <button type="submit" class="valid-button" [disabled]="!newUser.valid">
+      S'inscrire
+    </button>
+  </form>
+</section>

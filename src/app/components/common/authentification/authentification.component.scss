@@ -1,0 +1,50 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px 10px 0px 0px;
+  opacity: 1;
+  font-family: "Regular", "Lato";
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: -webkit-fill-available;
+  margin-top: -25px;
+  margin-bottom: -24px;
+  padding: 34px;
+  overflow: hidden;
+  background-color: #ffffff 0% 0%;
+  opacity: 1;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+h2 {
+  font-family: "Regular", "Lato";
+  letter-spacing: 0;
+  color: #1d2226;
+  opacity: 0.2;
+  font-size: 18px;
+  padding-bottom: 12px;
+}
+
+.selected {
+  color: #1d2226;
+  opacity: 1;
+  border-bottom: solid 3px #ff6969;
+}
+
+.form {
+  background-color: white;
+  width: 80%;
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 40px;
+}

@@ -1,0 +1,42 @@
+<section>
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="collectUserData()"
+    class="connexion-form"
+  >
+    <div class="form-cases">
+      <input placeholder="Courriel" type="email" formControlName="email" />
+    </div>
+    <div
+      *ngIf="
+        userForm.controls['email'].errors && userForm.controls['email'].touched
+      "
+    >
+      <div [hidden]="!userForm.controls['email'].errors.required" class="error">
+        L'identifiant est obligatoire
+      </div>
+    </div>
+
+    <div class="form-cases">
+      <input
+        placeholder="Mot de passe"
+        type="password"
+        formControlName="password"
+      />
+    </div>
+    <div
+      *ngIf="
+        userForm.get('password').errors && userForm.get('password').touched
+      "
+      class="error-msg"
+    >
+      <div [hidden]="userForm.get('password').errors.invalid" class="error">
+        Le mot de passe doit contenir au moins une majuscule
+      </div>
+    </div>
+
+    <button type="submit" class="valid-button" [disabled]="!userForm.valid">
+      Se connecter
+    </button>
+  </form>
+</section>

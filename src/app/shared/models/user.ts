@@ -4,7 +4,7 @@ import { Opinion } from "./opinion";
 import { Evaluation } from "./evaluation";
 
 export class User {
-  id: number;
+  id?: number;
   avatar?: string;
   pseudo: string;
   email: string;

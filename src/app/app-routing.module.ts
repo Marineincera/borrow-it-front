@@ -6,6 +6,8 @@ import { ItemCreationPageComponent } from "./pages/item/item-creation/item-creat
 import { PublicUserPageComponent } from "./pages/user/public-user-page/public-user-page.component";
 import { PrivateUserComponent } from "./components/user/private-user/private-user.component";
 
+import { AuthentificationComponent } from "./components/common/authentification/authentification.component";
+
 const routes: Routes = [
   { path: "", component: HomepageComponent },
   { path: "homepage", component: HomepageComponent },
@@ -15,6 +17,8 @@ const routes: Routes = [
 
   { path: "user/:id", component: PublicUserPageComponent },
   { path: "user/account/:id", component: PrivateUserComponent },
+
+  { path: "auth", component: AuthentificationComponent },
 ];
 
 @NgModule({

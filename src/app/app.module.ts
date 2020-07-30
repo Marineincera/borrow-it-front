@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { ReactiveFormsModule } from "@angular/forms";
 
@@ -51,6 +51,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
+import { HeaderInterceptor } from "./core/header.interceptor";
 
 @NgModule({
   declarations: [
@@ -104,7 +105,13 @@ import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dial
     MatIconModule,
     MatTabsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

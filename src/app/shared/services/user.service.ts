@@ -44,8 +44,13 @@ export class UserService {
       .pipe(
         map((response: HttpResponse<any>) => {
           const token = response.headers.get("JWT_TOKEN");
-          // console.log("token :" + token);
-          // console.log("response" + response);
+          console.log("token :" + token);
+          console.log("response" + response);
+          this.connectedUser = response.body;
+          console.log(this.connectedUser);
+
+          console.log(response);
+
           localStorage.setItem("TOKEN", token);
           return response.body;
         })
@@ -69,7 +74,7 @@ export class UserService {
   // recuperation du user grâce au token et stokage dans le service
   public getMe() {
     return this.http
-      .get(UserService.URL + "users/me")
+      .get(UserService.URL + "users/search/me")
       .pipe(tap((user: User) => (this.connectedUser = user)));
   }
 }

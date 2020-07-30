@@ -6,6 +6,7 @@ import {
   HttpRequest,
 } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { UserService } from "../shared/services/user.service";
 
 @Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
@@ -15,12 +16,16 @@ export class HeaderInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem("JWT_TOKEN");
+    const token = localStorage.getItem("TOKEN");
+
     if (!token) {
       return next.handle(req);
     }
+    console.log(token);
+
     const headers = req.headers.set("Authorization", `Bearer ${token}`);
     const authReq = req.clone({ headers });
+
     return next.handle(authReq);
   }
 }

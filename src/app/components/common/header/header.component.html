@@ -2,8 +2,12 @@
   <div class="title">
     <h1>Borrow It</h1>
   </div>
-  <div class="account">
+  <div class="account" *ngIf="!user">
     <h2>Logo</h2>
     <h3 (click)="openAuthentification()">Connexion</h3>
+  </div>
+  <div *ngIf="user">
+    <h3>{{ user.pseudo }}</h3>
+    <h3 (click)="signOut()">Se déconnecter</h3>
   </div>
 </section>

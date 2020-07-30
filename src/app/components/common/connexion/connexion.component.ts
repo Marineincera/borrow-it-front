@@ -43,7 +43,8 @@ export class ConnexionComponent implements OnInit {
 
   signin(email: string, password: string) {
     this.userService.connexion(email, password).subscribe((data: User) => {
-      const navigationId = data.id.toString();
+      let navigationId = data.id.toString();
+
       this.router.navigate(["user/" + navigationId]);
     });
   }

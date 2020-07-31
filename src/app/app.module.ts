@@ -43,11 +43,13 @@ import { TagsContainerComponent } from "./components/common/tags-container/tags-
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSelectModule } from "@angular/material/select";
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule, MatLabel } from "@angular/material/form-field";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatInputModule } from "@angular/material/input";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
@@ -104,6 +106,8 @@ import { HeaderInterceptor } from "./core/header.interceptor";
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
+    MatInputModule,
+    MatAutocompleteModule,
   ],
   providers: [
     {

@@ -1,21 +1,24 @@
 <h1>MON PROFIL</h1>
 
 <div *ngIf="user">
-  <app-public-description-user
-    [userToDisplay]="user"
-  ></app-public-description-user>
+  <app-private-user [userToDisplay]="user"></app-private-user>
 </div>
-<div *ngIf="user">
-  <h2>Mes objets disponibles</h2>
+<div *ngIf="user" class="wrapper">
+  <div class="style-container">
+    <h2>Mes objets disponibles</h2>
+  </div>
   <app-list *ngIf="availableItems" [itemsList]="availableItems"></app-list>
-
-  <h2>Mes objets prétés</h2>
+  <div class="style-container">
+    <h2>Mes objets prétés</h2>
+  </div>
   <app-list *ngIf="unavailableItems" [itemsList]="unavailableItems"></app-list>
-
-  <h2>Tous mes objets</h2>
+  <div class="style-container">
+    <h2>Tous mes objets</h2>
+  </div>
   <app-list *ngIf="user.items" [itemsList]="user.items"></app-list>
-
-  <h2>Objets empruntés</h2>
+  <div class="style-container">
+    <h2>Objets empruntés</h2>
+  </div>
   <app-list [itemsList]="user.loans"></app-list>
 </div>
 

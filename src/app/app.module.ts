@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -56,6 +56,7 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
 import { HeaderInterceptor } from "./core/header.interceptor";
+import { PrivateUserComponent } from "./components/user/private-user/private-user.component";
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { HeaderInterceptor } from "./core/header.interceptor";
     PublicDescriptionUserComponent,
     PublicOpinionComponent,
     PrivateOpinionComponent,
+    PrivateUserComponent,
     PublicSmallLoanComponent,
     PrivateLoanComponent,
     TagsContainerComponent,
@@ -100,6 +102,7 @@ import { HeaderInterceptor } from "./core/header.interceptor";
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
 
     MatSelectModule,
     MatFormFieldModule,

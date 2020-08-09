@@ -1,1 +1,32 @@
-<p>private-user works!</p>
+<section *ngIf="userToDisplay">
+  <mat-card class="user">
+    <h1>{{ userToDisplay.pseudo }}</h1>
+    <div class="place">
+      <span class="material-icons">
+        place
+      </span>
+      <h2>{{ userToDisplay.city }}</h2>
+    </div>
+  </mat-card>
+
+  <img
+    src="{{ userToDisplay.avatar }}"
+    alt="{{ userToDisplay.pseudo }}"
+    title="modifier l'avatar"
+    (click)="updateAvatar(userToDisplay.id)"
+  />
+</section>
+<div *ngIf="openUpdateAvatar">
+  <mat-form-field class="example-full-width">
+    <mat-label>Leave a comment</mat-label>
+    <input
+      matInput
+      placeholder="Ex. It makes me feel..."
+      [(ngModel)]="newAvatar"
+      name="avatar"
+    />
+  </mat-form-field>
+  <button (click)="updateUser(userToDisplay.id, newAvatar)">
+    Valider changement
+  </button>
+</div>

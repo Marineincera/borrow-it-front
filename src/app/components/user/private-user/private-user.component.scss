@@ -1,0 +1,23 @@
+section {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 13vh;
+}
+
+.user {
+  width: 20%;
+  text-align: center;
+}
+
+img {
+  width: 30vw;
+  height: 40vh;
+  border-radius: 50%;
+}
+
+h1 {
+  font-family: "Bellota", cursive;
+  font-size: 1.875rem;
+  text-align: center;
+  color: #eadda6;
+}

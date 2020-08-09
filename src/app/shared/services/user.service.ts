@@ -46,11 +46,14 @@ export class UserService {
           const token = response.headers.get("JWT_TOKEN");
           console.log("token :" + token);
           console.log("response" + response);
+<<<<<<< HEAD
           this.connectedUser = response.body;
           console.log(this.connectedUser);
 
           console.log(response);
 
+=======
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
           localStorage.setItem("TOKEN", token);
           return response.body;
         })

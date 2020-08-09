@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <section *ngIf="userToDisplay">
   <div class="span-and-text">
     <span class="material-icons">
@@ -21,4 +22,19 @@
 
 <div *ngIf="items">
   <app-list-select [itemsList]="items"></app-list-select>
+=======
+<div class="span-and-text">
+  <span class="material-icons">
+    chevron_left
+  </span>
+  <p (click)="returnToHomepage()" class="return">RETOUR</p>
+</div>
+<div>
+  <app-public-description-user
+    [userToDisplay]="userToDisplay"
+  ></app-public-description-user>
+  <div *ngIf="items">
+    <app-list-select [itemsList]="items"></app-list-select>
+  </div>
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
 </div>

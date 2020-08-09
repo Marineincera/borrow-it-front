@@ -1,1 +1,22 @@
-<p>private-user works!</p>
+<h1>MON PROFIL</h1>
+
+<div *ngIf="user">
+  <app-public-description-user
+    [userToDisplay]="user"
+  ></app-public-description-user>
+</div>
+<div *ngIf="user">
+  <h2>Mes objets disponibles</h2>
+  <app-list *ngIf="availableItems" [itemsList]="availableItems"></app-list>
+
+  <h2>Mes objets prétés</h2>
+  <app-list *ngIf="unavailableItems" [itemsList]="unavailableItems"></app-list>
+
+  <h2>Tous mes objets</h2>
+  <app-list *ngIf="user.items" [itemsList]="user.items"></app-list>
+
+  <h2>Objets empruntés</h2>
+  <app-list [itemsList]="user.loans"></app-list>
+</div>
+
+<app-public-description-user></app-public-description-user>

@@ -52,9 +52,9 @@ export class ItemCreationPageComponent implements OnInit {
     if (!this.categoryService.categories) {
       this.getCategories();
     }
-    if (!this.tagsList) {
-      this.getTagsList();
-    }
+    // if (!this.tagsList) {
+    //   this.getTagsList();
+    // }
     console.log(this.tagsList);
   }
 
@@ -65,32 +65,32 @@ export class ItemCreationPageComponent implements OnInit {
     });
   }
 
-  getTagsList() {
-    this.tagsList = [];
-    this.tagsForForm = [];
-    this.tagService.getAllTags().subscribe((data: Array<Tag>) => {
-      this.tagService.tags = data;
-      this.tagsList = data;
-      this.tagsList.forEach((element) => {
-        this.tagsForForm.push(element.name);
-      });
-      if (this.tagsForForm) {
-        this.filteredOptions = this.myControl.valueChanges.pipe(
-          startWith(""),
-          map((value) => this._filter(value))
-        );
-      }
-    });
-  }
+  // getTagsList() {
+  //   this.tagsList = [];
+  //   this.tagsForForm = [];
+  //   this.tagService.getAllTags().subscribe((data: Array<Tag>) => {
+  //     this.tagService.tags = data;
+  //     this.tagsList = data;
+  //     this.tagsList.forEach((element) => {
+  //       this.tagsForForm.push(element.name);
+  //     });
+  //     if (this.tagsForForm) {
+  //       this.filteredOptions = this.myControl.valueChanges.pipe(
+  //         startWith(""),
+  //         map((value) => this._filter(value))
+  //       );
+  //     }
+  //   });
+  // }
 
-  private _filter(value: any): string[] {
-    const filterValue = value.toLowerCase();
+  // private _filter(value: any): string[] {
+  //   const filterValue = value.toLowerCase();
 
-    const result = this.tagsForForm.filter(
-      (option) => option.toLowerCase().indexOf(filterValue) === 0
-    );
-    return result;
-  }
+  //   const result = this.tagsForForm.filter(
+  //     (option) => option.toLowerCase().indexOf(filterValue) === 0
+  //   );
+  //   return result;
+  // }
 
   getVideoGamesStationsList() {
     this.videoGameStationsService
@@ -111,31 +111,31 @@ export class ItemCreationPageComponent implements OnInit {
     }
   }
 
-  selectTag(option) {
-    this.tagsList.map((element) => {
-      if (element.name === option) {
-        this.newItemTags.push(element);
-      }
-    });
-    if (option !== undefined) {
-      const g = this.tagsForForm.findIndex((element) => element === option);
+  // selectTag(option) {
+  //   this.tagsList.map((element) => {
+  //     if (element.name === option) {
+  //       this.newItemTags.push(element);
+  //     }
+  //   });
+  //   if (option !== undefined) {
+  //     const g = this.tagsForForm.findIndex((element) => element === option);
 
-      if (g < 0) {
-        const tagToCreate: Tag = {
-          name: option,
-        };
-        this.newItemTags.push(option);
-        this.tagService.postTag(tagToCreate).subscribe();
+  //     if (g < 0) {
+  //       const tagToCreate: Tag = {
+  //         name: option,
+  //       };
+  //       this.newItemTags.push(option);
+  //       this.tagService.postTag(tagToCreate).subscribe();
 
-        this.getTagsList();
-      }
-    }
-  }
+  //       this.getTagsList();
+  //     }
+  //   }
+  // }
 
-  deleteTag(index: number) {
-    this.newItemTags.splice(index, 1);
-    console.log(this.newItemTags);
-  }
+  // deleteTag(index: number) {
+  //   this.newItemTags.splice(index, 1);
+  //   console.log(this.newItemTags);
+  // }
 
   collectNewItem() {
     const newItem: Item = {
@@ -148,6 +148,8 @@ export class ItemCreationPageComponent implements OnInit {
       itemStatus: { id: 1 },
       tags: this.newItemTags,
     };
+
+    console.log(newItem);
 
     this.itemService.postItem(newItem).subscribe((data: Item) => {
       const id = data.id;

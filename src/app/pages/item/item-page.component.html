@@ -1,6 +1,6 @@
-<div *ngIf="itemToDisplay" class="displayer">
-  <div class="left">
-    <div class="span-and-text">
+<section class="displayer">
+  <div *ngIf="itemToDisplay">
+    <div>
       <span class="material-icons">
         chevron_left
       </span>
@@ -13,39 +13,46 @@
       </span>
       <p>{{ itemToDisplay.user.city }}</p>
     </div>
-    <img
-      src="{{ itemToDisplay.image }}"
-      alt="{{ itemToDisplay.title }}"
-      class="item"
-    />
-  </div>
-  <mat-card class="details">
-    <h1>{{ itemToDisplay.title }}</h1>
-    <h2>Catégorie: {{ itemToDisplay.category.name }}</h2>
-    <h3 *ngIf="itemToDisplay.console">
-      Console : {{ itemToDisplay.console.name }}
-    </h3>
-    <h3>{{ itemToDisplay.itemStatus.name }}</h3>
-    <button *ngIf="!userIsOwner">Faire une demande de prêt</button>
-    <button *ngIf="userIsOwner"></button>
-    <div class="owner">
-      <h3>Propriétaire :</h3>
-      <mat-card class="owner-card">
-        <h3>{{ itemToDisplay.user.pseudo }}</h3>
-        <img
-          src="{{ itemToDisplay.user.avatar }}"
-          alt="{{ itemToDisplay.user.pseudo }}"
-        />
-      </mat-card>
-    </div>
+    <div class="description">
+      <img
+        src="{{ itemToDisplay.image }}"
+        alt="{{ itemToDisplay.title }}"
+        class="item"
+      />
+      <div class="description-right">
+        <h1>{{ itemToDisplay.title }}</h1>
+        <mat-card class="details">
+          <h2>Catégorie: {{ itemToDisplay.category.name }}</h2>
+          <h3 *ngIf="itemToDisplay.console">
+            Console : {{ itemToDisplay.console.name }}
+          </h3>
+          <h3>{{ itemToDisplay.itemStatus.name }}</h3>
 
-    <app-evaluation
-      [evaluations]="itemToDisplay.evaluations"
-      [item]="itemToDisplay"
-    ></app-evaluation>
-  </mat-card>
-</div>
-<app-tags-container
-  *ngIf="itemToDisplay"
-  [tags]="itemToDisplay.tags"
-></app-tags-container>
+          <button *ngIf="!userIsOwner">Faire une demande de prêt</button>
+          <button *ngIf="userIsOwner">Supprimer</button>
+
+          <div class="owner">
+            <h3>Propriétaire :</h3>
+            <mat-card class="owner-card">
+              <h3>{{ itemToDisplay.user.pseudo }}</h3>
+              <img
+                src="{{ itemToDisplay.user.avatar }}"
+                alt="{{ itemToDisplay.user.pseudo }}"
+              />
+            </mat-card>
+            <p>{{ itemToDisplay.description }}</p>
+          </div>
+
+          <app-evaluation
+            [evaluations]="itemToDisplay.evaluations"
+            [item]="itemToDisplay"
+          ></app-evaluation>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <app-tags-container
+    *ngIf="itemToDisplay"
+    [tags]="itemToDisplay.tags"
+  ></app-tags-container>
+</section>

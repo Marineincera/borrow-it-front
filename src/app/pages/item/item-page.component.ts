@@ -14,6 +14,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   itemToDisplay: Item;
   itemReceived;
   tags;
+
   surfingUser: User;
   userIsOwner = false;
 
@@ -28,14 +29,12 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     // Get ID of the selected item
     const id = this.route.snapshot.paramMap.get("id");
     this.getItem(id);
-
-    this.determineSurfingUser();
   }
-  determineSurfingUser() {
+  determineSurfingUser(item: Item) {
     if (this.userService.connectedUser) {
       this.surfingUser = this.userService.connectedUser;
 
-      if (this.itemToDisplay.user.id === this.surfingUser.id) {
+      if (item.user.id === this.surfingUser.id) {
         this.userIsOwner = true;
       }
     }
@@ -48,6 +47,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         this.itemToDisplay = data;
         this.tags = data.tags;
         console.log(this.tags);
+        this.determineSurfingUser(data);
       });
   }
 

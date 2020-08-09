@@ -8,15 +8,18 @@ import { PrivateUserComponent } from "./components/user/private-user/private-use
 
 import { AuthentificationComponent } from "./components/common/authentification/authentification.component";
 
+import { PrivateUserPageComponent } from "./pages/user/private-user-page/private-user-page.component";
+
 const routes: Routes = [
   { path: "", component: HomepageComponent },
   { path: "homepage", component: HomepageComponent },
 
   { path: "item/:id", component: ItemPageComponent },
+
   { path: "item/create/new", component: ItemCreationPageComponent },
 
   { path: "user/:id", component: PublicUserPageComponent },
-  { path: "user/account/:id", component: PrivateUserComponent },
+  { path: "user/account/:id", component: PrivateUserPageComponent },
 
   { path: "auth", component: AuthentificationComponent },
 ];

@@ -1,1 +1,13 @@
-<p>public-description-user works!</p>
+<section *ngIf="userToDisplay">
+  <mat-card class="user">
+    <h1>{{ userToDisplay.pseudo }}</h1>
+    <div class="place">
+      <span class="material-icons">
+        place
+      </span>
+      <h2>{{ userToDisplay.city }}</h2>
+    </div>
+  </mat-card>
+
+  <img src="{{ userToDisplay.avatar }}" alt="{{ userToDisplay.pseudo }}" />
+</section>

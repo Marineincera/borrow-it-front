@@ -53,7 +53,7 @@
       </mat-select>
     </mat-form-field>
 
-    <div *ngIf="newItemTags">
+    <!-- <div *ngIf="newItemTags">
       <ul *ngFor="let tag of newItemTags; let i = index">
         <li>
           <div>
@@ -62,8 +62,8 @@
           </div>
         </li>
       </ul>
-    </div>
-
+    </div> -->
+    <!-- 
     <mat-form-field class="example-full-width" *ngIf="tagsForForm">
       <input
         type="text"
@@ -81,8 +81,8 @@
           {{ option }}
         </mat-option>
       </mat-autocomplete>
-      <p (click)="selectTag(myControl.value)">Add</p>
     </mat-form-field>
+    <p (click)="selectTag(myControl.value)">Add</p> -->
 
     <button type="submit" class="valid-button" [disabled]="!itemForm.valid">
       Créer

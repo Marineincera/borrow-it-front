@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, Output, EventEmitter } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
@@ -44,8 +44,8 @@ export class ConnexionComponent implements OnInit {
   signin(email: string, password: string) {
     this.userService.connexion(email, password).subscribe((data: User) => {
       let navigationId = data.id.toString();
-
-      this.router.navigate(["user/" + navigationId]);
+      this.userService.connectedUser = data;
+      this.router.navigate(["user/account/" + navigationId]);
     });
   }
 }

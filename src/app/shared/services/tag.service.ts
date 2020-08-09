@@ -7,10 +7,11 @@ import { Tag } from "../models/tag";
 })
 export class TagService {
   static URL = "http://localhost:3000/tags";
+  tags: Array<Tag>;
 
   constructor(private service: WshelperService) {}
 
-  getAllTag() {
+  getAllTags() {
     return this.service.get(TagService.URL);
   }
 

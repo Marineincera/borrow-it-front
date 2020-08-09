@@ -9,6 +9,7 @@
   <div *ngIf="user">
     <a [routerLink]="['/item/create/new']">Ajouter un objet</a>
     <h3>{{ user.pseudo }}</h3>
+    <h3 (click)="openPrivateAccount(user.id)">voir mon profil</h3>
     <h3 (click)="signOut()">Se déconnecter</h3>
   </div>
 </section>

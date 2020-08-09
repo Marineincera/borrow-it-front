@@ -46,11 +46,6 @@ export class UserService {
           const token = response.headers.get("JWT_TOKEN");
           console.log("token :" + token);
           console.log("response" + response);
-          this.connectedUser = response.body;
-          console.log(this.connectedUser);
-
-          console.log(response);
-
           localStorage.setItem("TOKEN", token);
           return response.body;
         })

@@ -7,16 +7,27 @@ import { PublicUserPageComponent } from "./pages/user/public-user-page/public-us
 import { PrivateUserComponent } from "./components/user/private-user/private-user.component";
 
 import { AuthentificationComponent } from "./components/common/authentification/authentification.component";
+<<<<<<< HEAD
+=======
+import { PrivateUserPageComponent } from "./pages/user/private-user-page/private-user-page.component";
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
   { path: "homepage", component: HomepageComponent },
 
   { path: "item/:id", component: ItemPageComponent },
+<<<<<<< HEAD
   { path: "item/new", component: ItemCreationPageComponent },
 
   { path: "user/:id", component: PublicUserPageComponent },
   { path: "user/account/:id", component: PrivateUserComponent },
+=======
+  { path: "item/create/new", component: ItemCreationPageComponent },
+
+  { path: "user/:id", component: PublicUserPageComponent },
+  { path: "user/account/:id", component: PrivateUserPageComponent },
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
 
   { path: "auth", component: AuthentificationComponent },
 ];

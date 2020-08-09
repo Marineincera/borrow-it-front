@@ -7,10 +7,18 @@ import { Tag } from "../models/tag";
 })
 export class TagService {
   static URL = "http://localhost:3000/tags";
+<<<<<<< HEAD
 
   constructor(private service: WshelperService) {}
 
   getAllTag() {
+=======
+  tags: Array<Tag>;
+
+  constructor(private service: WshelperService) {}
+
+  getAllTags() {
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
     return this.service.get(TagService.URL);
   }
 

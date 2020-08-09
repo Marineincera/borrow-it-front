@@ -43,11 +43,20 @@ import { TagsContainerComponent } from "./components/common/tags-container/tags-
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSelectModule } from "@angular/material/select";
+<<<<<<< HEAD
 import { MatFormFieldModule } from "@angular/material/form-field";
+=======
+import { MatFormFieldModule, MatLabel } from "@angular/material/form-field";
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
+<<<<<<< HEAD
+=======
+import { MatInputModule } from "@angular/material/input";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
 
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
@@ -104,6 +113,11 @@ import { HeaderInterceptor } from "./core/header.interceptor";
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
+<<<<<<< HEAD
+=======
+    MatInputModule,
+    MatAutocompleteModule,
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
   ],
   providers: [
     {

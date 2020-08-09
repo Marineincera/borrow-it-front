@@ -26,6 +26,11 @@
       Console : {{ itemToDisplay.console.name }}
     </h3>
     <h3>{{ itemToDisplay.itemStatus.name }}</h3>
+<<<<<<< HEAD
+=======
+    <button *ngIf="!userIsOwner">Faire une demande de prêt</button>
+    <button *ngIf="userIsOwner"></button>
+>>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
     <div class="owner">
       <h3>Propriétaire :</h3>
       <mat-card class="owner-card">

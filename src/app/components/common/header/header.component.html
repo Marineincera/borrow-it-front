@@ -7,17 +7,11 @@
     <h3 (click)="openAuthentification()">Connexion</h3>
   </div>
   <div *ngIf="user">
-<<<<<<< HEAD
-    <a [routerLink]="['/item/create/new']">Ajouter un objet</a>
-=======
-<<<<<<< HEAD
->>>>>>> 36c09b6... feat: tags items and private user page creation
-    <h3>{{ user.pseudo }}</h3>
-=======
     <a [routerLink]="['/item/create/new']">Ajouter un objet</a>
     <h3>{{ user.pseudo }}</h3>
+
     <h3 (click)="openPrivateAccount(user.id)">voir mon profil</h3>
->>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
+
     <h3 (click)="signOut()">Se déconnecter</h3>
   </div>
 </section>

@@ -1,20 +1,27 @@
 .displayer {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   margin-top: 2.5rem;
 }
 
-.details {
+.description {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.description-right {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 6%;
+  width: 50%;
 }
 
 h1 {
   font-family: "Bellota", cursive;
   font-size: 1.875rem;
+  text-align: center;
+  color: #eadda6;
 }
 
 h2,
@@ -23,14 +30,14 @@ h3 {
 }
 
 .item {
-  width: 25rem;
-  height: 31.25rem;
+  width: 20rem;
+  height: 30rem;
 }
 
-.left {
-  display: flex;
-  flex-direction: column;
-}
+// .left {
+//   display: flex;
+//   flex-direction: column;
+// }
 
 span {
   margin-bottom: 3vh;
@@ -48,6 +55,13 @@ span {
 
 .return:hover {
   text-decoration: underline overline #eadda6;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6%;
 }
 
 .owner {
@@ -72,17 +86,17 @@ span {
   }
 }
 
-@media screen and (max-width: 1600px) {
-  .displayer {
-    flex-direction: column-reverse;
-  }
+// @media screen and (max-width: 1600px) {
+//   .displayer {
+//     flex-direction: column-reverse;
+//   }
 
-  .item {
-    width: 55vw;
-    height: 100vh;
-  }
+//   .item {
+//     width: 55vw;
+//     height: 100vh;
+//   }
 
-  .details {
-    width: 80%;
-  }
-}
+//   .details {
+//     width: 80%;
+//   }
+// }

@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-<section *ngIf="userToDisplay">
-  <div class="span-and-text">
-    <span class="material-icons">
-      chevron_left
-    </span>
-    <p (click)="returnToHomepage()" class="return">RETOUR</p>
-  </div>
-  <div>
-    <mat-card class="user">
-      <h1>{{ userToDisplay.pseudo }}</h1>
-      <div class="place">
-        <span class="material-icons">
-          place
-        </span>
-        <h2>{{ userToDisplay.city }}</h2>
-      </div>
-    </mat-card>
-  </div>
-  <img src="{{ userToDisplay.avatar }}" alt="{{ userToDisplay.pseudo }}" />
-</section>
-
-<div *ngIf="items">
-  <app-list-select [itemsList]="items"></app-list-select>
-=======
 <div class="span-and-text">
   <span class="material-icons">
     chevron_left
@@ -36,5 +11,4 @@
   <div *ngIf="items">
     <app-list-select [itemsList]="items"></app-list-select>
   </div>
->>>>>>> 0e287b4... Merge pull request #18 from Marineincera/feat/item-creation
 </div>

@@ -1,1 +1,27 @@
-<p>authentification works!</p>
+<section mat-dialog-content>
+  <div *ngIf="inscription" class="title">
+    <h1>Inscription</h1>
+    <p>Rejoignez le réseau social qui récompense l'information de qualité</p>
+  </div>
+  <div *ngIf="connexion" class="title">
+    <h1>Connexion</h1>
+    <p>
+      Partagez les sources qui font la différence, débattez, évaluez ou
+      tenez-vous informer !
+    </p>
+  </div>
+  <div class="form">
+    <div class="buttons">
+      <h2 #connect (click)="openConnexion(connect, subscribe)" class="selected">
+        Connexion
+      </h2>
+      <h2 #subscribe (click)="openInscription(subscribe, connect)">
+        Inscription
+      </h2>
+    </div>
+    <div class="window">
+      <app-connexion *ngIf="connexion"></app-connexion>
+      <app-registration *ngIf="inscription"></app-registration>
+    </div>
+  </div>
+</section>

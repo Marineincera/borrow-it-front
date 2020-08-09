@@ -1,3 +1,16 @@
-
-<h1>{{userReceived.pseudo}}</h1>
-<img src="{{userReceived.avatar}}" alt="">
+<mat-card
+  *ngIf="userReceived"
+  class="matcard"
+  (click)="openPublicSmallUser(userReceived.id)"
+>
+  <div class="container">
+    <div class="title">
+      <h1>{{ userReceived.pseudo }}</h1>
+      <span class="material-icons">
+        place
+      </span>
+      <h2>{{ userReceived.city }}</h2>
+    </div>
+    <img src="{{ userReceived.avatar }}" alt="" />
+  </div>
+</mat-card>

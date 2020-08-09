@@ -1,13 +1,25 @@
-<h1>{{title}}</h1>
-<section>
-    <div *ngFor="let element of array" class="element">
-        <div *ngIf="!users">
-                <app-public-small-item [itemReceived]="element"></app-public-small-item>
-        </div>
-        <div *ngIf="users">
-            <app-public-small-user [userReceived]="element"></app-public-small-user>
-        </div>
+<section *ngIf="itemsList || usersList">
+  <div class="list">
+    <div *ngIf="itemsList.length === 0">
+      <p>Il n'y a aucun objets dans cette section</p>
     </div>
+    <div *ngFor="let element of array" class="element">
+      <div *ngIf="itemsList">
+        <app-public-small-item [itemReceived]="element"></app-public-small-item>
+      </div>
+    </div>
+    <div *ngFor="let element of array" class="element">
+      <div *ngIf="usersList">
+        <app-public-small-user [userReceived]="element"></app-public-small-user>
+      </div>
+    </div>
+  </div>
+  <div class="more" *ngIf="itemsList && itemsList.length > 4">
+    <p (click)="addElementsToList(itemsList)">Voir plus +</p>
+    <p *ngIf="filter > 4" (click)="closeList(array)">Voir moins -</p>
+  </div>
+  <div class="more" *ngIf="usersList && usersList.length > 4">
+    <p (click)="addElementsToList(usersList)">Voir plus +</p>
+    <p *ngIf="filter > 4" (click)="closeList(array)">Voir moins -</p>
+  </div>
 </section>
-    <p (click)="addElementsToList(arrayToDisplay)">Voir plus +</p>
-    <p *ngIf="filter > 4" (click)="closeList(array)"> Voir moins - </p>

@@ -1,59 +1,51 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ItemService } from 'src/app/shared/services/item.service';
-import { Item } from 'src/app/shared/models/item';
-import { User } from 'src/app/shared/models/user';
+import { Component, OnInit, Input } from "@angular/core";
+import { ItemService } from "src/app/shared/services/item.service";
+import { Item } from "src/app/shared/models/item";
+import { User } from "src/app/shared/models/user";
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: "app-list",
+  templateUrl: "./list.component.html",
+  styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-
-  constructor(private itemService: ItemService) { }
+  constructor(private itemService: ItemService) {}
 
   @Input()
-  arrayToDisplay: Array<any>;
+  list: Array<any>;
+  @Input() itemsList: Array<Item>;
+  @Input() usersList: Array<User>;
 
   array: Array<any> = [];
   users = false;
-  title : string;
-  filter : number;
-  
+  title: string;
+  filter: number;
+
   ngOnInit(): void {
-    this.determineTypeOfArray(this.arrayToDisplay);
-    this.filter = 0;
-    this.initializeArray(this.arrayToDisplay);
-  }
-
-  determineTypeOfArray(array){
-    if(Object.getOwnPropertyDescriptor(array[0], 'pseudo')){
-    this.users = true;
-    this.title = "Membres";
+    if (this.itemsList) {
+      this.filter = 0;
+      this.initializeArray(this.itemsList);
     }
-    if(Object.getOwnPropertyDescriptor(array[0], 'note')){
-      this.title = "Objets Disponibles"
+    if (this.usersList) {
+      this.filter = 0;
+      this.initializeArray(this.usersList);
     }
   }
 
-  initializeArray(arrayParam: Array<any>) {
+  initializeArray(list: Array<any>) {
     this.filter = this.filter + 4;
-    if(this.arrayToDisplay){
-     for(let i = this.filter - 4; i < this.filter; i++){
-       this.array.push(this.arrayToDisplay[i]);
-     }
-      console.log(this.array)
+    const array = [];
+    for (let i = this.filter - 4; i < this.filter; i++) {
+      this.array.push(list[i]);
     }
   }
-  
-  addElementsToList(array){
-    this.initializeArray(array)
+
+  addElementsToList(array) {
+    this.initializeArray(array);
   }
 
-  closeList(array: Array<any>){
-    array.splice(0,array.length)
-    this.ngOnInit()
+  closeList(array: Array<any>) {
+    array.splice(0, array.length);
+    this.ngOnInit();
   }
-  
-
 }

@@ -1,4 +1,30 @@
-img{
-    width: 80%;
-    height: 80%;
+img {
+  width: 100px;
+  height: 100px;
+  margin-top: 6vh;
+  border-radius: 50%;
+}
+
+.container {
+  border: 3px solid white;
+  // height: 80vh;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.title {
+  height: 25%;
+  text-align: center;
+}
+
+.matcard:hover {
+  background-color: #eadda6;
 }

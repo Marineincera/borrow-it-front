@@ -1,0 +1,45 @@
+$font-italic: "Bellota", cursive;
+$font: "Amatic SC", cursive;
+
+section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.span-and-text {
+  display: flex;
+  align-items: center;
+  font-family: $font-italic;
+  font-size: 30px;
+  color: #eadda6;
+}
+
+.return:hover {
+  text-decoration: underline overline #eadda6;
+}
+
+.place {
+  font-size: 50px;
+  color: #eadda6;
+  text-align: center;
+  margin-top: 2vh;
+}
+
+h2 {
+  font-family: $font-italic;
+  font-size: 40px;
+}
+
+h1 {
+  font-family: $font;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.user {
+  padding: 4vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

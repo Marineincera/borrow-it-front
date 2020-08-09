@@ -7,7 +7,7 @@ import { Item } from '../models/item';
 })
 export class ItemService {
 
-  static URL = 'http://localhost:3000/items'
+  static URL = 'http://localhost:3000/items';
 
   constructor(private service: WshelperService) { }
 
@@ -24,7 +24,7 @@ export class ItemService {
   }
 
   getOneItem(id: number) {
-    return this.service.get(ItemService.URL + id.toString());
+    return this.service.get(ItemService.URL + '/' + id.toString());
   }
 
   delete(id) {
@@ -32,7 +32,7 @@ export class ItemService {
   }
 
   update(id, item) {
-    return this.service.put(ItemService.URL + 'modify/' + id, performance);
+    return this.service.put(ItemService.URL + 'modify/' + id, item);
   }
 
 }

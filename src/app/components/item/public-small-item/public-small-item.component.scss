@@ -1,5 +1,37 @@
-img{
-    width: 80%;
-    height: 80%;
+img {
+  width: 182px;
+  margin-top: 4vh;
+  height: 265px;
 }
 
+.container {
+  border: 3px solid white;
+  // height: 80vh;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+}
+
+h1:hover {
+  text-decoration: underline;
+}
+
+.title {
+  height: 25%;
+}
+
+.city {
+  text-align: center;
+  margin-top: 1vh;
+}
+
+.matcard:hover {
+  background-color: #eadda6;
+}

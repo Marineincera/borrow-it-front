@@ -1,0 +1,88 @@
+.displayer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6%;
+}
+
+h1 {
+  font-family: "Bellota", cursive;
+  font-size: 1.875rem;
+}
+
+h2,
+h3 {
+  font-family: "Bellota", cursive;
+}
+
+.item {
+  width: 25rem;
+  height: 31.25rem;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+span {
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+  color: #eadda6;
+}
+
+.span-and-text {
+  display: flex;
+  align-items: center;
+  font-family: "Bellota", cursive;
+  font-size: 30px;
+  color: #eadda6;
+}
+
+.return:hover {
+  text-decoration: underline overline #eadda6;
+}
+
+.owner {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.owner-card {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  width: 18.75rem;
+  margin-bottom: 2.5rem;
+  img {
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 50%;
+    border: 1px solid grey;
+    vertical-align: top;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .displayer {
+    flex-direction: column-reverse;
+  }
+
+  .item {
+    width: 55vw;
+    height: 100vh;
+  }
+
+  .details {
+    width: 80%;
+  }
+}

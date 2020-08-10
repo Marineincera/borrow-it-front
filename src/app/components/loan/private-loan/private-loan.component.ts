@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Item } from "src/app/shared/models/item";
-import { User } from "src/app/shared/models/user";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Loan } from "src/app/shared/models/loan";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-private-loan",
@@ -8,16 +8,16 @@ import { User } from "src/app/shared/models/user";
   styleUrls: ["./private-loan.component.scss"],
 })
 export class PrivateLoanComponent implements OnInit {
-  @Input() item: Item;
-  @Input() borrower: User;
-  @Input() owner: User;
+  @Input() loan: Loan;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    if (this.item) {
-      const arr = [this.item, this.borrower, this.owner];
-      console.log(arr);
+    if (this.loan) {
     }
+  }
+
+  openLoanManagement(loan: Loan) {
+    this.router.navigate(["loanstatus/" + loan.id]);
   }
 }

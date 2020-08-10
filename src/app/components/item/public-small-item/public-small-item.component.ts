@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Item } from "src/app/shared/models/item";
 import { Router } from "@angular/router";
 import { ItemService } from "src/app/shared/services/item.service";
+import { LoanStatus } from "src/app/shared/models/loan-status";
+import { Loan } from "src/app/shared/models/loan";
 
 @Component({
   selector: "app-public-small-item",
@@ -9,9 +11,10 @@ import { ItemService } from "src/app/shared/services/item.service";
   styleUrls: ["./public-small-item.component.scss"],
 })
 export class PublicSmallItemComponent implements OnInit {
-  @Input()
-  itemReceived: Item;
+  @Input() itemReceived: Item;
+  @Input() loanStatus: LoanStatus;
   itemToDisplay: Item;
+  @Input() loan: Loan;
 
   constructor(private router: Router, private itemService: ItemService) {}
 
@@ -27,6 +30,8 @@ export class PublicSmallItemComponent implements OnInit {
   }
 
   openPublicSmallItem(id: number) {
-    this.router.navigate(["/item/" + id]);
+    if (!this.loan) {
+      this.router.navigate(["/item/" + id]);
+    }
   }
 }

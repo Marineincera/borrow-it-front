@@ -1,0 +1,24 @@
+.managingLoan {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.small {
+  width: 20%;
+}
+
+.users {
+  display: flex;
+  width: 50%;
+  justify-content: space-evenly;
+}
+
+.loan {
+  width: 50%;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}

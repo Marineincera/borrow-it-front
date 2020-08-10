@@ -27,6 +27,6 @@ export class LoanService {
   }
 
   update(id, loan) {
-    return this.service.put(LoanService.URL + "modify/" + id, loan);
+    return this.service.put(LoanService.URL + "/update/" + id, loan);
   }
 }

@@ -47,7 +47,9 @@ export class LoanMonitoringPageComponent implements OnInit {
 
       // this.initializeArrays(data.loans, data.borrows);
       // console.log(data.loans);
-      // console.log(this.loansRequestsReceived);
+      console.log(this.user);
+
+      console.log(this.loansRequestsReceived);
     });
   }
 

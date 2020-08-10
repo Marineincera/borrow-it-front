@@ -1,14 +1,22 @@
-<div *ngIf="item && borrower && owner">
-  <app-public-small-item
-    [itemReceived]="item"
-    class="item"
-  ></app-public-small-item>
-  <app-public-small-user
-    [userReceived]="borrower"
-    class="item"
-  ></app-public-small-user>
-  <app-public-small-user
-    [userReceived]="owner"
-    class="item"
-  ></app-public-small-user>
-</div>
+<section>
+  <mat-card *ngIf="loan" class="matcard" (click)="openLoanManagement(loan)">
+    <div class="container" *ngIf="loan">
+      <div class="title">
+        <h1>{{ loan.borrowedItem.title }}</h1>
+      </div>
+
+      <h2>{{ loan.loanStatus.name }}</h2>
+
+      <img
+        src="{{ loan.borrowedItem.image }}"
+        alt="{{ loan.borrowedItem.title }}"
+      />
+      <div class="city">
+        <span class="material-icons">
+          place
+        </span>
+        <h2>{{ loan.owner.city }}</h2>
+      </div>
+    </div>
+  </mat-card>
+</section>

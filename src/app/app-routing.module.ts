@@ -11,6 +11,8 @@ import { AuthentificationComponent } from "./components/common/authentification/
 import { PrivateUserPageComponent } from "./pages/user/private-user-page/private-user-page.component";
 import { RequestPageComponent } from "./pages/request/request-page.component";
 import { LoanMonitoringPageComponent } from "./pages/loan-monitoring/loan-monitoring-page.component";
+import { PrivateLoanComponent } from "./components/loan/private-loan/private-loan.component";
+import { ValidationPageComponent } from "./pages/validation/validation-page.component";
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -26,6 +28,7 @@ const routes: Routes = [
   { path: "auth", component: AuthentificationComponent },
   { path: "request/:id", component: RequestPageComponent },
   { path: "loansmonitoring/:id", component: LoanMonitoringPageComponent },
+  { path: "loanstatus/:id", component: ValidationPageComponent },
 ];
 
 @NgModule({

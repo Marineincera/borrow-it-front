@@ -7,6 +7,9 @@
     <div class="title">
       <h1>{{ itemToDisplay.title }}</h1>
     </div>
+    <h2 *ngIf="!loanStatus">{{ itemToDisplay.itemStatus.name }}</h2>
+    <h2 *ngIf="loanStatus">{{ loanStatus.name }}</h2>
+
     <img src="{{ itemToDisplay.image }}" alt="{{ itemToDisplay.title }}" />
     <div class="city">
       <span class="material-icons">

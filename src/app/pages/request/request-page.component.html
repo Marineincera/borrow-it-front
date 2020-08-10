@@ -1,9 +1,9 @@
 <section *ngIf="item">
-  <app-private-loan
-    [item]="item"
+  <!-- <app-private-loan
+    [[item]="item"
     [borrower]="requestUser"
-    [owner]="item.user"
-  ></app-private-loan>
+    [owner]="item.user"]
+  ></app-private-loan> -->
   <button
     *ngIf="item.itemStatus.id !== 2"
     (click)="requestTheLoan(item, requestUser, item.user)"

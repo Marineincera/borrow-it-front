@@ -3,72 +3,42 @@
     <mat-tab label="Demandes reçues" *ngIf="loansAnalyseDone">
       <div *ngIf="loansRequestsReceived" class="loans">
         <div *ngFor="let loan of loansRequestsReceived" class="loan">
-          <app-private-loan
-            [item]="loan.borrowedItem"
-            [borrower]="loan.borrower"
-            [owner]="loan.owner"
-          ></app-private-loan>
-          <p>{{ loan.loanStatus.name }}</p>
+          <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Demandes Envoyées" *ngIf="borrowsAnalyseDone">
       <div *ngIf="borrowsRequestsSend" class="loans">
         <div *ngFor="let loan of borrowsRequestsSend" class="loan">
-          <app-private-loan
-            [item]="loan.borrowedItem"
-            [borrower]="loan.borrower"
-            [owner]="loan.owner"
-          ></app-private-loan>
-          <p>{{ loan.loanStatus.name }}</p>
+          <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Prêts en attente" *ngIf="loansAnalyseDone">
       <div *ngIf="loansPending" class="loans">
         <div *ngFor="let loan of loansPending" class="loan">
-          <app-private-loan
-            [item]="loan.borrowedItem"
-            [borrower]="loan.borrower"
-            [owner]="loan.owner"
-          ></app-private-loan>
-          <p>{{ loan.loanStatus.name }}</p>
+          <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Emprunts en attente" *ngIf="borrowsAnalyseDone">
       <div *ngIf="borrowsPending" class="loans">
         <div *ngFor="let loan of borrowsPending" class="loan">
-          <app-private-loan
-            [item]="loan.borrowedItem"
-            [borrower]="loan.borrower"
-            [owner]="loan.owner"
-          ></app-private-loan>
-          <p>{{ loan.loanStatus.name }}</p>
+          <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Mes prêts en cours" *ngIf="loansAnalyseDone">
       <div *ngIf="loansInProgress" class="loans">
         <div *ngFor="let loan of loansInProgress" class="loan">
-          <app-private-loan
-            [item]="loan.borrowedItem"
-            [borrower]="loan.borrower"
-            [owner]="loan.owner"
-          ></app-private-loan>
-          <p>{{ loan.loanStatus.name }}</p>
+          <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Mes emprunts en cours" *ngIf="borrowsAnalyseDone">
       <div *ngIf="borrowsInProgress" class="loans">
         <div *ngFor="let loan of borrowsInProgress" class="loan">
-          <app-private-loan
-            [item]="loan.borrowedItem"
-            [borrower]="loan.borrower"
-            [owner]="loan.owner"
-          ></app-private-loan>
-          <p>{{ loan.loanStatus.name }}</p>
+          <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>

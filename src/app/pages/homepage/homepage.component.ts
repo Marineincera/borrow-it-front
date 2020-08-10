@@ -26,14 +26,12 @@ export class HomepageComponent implements OnInit {
   initializeItemsArray() {
     this.itemService.getAllItem().subscribe((data: Array<Item>) => {
       this.items = data;
-      console.log(this.items);
     });
   }
 
   initializeUsersArray() {
     this._userService.getAllUsers().subscribe((data: Array<User>) => {
       this.users = data;
-      console.log(this.users);
     });
   }
 }

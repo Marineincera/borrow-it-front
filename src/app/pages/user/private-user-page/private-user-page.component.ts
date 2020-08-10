@@ -35,7 +35,5 @@ export class PrivateUserPageComponent implements OnInit {
         this.unavailableItems.push(item);
       }
     });
-    console.log(this.availableItems);
-    console.log(this.unavailableItems);
   }
 }

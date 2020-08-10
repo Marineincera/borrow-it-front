@@ -24,7 +24,6 @@ export class PublicSmallItemComponent implements OnInit {
         .getOneItem(this.itemReceived.id)
         .subscribe((data: Item) => {
           this.itemToDisplay = data;
-          console.log(this.itemToDisplay);
         });
     }
   }

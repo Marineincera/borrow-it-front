@@ -55,11 +55,8 @@ export class UserService {
       .pipe(
         map((response: HttpResponse<any>) => {
           const token = response.headers.get("JWT_TOKEN");
-          console.log("token :" + token);
-          console.log("response" + response);
 
           this.connectedUser = response.body;
-          console.log(this.connectedUser);
 
           localStorage.setItem("TOKEN", token);
           return response.body;
@@ -72,7 +69,6 @@ export class UserService {
     city: string,
     password: string
   ) {
-    console.log("user posted");
     return this.http.post(UserService.URL + "auth/signup", {
       pseudo,
       email,
@@ -89,7 +85,6 @@ export class UserService {
         this.loans = user.loans;
         this.determineLoansCategories(user);
         this.determineBorrowsCategories(user);
-        console.log(user);
       })
     );
   }

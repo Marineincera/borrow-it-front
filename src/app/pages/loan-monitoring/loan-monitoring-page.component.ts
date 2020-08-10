@@ -47,9 +47,6 @@ export class LoanMonitoringPageComponent implements OnInit {
 
       // this.initializeArrays(data.loans, data.borrows);
       // console.log(data.loans);
-      console.log(this.user);
-
-      console.log(this.loansRequestsReceived);
     });
   }
 
@@ -69,8 +66,6 @@ export class LoanMonitoringPageComponent implements OnInit {
       }
     });
     this.loansAnalyseDone = true;
-    console.log(this.loansPending);
-    console.log(this.loansAnalyseDone);
   }
 
   determineBorrowsCategories(receivedArray: Array<Loan>) {
@@ -89,8 +84,6 @@ export class LoanMonitoringPageComponent implements OnInit {
       }
     });
     this.borrowsAnalyseDone = true;
-    console.log(this.borrowsPending);
-    console.log(this.borrowsRequestsSend);
   }
 
   // initializeArrays(loans: Array<Loan>, borrows: Array<Loan>) {

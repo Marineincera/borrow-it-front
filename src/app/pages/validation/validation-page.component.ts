@@ -89,7 +89,7 @@ export class ValidationPageComponent implements OnInit {
 
   changeLoanStatus(loan: Loan) {
     const newStatus = this.changementLoanStatus(loan);
-    console.log(newStatus);
+
     this.loanService
       .update(loan.id, { loanStatus: { id: newStatus } })
       .subscribe((data) => console.log(data));

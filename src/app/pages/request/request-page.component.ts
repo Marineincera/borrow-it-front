@@ -33,7 +33,6 @@ export class RequestPageComponent implements OnInit {
     if (localStorage.getItem("TOKEN")) {
       this.userService.getMe().subscribe((data) => {
         this.requestUser = data;
-        console.log(this.requestUser);
       });
     }
   }
@@ -46,7 +45,6 @@ export class RequestPageComponent implements OnInit {
       loanStatus: { id: 1, name: "Prêt en attente de réponse" },
     };
     this.loanService.postLoan(newLoan).subscribe((data) => {
-      console.log(data);
       this.requestValidated = true;
     });
     const newItem: Item = {

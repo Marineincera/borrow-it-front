@@ -46,7 +46,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       .subscribe((data: Item) => {
         this.itemToDisplay = data;
         this.tags = data.tags;
-        console.log(this.tags);
         this.determineSurfingUser(data);
       });
   }

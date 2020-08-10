@@ -13,7 +13,15 @@ export class UserService {
 
   connectedUser;
   loans: Array<Loan>;
+  borrows: Array<Loan>;
   loansRequest: Array<Loan>;
+  loansPending: Array<Loan>;
+  loansInProgress: Array<Loan>;
+  waitingfinishedLoans: Array<Loan>;
+  borrowsRequest: Array<Loan>;
+  borrowsInPending: Array<Loan>;
+  borrowsInProgress: Array<Loan>;
+  waitingfinishedBorrows: Array<Loan>;
 
   constructor(private service: WshelperService, private http: HttpClient) {}
 
@@ -79,15 +87,55 @@ export class UserService {
       tap((user: User) => {
         this.connectedUser = user;
         this.loans = user.loans;
-        this.loansRequest = [];
-        if (user.loans.length > 0) {
-          user.loans.forEach((loan) => {
-            if (loan.loanStatus.id === 1) {
-              this.loansRequest.push(loan);
-            }
-          });
-        }
+        this.determineLoansCategories(user);
+        this.determineBorrowsCategories(user);
+        console.log(user);
       })
     );
+  }
+
+  determineLoansCategories(user: User) {
+    this.loansRequest = [];
+    this.loansPending = [];
+    this.loansInProgress = [];
+    this.waitingfinishedLoans = [];
+    if (user.loans.length > 0) {
+      user.loans.forEach((loan) => {
+        if (loan.loanStatus.id === 1) {
+          this.loansRequest.push(loan);
+        }
+        if (loan.loanStatus.id === 5) {
+          this.loansPending.push(loan);
+        }
+        if (loan.loanStatus.id === 2) {
+          this.loansInProgress.push(loan);
+        }
+        if (loan.loanStatus.id === 4) {
+          this.waitingfinishedLoans.push(loan);
+        }
+      });
+    }
+  }
+
+  determineBorrowsCategories(user: User) {
+    this.borrowsRequest = [];
+    this.borrowsInPending = [];
+    this.borrowsInProgress = [];
+    if (user.borrows.length > 0) {
+      user.borrows.forEach((borrow) => {
+        if (borrow.loanStatus.id === 1) {
+          this.borrowsRequest.push(borrow);
+        }
+        if (borrow.loanStatus.id === 5) {
+          this.borrowsInPending.push(borrow);
+        }
+        if (borrow.loanStatus.id === 2) {
+          this.borrowsInProgress.push(borrow);
+        }
+        if (borrow.loanStatus.id === 4) {
+          this.waitingfinishedBorrows.push(borrow);
+        }
+      });
+    }
   }
 }

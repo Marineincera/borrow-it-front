@@ -1,0 +1,57 @@
+<p>managing works!</p>
+<div class="monitoring" *ngIf="loans">
+  <div class="loans">
+    <p
+      *ngIf="loansRequest && loansRequest.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
+      {{ loansRequest.length }} Demandes de prêts
+    </p>
+
+    <p
+      *ngIf="loansInProgress && loansInProgress.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
+      {{ loansInProgress.length }} prêts en cours
+    </p>
+
+    <p
+      *ngIf="loansPending && loansPending.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
+      {{ loansPending.length }} prêts en attente
+    </p>
+    <p
+      *ngIf="waitingfinishedLoans && waitingfinishedLoans.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
+      {{ waitingfinishedLoans.length }} retours à valider
+    </p>
+  </div>
+  <div class="borrows">
+    <p
+      *ngIf="borrowsRequest && borrowsRequest.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
+      {{ borrowsRequest.length }} demande d'emprunts en cours
+    </p>
+    <p
+      *ngIf="borrowsInPending && borrowsInPending.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
+      {{ borrowsInPending.length }} emprunts validés
+    </p>
+    <p
+      *ngIf="borrowsInProgress && borrowsInProgress.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
+      {{ borrowsInProgress.length }} emprunts en cours
+    </p>
+    <p
+      *ngIf="waitingfinishedBorrows && waitingfinishedBorrows.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
+      {{ waitingfinishedBorrows.length }} retours en attente de confirmation
+    </p>
+  </div>
+</div>

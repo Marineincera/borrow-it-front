@@ -14,7 +14,19 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) {}
 
   user: User;
-  loansRequest: Array<Loan>;
+
+  loans: Array<Loan>;
+  // borrows: Array<Loan>;
+  // loansRequest: Array<Loan>;
+  // loansPending: Array<Loan>;
+  // loansInProgress: Array<Loan>;
+  // waitingfinishedLoans: Array<Loan>;
+  // borrowsRequest: Array<Loan>;
+  // borrowsInPending: Array<Loan>;
+  // borrowsInProgress: Array<Loan>;
+  // waitingfinishedBorrows: Array<Loan>;
+
+  arraysDone = false;
 
   ngOnInit(): void {
     this.getConnectedUser();
@@ -25,8 +37,9 @@ export class HeaderComponent implements OnInit {
       this.userService.getMe().subscribe((data) => {
         this.user = data;
         this.userService.connectedUser = data;
-        this.loansRequest = this.userService.loansRequest;
-        console.log(this.loansRequest);
+        // this.determineArraysLoansAndBorrows(data);
+        // this.loansRequest = this.userService.loansRequest;
+        // console.log(this.loansRequest);
       });
     }
   }
@@ -40,9 +53,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([`user/account/${id}`]);
   }
 
-  openLoansMonitoring(id: number) {
-    this.router.navigate([`loansmonitoring/$${id}`]);
-  }
+  // openLoansMonitoring(id: number) {
+  //   this.router.navigate([`loansmonitoring/$${id}`]);
+  // }
 
   signOut() {
     localStorage.clear();

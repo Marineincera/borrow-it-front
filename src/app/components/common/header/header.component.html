@@ -2,6 +2,7 @@
   <div class="title">
     <h1>Borrow It</h1>
   </div>
+  <app-managing *ngIf="user" [user]="user"></app-managing>
   <div class="account" *ngIf="!user">
     <h2>Logo</h2>
     <h3 (click)="openAuthentification()">Connexion</h3>
@@ -9,12 +10,6 @@
   <div *ngIf="user">
     <a [routerLink]="['/item/create/new']">Ajouter un objet</a>
     <h3>{{ user.pseudo }}</h3>
-    <p
-      *ngIf="loansRequest && loansRequest.length > 0"
-      (click)="openLoansMonitoring(user.id)"
-    >
-      {{ loansRequest.length }} Demandes de prêts
-    </p>
     <h3 (click)="openPrivateAccount(user.id)">voir mon profil</h3>
 
     <h3 (click)="signOut()">Se déconnecter</h3>

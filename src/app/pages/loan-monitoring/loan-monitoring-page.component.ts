@@ -43,7 +43,7 @@ export class LoanMonitoringPageComponent implements OnInit {
       // this.loansRequestsReceived = data.loans;
       // this.borrowsRequestsSend = data.borrows;
       this.determineLoansCategories(data.loans);
-      this.determineLoansCategories(data.borrows);
+      this.determineBorrowsCategories(data.borrows);
 
       // this.initializeArrays(data.loans, data.borrows);
       // console.log(data.loans);

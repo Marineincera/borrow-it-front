@@ -60,4 +60,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   returnToHomepage() {
     this.router.navigate(["/homepage"]);
   }
+
+  requestALoan(id: number) {
+    this.router.navigate([`/request/${id}`]);
+  }
 }

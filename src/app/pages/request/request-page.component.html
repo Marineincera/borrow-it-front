@@ -1,1 +1,17 @@
-<p>request works!</p>
+<section *ngIf="item">
+  <div>
+    <app-public-small-item [itemReceived]="item"></app-public-small-item>
+    <app-public-small-user [userReceived]="requestUser"></app-public-small-user>
+    <app-public-small-user [userReceived]="item.user"></app-public-small-user>
+  </div>
+  <button
+    *ngIf="item.itemStatus.id === 1"
+    (click)="requestTheLoan(item, requestUser, item.user)"
+  >
+    Valider la demande de prêt
+  </button>
+  <p *ngIf="requestValidated">Demande de prêt envoyée</p>
+  <p *ngIf="item.itemStatus.id === 2">
+    Ce produit est actuellement indisponible
+  </p>
+</section>

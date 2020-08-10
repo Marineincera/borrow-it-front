@@ -9,6 +9,7 @@ import { PrivateUserComponent } from "./components/user/private-user/private-use
 import { AuthentificationComponent } from "./components/common/authentification/authentification.component";
 
 import { PrivateUserPageComponent } from "./pages/user/private-user-page/private-user-page.component";
+import { RequestPageComponent } from "./pages/request/request-page.component";
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: "user/account/:id", component: PrivateUserPageComponent },
 
   { path: "auth", component: AuthentificationComponent },
+  { path: "request/:id", component: RequestPageComponent },
 ];
 
 @NgModule({

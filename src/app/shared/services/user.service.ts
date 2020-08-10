@@ -3,6 +3,7 @@ import { User } from "../models/user";
 import { WshelperService } from "./wshelper.service";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { map, tap } from "rxjs/operators";
+import { Loan } from "../models/loan";
 
 @Injectable({
   providedIn: "root",
@@ -11,6 +12,8 @@ export class UserService {
   static URL = "http://localhost:3000/";
 
   connectedUser;
+  loans: Array<Loan>;
+  loansRequest: Array<Loan>;
 
   constructor(private service: WshelperService, private http: HttpClient) {}
 
@@ -72,8 +75,19 @@ export class UserService {
 
   // recuperation du user grâce au token et stokage dans le service
   public getMe() {
-    return this.http
-      .get(UserService.URL + "users/search/me")
-      .pipe(tap((user: User) => (this.connectedUser = user)));
+    return this.http.get(UserService.URL + "users/search/me").pipe(
+      tap((user: User) => {
+        this.connectedUser = user;
+        this.loans = user.loans;
+        this.loansRequest = [];
+        if (user.loans.length > 0) {
+          user.loans.forEach((loan) => {
+            if (loan.loanStatus.id === 1) {
+              this.loansRequest.push(loan);
+            }
+          });
+        }
+      })
+    );
   }
 }

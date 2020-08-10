@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import { Token } from "@angular/compiler/src/ml_parser/lexer";
 import { User } from "src/app/shared/models/user";
+import { Loan } from "src/app/shared/models/loan";
 
 @Component({
   selector: "app-header",
@@ -13,6 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) {}
 
   user: User;
+  loansRequest: Array<Loan>;
 
   ngOnInit(): void {
     this.getConnectedUser();
@@ -20,10 +22,11 @@ export class HeaderComponent implements OnInit {
 
   getConnectedUser() {
     if (localStorage.getItem("TOKEN")) {
-      const token = localStorage.getItem("TOKEN");
       this.userService.getMe().subscribe((data) => {
         this.user = data;
         this.userService.connectedUser = data;
+        this.loansRequest = this.userService.loansRequest;
+        console.log(this.loansRequest);
       });
     }
   }

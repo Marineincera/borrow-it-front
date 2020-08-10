@@ -1,11 +1,11 @@
 <section *ngIf="item">
-  <div>
-    <app-public-small-item [itemReceived]="item"></app-public-small-item>
-    <app-public-small-user [userReceived]="requestUser"></app-public-small-user>
-    <app-public-small-user [userReceived]="item.user"></app-public-small-user>
-  </div>
+  <app-private-loan
+    [item]="item"
+    [borrower]="requestUser"
+    [owner]="item.user"
+  ></app-private-loan>
   <button
-    *ngIf="item.itemStatus.id === 1"
+    *ngIf="item.itemStatus.id !== 2"
     (click)="requestTheLoan(item, requestUser, item.user)"
   >
     Valider la demande de prêt

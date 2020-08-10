@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Item } from "src/app/shared/models/item";
 import { Router } from "@angular/router";
+import { ItemService } from "src/app/shared/services/item.service";
 
 @Component({
   selector: "app-public-small-item",
@@ -10,14 +11,18 @@ import { Router } from "@angular/router";
 export class PublicSmallItemComponent implements OnInit {
   @Input()
   itemReceived: Item;
+  itemToDisplay: Item;
 
-  city;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private itemService: ItemService) {}
 
   ngOnInit(): void {
     if (this.itemReceived) {
-      this.city = this.itemReceived.user.city;
-      console.log(this.itemReceived);
+      this.itemService
+        .getOneItem(this.itemReceived.id)
+        .subscribe((data: Item) => {
+          this.itemToDisplay = data;
+          console.log(this.itemToDisplay);
+        });
     }
   }
 

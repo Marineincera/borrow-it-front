@@ -1,1 +1,14 @@
-<p>private-loan works!</p>
+<div *ngIf="item && borrower && owner">
+  <app-public-small-item
+    [itemReceived]="item"
+    class="item"
+  ></app-public-small-item>
+  <app-public-small-user
+    [userReceived]="borrower"
+    class="item"
+  ></app-public-small-user>
+  <app-public-small-user
+    [userReceived]="owner"
+    class="item"
+  ></app-public-small-user>
+</div>

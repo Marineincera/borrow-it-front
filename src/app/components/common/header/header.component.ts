@@ -40,6 +40,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([`user/account/${id}`]);
   }
 
+  openLoansMonitoring(id: number) {
+    this.router.navigate([`loansmonitoring/$${id}`]);
+  }
+
   signOut() {
     localStorage.clear();
     this.userService.connectedUser = undefined;

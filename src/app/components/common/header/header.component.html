@@ -9,7 +9,10 @@
   <div *ngIf="user">
     <a [routerLink]="['/item/create/new']">Ajouter un objet</a>
     <h3>{{ user.pseudo }}</h3>
-    <p *ngIf="loansRequest && loansRequest.length > 0">
+    <p
+      *ngIf="loansRequest && loansRequest.length > 0"
+      (click)="openLoansMonitoring(user.id)"
+    >
       {{ loansRequest.length }} Demandes de prêts
     </p>
     <h3 (click)="openPrivateAccount(user.id)">voir mon profil</h3>

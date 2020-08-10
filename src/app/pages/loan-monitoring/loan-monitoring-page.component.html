@@ -1,1 +1,33 @@
-<p>loan-monitoring works!</p>
+<section *ngIf="user">
+  <button>Demandes Reçues</button>
+  <button>Demandes Envoyées</button>
+  <button>Prêts en Attente</button>
+  <button>Emprunts en Attente</button>
+  <button>Mes prêts en cours</button>
+  <button>Mes emprunts en cours</button>
+  <button>Archive</button>
+
+  <div *ngIf="loansAnalyseDone">
+    <div *ngIf="loansRequestsReceived" class="loans">
+      <div *ngFor="let loan of loansRequestsReceived" class="loan">
+        <app-private-loan
+          [item]="loan.borrowedItem"
+          [borrower]="loan.borrower"
+          [owner]="loan.owner"
+        ></app-private-loan>
+        <p>{{ loan.loanStatus.name }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="borrowsRequestsSend" class="loans">
+      <div *ngFor="let loan of borrowsRequestsSend" class="loan">
+        <app-private-loan
+          [item]="loan.borrowedItem"
+          [borrower]="loan.borrower"
+          [owner]="loan.owner"
+        ></app-private-loan>
+        <p>{{ loan.loanStatus.name }}</p>
+      </div>
+    </div>
+  </div>
+</section>

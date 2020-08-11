@@ -4,6 +4,7 @@ import { WshelperService } from "./wshelper.service";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { map, tap } from "rxjs/operators";
 import { Loan } from "../models/loan";
+import { Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -22,6 +23,9 @@ export class UserService {
   borrowsInPending: Array<Loan>;
   borrowsInProgress: Array<Loan>;
   waitingfinishedBorrows: Array<Loan>;
+
+  //observable
+  userModified = new Subject<User>();
 
   constructor(private service: WshelperService, private http: HttpClient) {}
 
@@ -132,5 +136,9 @@ export class UserService {
         }
       });
     }
+  }
+  //observable
+  emitModifiedUser() {
+    this.userModified.next(this.connectedUser);
   }
 }

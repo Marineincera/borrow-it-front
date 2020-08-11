@@ -2,9 +2,12 @@
   <div class="title">
     <h1>Borrow It</h1>
   </div>
-  <app-managing *ngIf="user" [user]="user"></app-managing>
+  <h2 *ngIf="user && notifications" (click)="openLoansMonitoring(user.id)">
+    {{ notifications }} notifications
+  </h2>
+
   <div class="account" *ngIf="!user">
-    <h2>Logo</h2>
+    <h3>Logo</h3>
     <h3 (click)="openAuthentification()">Connexion</h3>
   </div>
   <div *ngIf="user">

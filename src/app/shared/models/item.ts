@@ -9,7 +9,7 @@ import { Evaluation } from "./evaluation";
 export class Item {
   id?: number;
   title: string;
-  image: string;
+  image?: string;
   note?: number;
   user: User;
   category: Category;

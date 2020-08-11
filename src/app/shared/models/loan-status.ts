@@ -1,11 +1,11 @@
-import { Loan } from './loan';
+import { Loan } from "./loan";
 
 export class LoanStatus {
-    id: number;
-    name: string;
-    loans?: Array<Loan>;
+  id: number;
+  name?: string;
+  loans?: Array<Loan>;
 
-    constructor(loanStatus: LoanStatus){
-        Object.assign(loanStatus, this)
-    }
+  constructor(loanStatus: LoanStatus) {
+    Object.assign(loanStatus, this);
+  }
 }

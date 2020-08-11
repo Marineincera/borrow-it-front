@@ -46,7 +46,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       .subscribe((data: Item) => {
         this.itemToDisplay = data;
         this.tags = data.tags;
-        console.log(this.tags);
         this.determineSurfingUser(data);
       });
   }
@@ -59,5 +58,9 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
   returnToHomepage() {
     this.router.navigate(["/homepage"]);
+  }
+
+  requestALoan(id: number) {
+    this.router.navigate([`/request/${id}`]);
   }
 }

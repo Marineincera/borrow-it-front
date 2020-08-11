@@ -57,6 +57,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
 import { HeaderInterceptor } from "./core/header.interceptor";
 import { PrivateUserComponent } from "./components/user/private-user/private-user.component";
+import { ManagingComponent } from './components/managing/managing.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { PrivateUserComponent } from "./components/user/private-user/private-use
     RegistrationComponent,
     ConnexionComponent,
     ConfirmDialogComponent,
+    ManagingComponent,
   ],
   imports: [
     AppRoutingModule,

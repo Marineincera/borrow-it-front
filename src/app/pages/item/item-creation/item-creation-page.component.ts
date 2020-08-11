@@ -55,7 +55,6 @@ export class ItemCreationPageComponent implements OnInit {
     // if (!this.tagsList) {
     //   this.getTagsList();
     // }
-    console.log(this.tagsList);
   }
 
   getCategories() {
@@ -148,8 +147,6 @@ export class ItemCreationPageComponent implements OnInit {
       itemStatus: { id: 1 },
       tags: this.newItemTags,
     };
-
-    console.log(newItem);
 
     this.itemService.postItem(newItem).subscribe((data: Item) => {
       const id = data.id;

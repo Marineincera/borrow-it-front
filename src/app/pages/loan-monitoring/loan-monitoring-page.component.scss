@@ -1,0 +1,15 @@
+.loans {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.loan {
+  display: flex;
+  width: 25%;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}

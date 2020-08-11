@@ -1,0 +1,27 @@
+.monitoring {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.loans,
+.borrows {
+  padding: 4vh;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.loans {
+  align-self: flex-end;
+}
+
+.borrows {
+  align-self: flex-start;
+}
+
+span {
+  font-size: 3.125rem;
+  font-family: "Amatic SC", cursive;
+  color: #eadda6;
+}

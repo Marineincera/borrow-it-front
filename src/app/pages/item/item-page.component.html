@@ -28,7 +28,9 @@
           </h3>
           <h3>{{ itemToDisplay.itemStatus.name }}</h3>
 
-          <button *ngIf="!userIsOwner">Faire une demande de prêt</button>
+          <button *ngIf="!userIsOwner" (click)="requestALoan(itemToDisplay.id)">
+            Faire une demande de prêt
+          </button>
           <button *ngIf="userIsOwner">Supprimer</button>
 
           <div class="owner">

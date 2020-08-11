@@ -1,1 +1,39 @@
-<p>validation works!</p>
+<div class="managingLoan" *ngIf="loan">
+  <div class="loan">
+    <h1>Prêt</h1>
+    <div>
+      <h2></h2>
+      <app-public-small-item
+        [itemReceived]="loan.borrowedItem"
+        class="small"
+        [loan]="loan"
+      ></app-public-small-item>
+    </div>
+  </div>
+  <div class="right">
+    <div class="users">
+      <div>
+        <h2>De</h2>
+        <app-public-small-user
+          [userReceived]="loan.owner"
+          class="small"
+          [loan]="loan"
+        ></app-public-small-user>
+      </div>
+
+      <div>
+        <h2>à</h2>
+        <app-public-small-user
+          [userReceived]="loan.borrower"
+          class="small"
+          [loan]="loan"
+        ></app-public-small-user>
+      </div>
+    </div>
+    <h2 class="status-loan">Etat du prêt :</h2>
+    <h2>{{ loan.loanStatus.name }}</h2>
+    <h2 (click)="changeLoanStatus(loan)" class="loan-details">
+      {{ validationStatus }}
+    </h2>
+  </div>
+</div>

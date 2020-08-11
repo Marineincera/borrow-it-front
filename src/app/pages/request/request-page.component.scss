@@ -1,0 +1,27 @@
+div {
+  display: flex;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+h2 {
+  font-family: "Bellota", cursive;
+  text-align: center;
+  background-color: #eadda6;
+  color: white;
+}
+
+h2:hover {
+  background-color: white;
+  color: #eadda6;
+  border: 3px solid #eadda6;
+}

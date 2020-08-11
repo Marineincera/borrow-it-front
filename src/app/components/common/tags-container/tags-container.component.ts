@@ -29,6 +29,5 @@ export class TagsContainerComponent implements OnInit {
         this.tagsToDisplay.push([tag, "black", name]);
       }
     }
-    console.log(this.tagsToDisplay);
   }
 }

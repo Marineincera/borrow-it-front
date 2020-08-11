@@ -30,8 +30,10 @@
         ></app-public-small-user>
       </div>
     </div>
-    <h2>Etat du prêt :</h2>
-    <h2 (click)="changeLoanStatus(loan)">{{ validationStatus }}</h2>
+    <h2 class="status-loan">Etat du prêt :</h2>
     <h2>{{ loan.loanStatus.name }}</h2>
+    <h2 (click)="changeLoanStatus(loan)" class="loan-details">
+      {{ validationStatus }}
+    </h2>
   </div>
 </div>

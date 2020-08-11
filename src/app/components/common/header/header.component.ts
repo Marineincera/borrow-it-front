@@ -26,15 +26,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loans: Array<Loan>;
   notifications: number;
   loansAndBorrowsWhichAreWaitingAnAction: Array<Loan>;
-  // borrows: Array<Loan>;
-  // loansRequest: Array<Loan>;
-  // loansPending: Array<Loan>;
-  // loansInProgress: Array<Loan>;
-  // waitingfinishedLoans: Array<Loan>;
-  // borrowsRequest: Array<Loan>;
-  // borrowsInPending: Array<Loan>;
-  // borrowsInProgress: Array<Loan>;
-  // waitingfinishedBorrows: Array<Loan>;
 
   arraysDone = false;
 

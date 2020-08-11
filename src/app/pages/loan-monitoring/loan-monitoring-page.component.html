@@ -1,22 +1,16 @@
 <section *ngIf="user">
+  <app-managing></app-managing>
   <mat-tab-group>
-    <mat-tab label="Demandes reçues" *ngIf="loansAnalyseDone">
+    <mat-tab label="Prêts demandés" *ngIf="loansAnalyseDone">
       <div *ngIf="loansRequestsReceived" class="loans">
         <div *ngFor="let loan of loansRequestsReceived" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Demandes Envoyées" *ngIf="borrowsAnalyseDone">
+    <mat-tab label="Demandes Reçues" *ngIf="borrowsAnalyseDone">
       <div *ngIf="borrowsRequestsSend" class="loans">
         <div *ngFor="let loan of borrowsRequestsSend" class="loan">
-          <app-private-loan [loan]="loan"></app-private-loan>
-        </div>
-      </div>
-    </mat-tab>
-    <mat-tab label="Prêts en attente" *ngIf="loansAnalyseDone">
-      <div *ngIf="loansPending" class="loans">
-        <div *ngFor="let loan of loansPending" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
@@ -28,6 +22,14 @@
         </div>
       </div>
     </mat-tab>
+    <mat-tab label="Prêts validés" *ngIf="loansAnalyseDone">
+      <div *ngIf="loansPending" class="loans">
+        <div *ngFor="let loan of loansPending" class="loan">
+          <app-private-loan [loan]="loan"></app-private-loan>
+        </div>
+      </div>
+    </mat-tab>
+
     <mat-tab label="Mes prêts en cours" *ngIf="loansAnalyseDone">
       <div *ngIf="loansInProgress" class="loans">
         <div *ngFor="let loan of loansInProgress" class="loan">

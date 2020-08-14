@@ -49,6 +49,20 @@ export class UserService {
     return this.service.put(UserService.URL + "users/modify/" + id, user);
   }
 
+  public inscription(
+    pseudo: string,
+    email: string,
+    city: string,
+    password: string
+  ) {
+    return this.http.post(UserService.URL + "auth/signup", {
+      pseudo,
+      email,
+      city,
+      password,
+    });
+  }
+
   public connexion(email: string, password: string) {
     return this.http
       .post(
@@ -66,19 +80,6 @@ export class UserService {
           return response.body;
         })
       );
-  }
-  public inscription(
-    pseudo: string,
-    email: string,
-    city: string,
-    password: string
-  ) {
-    return this.http.post(UserService.URL + "auth/signup", {
-      pseudo,
-      email,
-      city,
-      password,
-    });
   }
 
   // recuperation du user grâce au token et stokage dans le service

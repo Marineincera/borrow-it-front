@@ -9,6 +9,8 @@ import {
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
 import { Router } from "@angular/router";
+import { Item } from "src/app/shared/models/item";
+import { Loan } from "src/app/shared/models/loan";
 
 @Component({
   selector: "app-private-user-page",
@@ -19,6 +21,7 @@ export class PrivateUserPageComponent implements OnInit {
   user: User;
   availableItems = [];
   unavailableItems = [];
+  borrows: Array<Loan> = [];
 
   constructor(private userService: UserService, private route: Router) {}
 
@@ -27,13 +30,16 @@ export class PrivateUserPageComponent implements OnInit {
       const token = localStorage.getItem("TOKEN");
       this.userService.getMe().subscribe((data) => {
         this.user = data;
+        console.log(data);
+
         this.userService.connectedUser = data;
-        this.getAvailableItems();
+        this.itemsOrganization();
       });
     }
   }
 
-  getAvailableItems() {
+  itemsOrganization() {
+    this.borrows = this.userService.borrowsInProgress;
     this.availableItems = [];
     this.unavailableItems = [];
     this.user.items.forEach((item) => {

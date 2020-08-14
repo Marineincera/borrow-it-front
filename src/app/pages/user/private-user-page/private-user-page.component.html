@@ -13,13 +13,13 @@
   </div>
   <app-list *ngIf="unavailableItems" [itemsList]="unavailableItems"></app-list>
   <div class="style-container">
-    <h2>Tous mes objets</h2>
-  </div>
-  <app-list *ngIf="user.items" [itemsList]="user.items"></app-list>
-  <div class="style-container">
     <h2>Objets empruntés</h2>
   </div>
-  <app-list [itemsList]="user.loans"></app-list>
-</div>
+  <app-list *ngIf="borrows" [itemsList]="borrows"></app-list>
+  <div class="style-container">
+    <h2>Tous mes objets</h2>
+  </div>
+  <app-list *ngIf="user" [itemsList]="user.items"></app-list>
 
-<app-public-description-user></app-public-description-user>
+  <app-public-description-user></app-public-description-user>
+</div>

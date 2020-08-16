@@ -3,6 +3,7 @@ import { Loan } from "./loan";
 import { Opinion } from "./opinion";
 import { Evaluation } from "./evaluation";
 import { Friendship } from "./friendship";
+import { FriendshipDemand } from "./friendship-demand";
 
 export class User {
   id?: number;
@@ -20,7 +21,11 @@ export class User {
   writtenOpinions?: Array<Opinion>;
   receivedOpinions?: Array<Opinion>;
   evaluations?: Array<Evaluation>;
-  friendships?: Array<Friendship>;
+  friendshipsAsked?: Array<Friendship>;
+  friendshipsAnswered?: Array<Friendship>;
+  friendshipDemands?: Array<FriendshipDemand>;
+  friendDemandsSend?: Array<FriendshipDemand>;
+  friendDemandsReceived?: Array<FriendshipDemand>;
 
   constructor(user: User) {
     Object.assign(user, this);

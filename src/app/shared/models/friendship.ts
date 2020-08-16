@@ -3,7 +3,7 @@ import { FriendshipStatus } from "./friendship-status";
 
 export class Friendship {
   id?: number;
-  userA: User;
-  userB: User;
+  asker: User;
+  answerer: User;
   status: FriendshipStatus;
 }

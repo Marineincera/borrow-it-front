@@ -6,7 +6,7 @@ import { WshelperService } from "./wshelper.service";
   providedIn: "root",
 })
 export class FriendshipService {
-  static URL = "http://localhost:3000/friendship";
+  static URL = "http://localhost:3000/friendships";
 
   constructor(private service: WshelperService) {}
 
@@ -15,6 +15,8 @@ export class FriendshipService {
   }
 
   post(friendship: Friendship) {
+    console.log(friendship);
+
     return this.service.post(FriendshipService.URL, friendship);
   }
 
@@ -23,10 +25,13 @@ export class FriendshipService {
   }
 
   delete(id) {
-    return this.service.delete(FriendshipService.URL + "delete/" + id);
+    return this.service.delete(FriendshipService.URL + "/delete/" + id);
   }
 
-  update(id, friendship) {
-    return this.service.put(FriendshipService.URL + "update/" + id, friendship);
+  update(id, friendship: Friendship) {
+    return this.service.put(
+      FriendshipService.URL + "/update/" + id,
+      friendship
+    );
   }
 }

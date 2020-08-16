@@ -5,6 +5,8 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { map, tap } from "rxjs/operators";
 import { Loan } from "../models/loan";
 import { Subject } from "rxjs";
+import { Friendship } from "../models/friendship";
+import { FriendshipDemand } from "../models/friendship-demand";
 
 @Injectable({
   providedIn: "root",
@@ -23,6 +25,11 @@ export class UserService {
   borrowsInPending: Array<Loan>;
   borrowsInProgress: Array<Loan>;
   waitingfinishedBorrows: Array<Loan>;
+
+  allFriendships: Array<Friendship>;
+  friends: Array<User>;
+  friendsDemandsSend: Array<FriendshipDemand>;
+  friendsDemandsReceived: Array<FriendshipDemand>;
 
   //observable
   userModified = new Subject<User>();
@@ -90,6 +97,7 @@ export class UserService {
         this.loans = user.loans;
         this.determineLoansCategories(user);
         this.determineBorrowsCategories(user);
+        this.determineFriendships(user);
       })
     );
   }
@@ -137,6 +145,34 @@ export class UserService {
         }
       });
     }
+  }
+
+  determineFriendships(user: User) {
+    this.friendsDemandsSend = [];
+    this.friendsDemandsReceived = [];
+    this.friends = [];
+    user.friendDemandsReceived.forEach((demand) => {
+      if (demand.status === 1) {
+        this.friendsDemandsReceived.push(demand);
+      }
+      if (demand.status === 2) {
+        this.friends.push(demand.asker);
+      }
+    });
+    user.friendDemandsSend.forEach((demand) => {
+      if (demand.status === 1) {
+        this.friendsDemandsSend.push(demand);
+      }
+      if (demand.status === 2) {
+        this.friends.push(demand.userAskedForFriend);
+      }
+    });
+    user.friendshipsAsked.forEach((friend) => {
+      this.friends.push(friend.answerer);
+    });
+    user.friendshipsAnswered.forEach((friend) => {
+      this.friends.push(friend.asker);
+    });
   }
   //observable
   emitModifiedUser() {

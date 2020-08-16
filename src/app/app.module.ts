@@ -58,6 +58,8 @@ import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dial
 import { HeaderInterceptor } from "./core/header.interceptor";
 import { PrivateUserComponent } from "./components/user/private-user/private-user.component";
 import { ManagingComponent } from './components/managing/managing.component';
+import { FriendshipDemandComponent } from './components/friendship/friendship-demand/friendship-demand.component';
+import { FriendshipsComponent } from './components/friendship/friendships/friendships.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,8 @@ import { ManagingComponent } from './components/managing/managing.component';
     ConnexionComponent,
     ConfirmDialogComponent,
     ManagingComponent,
+    FriendshipDemandComponent,
+    FriendshipsComponent,
   ],
   imports: [
     AppRoutingModule,

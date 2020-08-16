@@ -151,6 +151,7 @@ export class UserService {
     this.friendsDemandsSend = [];
     this.friendsDemandsReceived = [];
     this.friends = [];
+    this.allFriendships = [];
     user.friendDemandsReceived.forEach((demand) => {
       if (demand.status === 1) {
         this.friendsDemandsReceived.push(demand);
@@ -169,9 +170,11 @@ export class UserService {
     });
     user.friendshipsAsked.forEach((friend) => {
       this.friends.push(friend.answerer);
+      this.allFriendships.push(friend);
     });
     user.friendshipsAnswered.forEach((friend) => {
       this.friends.push(friend.asker);
+      this.allFriendships.push(friend);
     });
   }
   //observable

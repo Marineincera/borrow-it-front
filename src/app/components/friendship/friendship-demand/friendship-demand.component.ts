@@ -14,7 +14,7 @@ import { FriendshipDemandService } from "src/app/shared/services/friendship-dema
 })
 export class FriendshipDemandComponent implements OnInit {
   @Input() userToConnect: User;
-  // friendship: Friendship;
+  friendship: Friendship;
   // friendshipDemand: FriendshipDemand;
   sendDemandIsWaiting: FriendshipDemand;
   receivedDemandIsWaiting: FriendshipDemand;
@@ -50,6 +50,12 @@ export class FriendshipDemandComponent implements OnInit {
       if (visitedUser.id === friend.id) {
         this.friend = true;
       }
+      this.userService.allFriendships.forEach((demand) => {
+        if (demand.asker || demand.answerer === visitedUser) {
+          this.friendship = demand;
+          console.log(demand);
+        }
+      });
     });
   }
 
@@ -101,7 +107,11 @@ export class FriendshipDemandComponent implements OnInit {
     };
     this.friendshipService.post(newFriendship).subscribe((data) => {
       console.log(data);
-      this.userService.userModified.next();
+      // this.userService.userModified.next();
     });
+  }
+
+  deleteFriendship(friendship: Friendship) {
+    this.friendshipService.delete(friendship.id).subscribe();
   }
 }

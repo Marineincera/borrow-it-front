@@ -19,6 +19,8 @@
   </div>
   <div *ngIf="friend" class="delete">
     <h1 *ngIf="friend">Vous êtes amis</h1>
-    <button>Retirer de la liste d'amis</button>
+    <button (click)="deleteFriendship(friendship)">
+      Retirer de la liste d'amis
+    </button>
   </div>
 </section>

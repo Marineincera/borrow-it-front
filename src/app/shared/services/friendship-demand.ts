@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Friendship } from "../models/friendship";
 import { WshelperService } from "./wshelper.service";
 import { FriendshipDemand } from "../models/friendship-demand";
 

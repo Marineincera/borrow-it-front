@@ -5,5 +5,5 @@ export class FriendshipDemand {
   id?: number;
   asker?: User;
   userAskedForFriend?: User;
-  status?: FriendshipStatus | number;
+  status?: FriendshipStatus;
 }

@@ -11,10 +11,10 @@
       <button (click)="friendDemandAccepted(receivedDemandIsWaiting)">
         Accepter
       </button>
-      <button>Refuser</button>
+      <button (click)="deleteFriendship(friendship)">Refuser</button>
     </div>
   </div>
-  <div *ngIf="sendDemandIsWaiting">
+  <div *ngIf="sendDemandIsWaiting && !friend">
     <h1>Vous avez demandé cette personne en ami</h1>
   </div>
   <div *ngIf="friend" class="delete">

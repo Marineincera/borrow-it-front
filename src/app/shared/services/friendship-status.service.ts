@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { WshelperService } from "./wshelper.service";
-import { FriendshipService } from "./friendship.service";
-import { Friendship } from "../models/friendship";
+
 import { FriendshipStatus } from "../models/friendship-status";
 
 @Injectable({

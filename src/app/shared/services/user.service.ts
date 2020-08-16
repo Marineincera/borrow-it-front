@@ -5,7 +5,6 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { map, tap } from "rxjs/operators";
 import { Loan } from "../models/loan";
 import { Subject } from "rxjs";
-import { Friendship } from "../models/friendship";
 import { FriendshipDemand } from "../models/friendship-demand";
 
 @Injectable({
@@ -26,7 +25,7 @@ export class UserService {
   borrowsInProgress: Array<Loan>;
   waitingfinishedBorrows: Array<Loan>;
 
-  allFriendships: Array<Friendship>;
+  allFriendships: Array<FriendshipDemand>;
   friends: Array<User>;
   friendsDemandsSend: Array<FriendshipDemand>;
   friendsDemandsReceived: Array<FriendshipDemand>;
@@ -153,29 +152,31 @@ export class UserService {
     this.friends = [];
     this.allFriendships = [];
     user.friendDemandsReceived.forEach((demand) => {
-      if (demand.status === 1) {
+      if (demand.status.id === 1) {
         this.friendsDemandsReceived.push(demand);
       }
-      if (demand.status === 2) {
+      if (demand.status.id === 2) {
         this.friends.push(demand.asker);
+        this.allFriendships.push(demand);
       }
     });
     user.friendDemandsSend.forEach((demand) => {
-      if (demand.status === 1) {
+      if (demand.status.id === 1) {
         this.friendsDemandsSend.push(demand);
       }
-      if (demand.status === 2) {
+      if (demand.status.id === 2) {
         this.friends.push(demand.userAskedForFriend);
+        this.allFriendships.push(demand);
       }
     });
-    user.friendshipsAsked.forEach((friend) => {
-      this.friends.push(friend.answerer);
-      this.allFriendships.push(friend);
-    });
-    user.friendshipsAnswered.forEach((friend) => {
-      this.friends.push(friend.asker);
-      this.allFriendships.push(friend);
-    });
+    // user.friendshipsAsked.forEach((friend) => {
+    //   this.friends.push(friend.answerer);
+    //   this.allFriendships.push(friend);
+    // });
+    // user.friendshipsAnswered.forEach((friend) => {
+    //   this.friends.push(friend.asker);
+    //   this.allFriendships.push(friend);
+    // });
   }
   //observable
   emitModifiedUser() {

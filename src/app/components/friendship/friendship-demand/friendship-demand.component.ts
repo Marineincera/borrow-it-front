@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { User } from "src/app/shared/models/user";
-import { Friendship } from "src/app/shared/models/friendship";
 import { UserService } from "src/app/shared/services/user.service";
 import { FriendshipStatusService } from "src/app/shared/services/friendship-status.service";
-import { FriendshipService } from "src/app/shared/services/friendship.service";
 import { FriendshipDemand } from "src/app/shared/models/friendship-demand";
 import { FriendshipDemandService } from "src/app/shared/services/friendship-demand";
 
@@ -14,7 +12,7 @@ import { FriendshipDemandService } from "src/app/shared/services/friendship-dema
 })
 export class FriendshipDemandComponent implements OnInit {
   @Input() userToConnect: User;
-  friendship: Friendship;
+  friendship: FriendshipDemand;
   // friendshipDemand: FriendshipDemand;
   sendDemandIsWaiting: FriendshipDemand;
   receivedDemandIsWaiting: FriendshipDemand;
@@ -26,7 +24,6 @@ export class FriendshipDemandComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private friendshipService: FriendshipService,
     private friendshipStatusService: FriendshipStatusService,
     private friendshipDemandService: FriendshipDemandService
   ) {}
@@ -42,7 +39,9 @@ export class FriendshipDemandComponent implements OnInit {
       }
     }
 
-    console.log(this.userToConnect);
+    console.log(this.userService.connectedUser);
+    console.log(this.userService.allFriendships);
+    console.log(this.userService.friends);
   }
 
   determineIfFriendsOrNot(visitedUser: User) {
@@ -51,7 +50,7 @@ export class FriendshipDemandComponent implements OnInit {
         this.friend = true;
       }
       this.userService.allFriendships.forEach((demand) => {
-        if (demand.asker || demand.answerer === visitedUser) {
+        if (demand.asker || demand.userAskedForFriend === visitedUser) {
           this.friendship = demand;
           console.log(demand);
         }
@@ -62,12 +61,18 @@ export class FriendshipDemandComponent implements OnInit {
   determineIfIsThereFriendDemands(user: User) {
     user.friendDemandsReceived.forEach((demand) => {
       if (demand.asker.id === this.visitedUser.id) {
-        this.receivedDemandIsWaiting = demand;
+        if (demand.status.id === 1) {
+          this.receivedDemandIsWaiting = demand;
+          console.log("dem en att de rep par moi");
+        }
       }
     });
     user.friendDemandsSend.forEach((demand) => {
       if (demand.userAskedForFriend.id === this.visitedUser.id) {
-        this.sendDemandIsWaiting = demand;
+        if (demand.status.id === 1) {
+          this.sendDemandIsWaiting = demand;
+          console.log("dem en att de rep par l autre");
+        }
       }
     });
   }
@@ -94,24 +99,12 @@ export class FriendshipDemandComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
       });
-    this.createNewFriendship();
     this.receivedDemandIsWaiting = {};
+    this.sendDemandIsWaiting = {};
     this.friend = true;
   }
 
-  createNewFriendship() {
-    const newFriendship: Friendship = {
-      asker: this.visitedUser,
-      answerer: this.connectedUser,
-      status: { id: 2 },
-    };
-    this.friendshipService.post(newFriendship).subscribe((data) => {
-      console.log(data);
-      // this.userService.userModified.next();
-    });
-  }
-
-  deleteFriendship(friendship: Friendship) {
-    this.friendshipService.delete(friendship.id).subscribe();
+  deleteFriendship(friendship: FriendshipDemand) {
+    this.friendshipDemandService.delete(friendship.id).subscribe();
   }
 }

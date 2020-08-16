@@ -2,7 +2,6 @@ import { Item } from "./item";
 import { Loan } from "./loan";
 import { Opinion } from "./opinion";
 import { Evaluation } from "./evaluation";
-import { Friendship } from "./friendship";
 import { FriendshipDemand } from "./friendship-demand";
 
 export class User {
@@ -21,8 +20,8 @@ export class User {
   writtenOpinions?: Array<Opinion>;
   receivedOpinions?: Array<Opinion>;
   evaluations?: Array<Evaluation>;
-  friendshipsAsked?: Array<Friendship>;
-  friendshipsAnswered?: Array<Friendship>;
+  // friendshipsAsked?: Array<Friendship>;
+  // friendshipsAnswered?: Array<Friendship>;
   friendshipDemands?: Array<FriendshipDemand>;
   friendDemandsSend?: Array<FriendshipDemand>;
   friendDemandsReceived?: Array<FriendshipDemand>;

@@ -5,6 +5,7 @@ import { Loan } from "./loan";
 import { Tag } from "./tag";
 import { User } from "./user";
 import { Evaluation } from "./evaluation";
+import { Visibility } from "../enums/visibility.enum";
 
 export class Item {
   id?: number;
@@ -19,6 +20,7 @@ export class Item {
   console?: GameConsole;
   evaluations?: Array<Evaluation>;
   description?: string;
+  visibility?: Visibility;
 
   constructor(item: Item) {
     Object.assign(item, this);

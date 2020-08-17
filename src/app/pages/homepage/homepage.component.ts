@@ -32,7 +32,9 @@ export class HomepageComponent implements OnInit {
     this.itemService.getAllItem().subscribe((data: Array<Item>) => {
       data.forEach((item) => {
         if (item.itemStatus.id === 1) {
-          this.items.push(item);
+          if (item.visibility && item.visibility === "all") {
+            this.items.push(item);
+          }
         }
       });
     });
@@ -47,9 +49,7 @@ export class HomepageComponent implements OnInit {
   getConnectedUser() {
     if (localStorage.getItem("TOKEN")) {
       this._userService.getMe().subscribe((data: User) => {
-        console.log(this._userService.connectedUser);
         this.connectedUser = this._userService.connectedUser;
-        console.log(this.friends);
         this.initializeFriendsItemsArray(this._userService.friends);
       });
     }

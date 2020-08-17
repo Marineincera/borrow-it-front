@@ -1,6 +1,11 @@
 <section *ngIf="userToConnect">
   <div
-    *ngIf="!friend && !receivedDemandIsWaiting && !sendDemandIsWaiting"
+    *ngIf="
+      !friend &&
+      !receivedDemandIsWaiting &&
+      !sendDemandIsWaiting &&
+      !friendshipSend
+    "
     class="askForFriend"
   >
     <button (click)="askForFriend(visitedUser)">Demander en ami</button>
@@ -14,7 +19,7 @@
       <button (click)="deleteFriendship(friendship)">Refuser</button>
     </div>
   </div>
-  <div *ngIf="sendDemandIsWaiting && !friend">
+  <div *ngIf="(sendDemandIsWaiting && !friend) || friendshipSend">
     <h1>Vous avez demandé cette personne en ami</h1>
   </div>
   <div *ngIf="friend" class="delete">

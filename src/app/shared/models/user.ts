@@ -7,10 +7,10 @@ import { FriendshipDemand } from "./friendship-demand";
 export class User {
   id?: number;
   avatar?: string;
-  pseudo: string;
-  email: string;
-  password: string;
-  city: string;
+  pseudo?: string;
+  email?: string;
+  password?: string;
+  city?: string;
   registrationDate?: Date;
   walkingDelivery?: boolean;
   letterDelivery?: boolean;

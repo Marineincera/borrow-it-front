@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef } from "@angular/core";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
 import { FriendshipStatusService } from "src/app/shared/services/friendship-status.service";
@@ -22,10 +22,13 @@ export class FriendshipDemandComponent implements OnInit {
   connectedUser: User;
   visitedUser: User;
 
+  friendshipSend: boolean;
+
   constructor(
     private userService: UserService,
     private friendshipStatusService: FriendshipStatusService,
-    private friendshipDemandService: FriendshipDemandService
+    private friendshipDemandService: FriendshipDemandService,
+    private el: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -79,14 +82,13 @@ export class FriendshipDemandComponent implements OnInit {
 
   askForFriend(user: User) {
     const newFriendship: FriendshipDemand = {
-      asker: this.connectedUser,
-      userAskedForFriend: user,
+      asker: { id: this.connectedUser.id },
+      userAskedForFriend: { id: user.id },
       status: { id: 1 },
     };
-    console.log(newFriendship);
 
     this.friendshipDemandService.post(newFriendship).subscribe((data) => {
-      console.log(data);
+      this.friendshipSend = true;
     });
   }
 
@@ -101,7 +103,6 @@ export class FriendshipDemandComponent implements OnInit {
       });
     this.receivedDemandIsWaiting = {};
     this.sendDemandIsWaiting = {};
-    this.friend = true;
   }
 
   deleteFriendship(friendship: FriendshipDemand) {

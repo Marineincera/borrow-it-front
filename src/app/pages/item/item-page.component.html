@@ -27,6 +27,23 @@
             Console : {{ itemToDisplay.console.name }}
           </h3>
           <h3>{{ itemToDisplay.itemStatus.name }}</h3>
+          <h3>{{ itemToDisplay.visibility }}</h3>
+          <button *ngIf="userIsOwner" (click)="openUpdatingVisibility()">
+            Changer la visibilité
+          </button>
+
+          <mat-form-field appearance="fill" *ngIf="visibilityUpdating">
+            <mat-label>Choisis la visibilité souhaitée</mat-label>
+            <mat-select [(value)]="chosenVisibilityToUpdate">
+              <mat-option
+                *ngFor="let option of visibilityOptions"
+                [value]="option"
+                (click)="updateVisibility(itemToDisplay.id, option)"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
           <button *ngIf="!userIsOwner" (click)="requestALoan(itemToDisplay.id)">
             Faire une demande de prêt

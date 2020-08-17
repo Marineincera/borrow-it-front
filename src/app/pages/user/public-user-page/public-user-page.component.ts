@@ -18,6 +18,8 @@ export class PublicUserPageComponent implements OnInit {
   usersToConnect: Array<User>;
   friendship: boolean;
 
+  itemsSorted = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -57,28 +59,44 @@ export class PublicUserPageComponent implements OnInit {
 
   determineIfFriends() {
     if (this.userService.friends) {
+      console.log(this.userService.friends);
+
       this.userService.friends.forEach((friend) => {
         if (friend.id === this.userToDisplay.id) {
           this.friendship = true;
-          this.determineItems(this.items);
         } else {
           this.friendship = false;
+        }
+        if (this.friendship) {
           this.determineItems(this.items);
         }
       });
+      if (this.userService.friends.length === 0) {
+        this.friendship = false;
+        this.determineItems(this.items);
+      }
     }
   }
 
   determineItems(items: Array<Item>) {
-    this.items = [];
+    let newItems = [];
+    let num = 0;
+    const i = items.length;
     items.forEach((item) => {
-      if (this.friendship) {
+      if (this.friendship === true) {
         if (item.visibility === "friends") {
-          this.items.push(item);
+          newItems.push(item);
         }
-        if (item.visibility === "all") {
-          this.items.push(item);
-        }
+      }
+      if (item.visibility === "all") {
+        newItems.push(item);
+      }
+
+      num = num + 1;
+
+      if (num === i) {
+        this.itemsSorted = true;
+        this.items = newItems;
       }
     });
   }

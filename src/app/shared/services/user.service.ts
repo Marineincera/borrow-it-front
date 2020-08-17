@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Input } from "@angular/core";
 import { User } from "../models/user";
 import { WshelperService } from "./wshelper.service";
 import { HttpClient, HttpResponse } from "@angular/common/http";
@@ -6,6 +6,7 @@ import { map, tap } from "rxjs/operators";
 import { Loan } from "../models/loan";
 import { Subject } from "rxjs";
 import { FriendshipDemand } from "../models/friendship-demand";
+import { Item } from "../models/item";
 
 @Injectable({
   providedIn: "root",
@@ -29,6 +30,8 @@ export class UserService {
   friends: Array<User>;
   friendsDemandsSend: Array<FriendshipDemand>;
   friendsDemandsReceived: Array<FriendshipDemand>;
+
+  allFriendsItems: Array<Item>;
 
   //observable
   userModified = new Subject<User>();
@@ -169,15 +172,8 @@ export class UserService {
         this.allFriendships.push(demand);
       }
     });
-    // user.friendshipsAsked.forEach((friend) => {
-    //   this.friends.push(friend.answerer);
-    //   this.allFriendships.push(friend);
-    // });
-    // user.friendshipsAnswered.forEach((friend) => {
-    //   this.friends.push(friend.asker);
-    //   this.allFriendships.push(friend);
-    // });
   }
+
   //observable
   emitModifiedUser() {
     this.userModified.next(this.connectedUser);

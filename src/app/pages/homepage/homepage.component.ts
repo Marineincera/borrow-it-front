@@ -70,7 +70,9 @@ export class HomepageComponent implements OnInit {
   getItemsByFriend(friend: User) {
     this._userService.getOneUser(friend.id).subscribe((data: User) => {
       data.items.forEach((item) => {
-        this.friendsItems.push(item);
+        if ((item.visibility && item.visibility === "all") || "friends") {
+          this.friendsItems.push(item);
+        }
       });
     });
   }

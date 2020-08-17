@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
 import { Item } from "src/app/shared/models/item";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "app-public-user-page",
@@ -15,6 +16,7 @@ export class PublicUserPageComponent implements OnInit {
   items: Array<Item>;
   userConnected;
   usersToConnect: Array<User>;
+  friendship: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,11 +49,38 @@ export class PublicUserPageComponent implements OnInit {
       const token = localStorage.getItem("TOKEN");
       this.userService.getMe().subscribe((data: User) => {
         this.userConnected = data;
-        console.log(this.userToDisplay);
         this.usersToConnect = [data, this.userToDisplay];
-        console.log(this.usersToConnect);
+        this.determineIfFriends();
       });
     }
+  }
+
+  determineIfFriends() {
+    if (this.userService.friends) {
+      this.userService.friends.forEach((friend) => {
+        if (friend.id === this.userToDisplay.id) {
+          this.friendship = true;
+          this.determineItems(this.items);
+        } else {
+          this.friendship = false;
+          this.determineItems(this.items);
+        }
+      });
+    }
+  }
+
+  determineItems(items: Array<Item>) {
+    this.items = [];
+    items.forEach((item) => {
+      if (this.friendship) {
+        if (item.visibility === "friends") {
+          this.items.push(item);
+        }
+        if (item.visibility === "all") {
+          this.items.push(item);
+        }
+      }
+    });
   }
 
   // ngOnDestroy() {

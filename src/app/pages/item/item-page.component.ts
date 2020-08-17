@@ -16,7 +16,12 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   tags;
 
   surfingUser: User;
-  userIsOwner = false;
+  userIsOwner: boolean;
+
+  visibilityOptions = ["Tout le monde", "Amis uniquement", "Seulement Moi"];
+  realOptionsName = ["all", "friends", "me"];
+  visibilityUpdating = false;
+  chosenVisibilityToUpdate;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,19 +33,30 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Get ID of the selected item
     const id = this.route.snapshot.paramMap.get("id");
-    this.getItem(id);
+    this.getItems(id);
   }
   determineSurfingUser(item: Item) {
     if (this.userService.connectedUser) {
       this.surfingUser = this.userService.connectedUser;
-
-      if (item.user.id === this.surfingUser.id) {
-        this.userIsOwner = true;
-      }
+      // if (item.user.id === this.surfingUser.id) {
+      //   this.userIsOwner = true;
+      // }
+      this.determineIfSurfingUserIsItemOwner(this.surfingUser.id, item);
+    } else {
+      this.userService.getMe().subscribe((data: User) => {
+        this.surfingUser = data;
+        this.determineIfSurfingUserIsItemOwner(data.id, item);
+      });
     }
   }
 
-  getItem(id: string) {
+  determineIfSurfingUserIsItemOwner(id: number, item: Item) {
+    if (item.user.id === id) {
+      this.userIsOwner = true;
+    }
+  }
+
+  getItems(id: string) {
     this.itemReceived = this.itemService
       .getOneItem(parseInt(id))
       .subscribe((data: Item) => {
@@ -62,5 +78,44 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
   requestALoan(id: number) {
     this.router.navigate([`/request/${id}`]);
+  }
+
+  openUpdatingVisibility() {
+    this.visibilityUpdating = true;
+  }
+
+  getRealSelectedOptionName(
+    visibility: string,
+    array1: Array<string>,
+    array2: Array<string>
+  ) {
+    if (array1.length === array2.length) {
+      for (let i = 0; i < array1.length; i++) {
+        if (visibility === array1[i]) {
+          const realOptionName = array2[i];
+          return realOptionName;
+        }
+      }
+    }
+    throw new Error("visibilities arrays lengths are not the same");
+  }
+
+  updateVisibility(id: number, visibility: string) {
+    try {
+      const newVisibility = this.getRealSelectedOptionName(
+        visibility,
+        this.visibilityOptions,
+        this.realOptionsName
+      );
+      const newItem: Item = {
+        visibility: newVisibility,
+      };
+      this.itemService.update(id, newItem).subscribe((data: Item) => {
+        this.itemToDisplay.visibility = newVisibility;
+        this.visibilityUpdating = false;
+      });
+    } catch (error) {
+      throw new Error("Error during the item updating fonction");
+    }
   }
 }

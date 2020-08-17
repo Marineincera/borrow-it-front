@@ -1,8 +1,14 @@
 <section>
-  <h1>OBJETS DISPONIBLES</h1>
-  <div *ngIf="items" class="items">
+  <h1>OBJETS</h1>
+  <div *ngIf="items && items.length > 0" class="items">
     <app-list [itemsList]="items"></app-list>
   </div>
+
+  <h1 *ngIf="friendsItems && friendsItems.length > 0">OBJETS DE MES AMIS</h1>
+  <div *ngIf="friendsItems && friendsItems.length > 0" class="items">
+    <app-list [itemsList]="friendsItems"></app-list>
+  </div>
+
   <h1>MEMBRES</h1>
   <div *ngIf="users" class="users">
     <app-list [usersList]="users"></app-list>

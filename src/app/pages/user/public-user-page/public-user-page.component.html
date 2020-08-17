@@ -8,7 +8,11 @@
   <app-public-description-user
     [userToDisplay]="userToDisplay"
   ></app-public-description-user>
-  <div *ngIf="items">
+  <div *ngIf="itemsSorted && items.length > 0">
     <app-list-select [itemsList]="items"></app-list-select>
   </div>
 </div>
+<app-friendship-demand
+  *ngIf="usersToConnect"
+  [userToConnect]="userToDisplay"
+></app-friendship-demand>

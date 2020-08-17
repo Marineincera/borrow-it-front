@@ -1,10 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Input } from "@angular/core";
 import { User } from "../models/user";
 import { WshelperService } from "./wshelper.service";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { map, tap } from "rxjs/operators";
 import { Loan } from "../models/loan";
 import { Subject } from "rxjs";
+import { FriendshipDemand } from "../models/friendship-demand";
+import { Item } from "../models/item";
 
 @Injectable({
   providedIn: "root",
@@ -23,6 +25,13 @@ export class UserService {
   borrowsInPending: Array<Loan>;
   borrowsInProgress: Array<Loan>;
   waitingfinishedBorrows: Array<Loan>;
+
+  allFriendships: Array<FriendshipDemand>;
+  friends: Array<User>;
+  friendsDemandsSend: Array<FriendshipDemand>;
+  friendsDemandsReceived: Array<FriendshipDemand>;
+
+  allFriendsItems: Array<Item>;
 
   //observable
   userModified = new Subject<User>();
@@ -49,6 +58,20 @@ export class UserService {
     return this.service.put(UserService.URL + "users/modify/" + id, user);
   }
 
+  public inscription(
+    pseudo: string,
+    email: string,
+    city: string,
+    password: string
+  ) {
+    return this.http.post(UserService.URL + "auth/signup", {
+      pseudo,
+      email,
+      city,
+      password,
+    });
+  }
+
   public connexion(email: string, password: string) {
     return this.http
       .post(
@@ -67,19 +90,6 @@ export class UserService {
         })
       );
   }
-  public inscription(
-    pseudo: string,
-    email: string,
-    city: string,
-    password: string
-  ) {
-    return this.http.post(UserService.URL + "auth/signup", {
-      pseudo,
-      email,
-      city,
-      password,
-    });
-  }
 
   // recuperation du user grâce au token et stokage dans le service
   public getMe() {
@@ -89,6 +99,7 @@ export class UserService {
         this.loans = user.loans;
         this.determineLoansCategories(user);
         this.determineBorrowsCategories(user);
+        this.determineFriendships(user);
       })
     );
   }
@@ -137,6 +148,32 @@ export class UserService {
       });
     }
   }
+
+  determineFriendships(user: User) {
+    this.friendsDemandsSend = [];
+    this.friendsDemandsReceived = [];
+    this.friends = [];
+    this.allFriendships = [];
+    user.friendDemandsReceived.forEach((demand) => {
+      if (demand.status.id === 1) {
+        this.friendsDemandsReceived.push(demand);
+      }
+      if (demand.status.id === 2) {
+        this.friends.push(demand.asker);
+        this.allFriendships.push(demand);
+      }
+    });
+    user.friendDemandsSend.forEach((demand) => {
+      if (demand.status.id === 1) {
+        this.friendsDemandsSend.push(demand);
+      }
+      if (demand.status.id === 2) {
+        this.friends.push(demand.userAskedForFriend);
+        this.allFriendships.push(demand);
+      }
+    });
+  }
+
   //observable
   emitModifiedUser() {
     this.userModified.next(this.connectedUser);

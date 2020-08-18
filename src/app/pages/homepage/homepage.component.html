@@ -1,4 +1,8 @@
 <section>
+  <app-searchbar
+    *ngIf="items && items.length > 0"
+    [items]="items"
+  ></app-searchbar>
   <h1>OBJETS</h1>
   <div *ngIf="items && items.length > 0" class="items">
     <app-list [itemsList]="items"></app-list>

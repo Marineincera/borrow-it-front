@@ -10,6 +10,7 @@ import { Visibility } from "../enums/visibility.enum";
 export class Item {
   id?: number;
   title?: string;
+  author?: string;
   image?: string;
   note?: number;
   user?: User;

@@ -3,6 +3,9 @@ import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { Item } from "src/app/shared/models/item";
+import { User } from "src/app/shared/models/user";
+import { UserService } from "src/app/shared/services/user.service";
+import { newArray } from "@angular/compiler/src/util";
 
 @Component({
   selector: "app-searchbar",
@@ -12,18 +15,31 @@ import { Item } from "src/app/shared/models/item";
 export class SearchbarComponent implements OnInit {
   myControl = new FormControl();
   @Input() items: Array<Item>;
+  @Input() users: Array<User>;
+  @Input() cities: Array<User>;
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
   options: Array<string>;
+
   filteredOptions: Observable<string[]>;
   inputValue: string;
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.options = this.determineOptions(this.items);
-    if (this.options) {
+    if (this.items) {
+      this.options = this.determineItemsOptions(this.items);
+      if (this.options) {
+        console.log(this.options);
+        this.initializeTheFilter();
+      }
+    }
+    if (this.users) {
+      this.options = this.determineUsersOptions(this.users);
       console.log(this.options);
-      this.initializeTheFilter();
+    }
+    if (this.cities) {
+      this.options = this.determineCitiesOptions(this.users);
+      console.log(this.cities);
     }
   }
 
@@ -34,7 +50,7 @@ export class SearchbarComponent implements OnInit {
     );
   }
 
-  determineOptions(array: Array<Item>): Array<string> {
+  determineItemsOptions(array: Array<Item>): Array<string> {
     let options = [];
     let num = 0;
     let done;
@@ -111,5 +127,39 @@ export class SearchbarComponent implements OnInit {
         this.myControl = new FormControl();
       }
     });
+  }
+
+  determineUsersOptions(users: Array<User>): Array<string> {
+    let newArray = [];
+    let num = 0;
+    let done;
+    users.forEach((user) => {
+      newArray.push(user.pseudo);
+      num = num + 1;
+      if (num === users.length) {
+        done = true;
+      }
+    });
+    if (done) {
+      return newArray;
+    }
+  }
+
+  determineCitiesOptions(users: Array<User>) {
+    let newArray = [];
+    let num = 0;
+    let done;
+    users.forEach((item) => {
+      if (!newArray.find((element) => element === item.city)) {
+        newArray.push(item.city);
+      }
+
+      if (num === users.length) {
+        done = true;
+      }
+    });
+    if (done) {
+      return newArray;
+    }
   }
 }

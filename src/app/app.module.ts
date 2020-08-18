@@ -62,6 +62,7 @@ import { FriendshipDemandComponent } from './components/friendship/friendship-de
 import { FriendshipsComponent } from './components/friendship/friendships/friendships.component';
 import { InformationComponent } from './components/common/information/information.component';
 import { SearchbarComponent } from './components/common/searchbar/searchbar.component';
+import { SearchbarContainerComponent } from './components/searchbar-container/searchbar-container.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { SearchbarComponent } from './components/common/searchbar/searchbar.comp
     FriendshipsComponent,
     InformationComponent,
     SearchbarComponent,
+    SearchbarContainerComponent,
   ],
   imports: [
     AppRoutingModule,

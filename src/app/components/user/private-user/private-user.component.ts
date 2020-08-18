@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
 
@@ -7,26 +7,52 @@ import { UserService } from "src/app/shared/services/user.service";
   templateUrl: "./private-user.component.html",
   styleUrls: ["./private-user.component.scss"],
 })
-export class PrivateUserComponent implements OnInit {
+export class PrivateUserComponent implements OnInit, OnDestroy {
   @Input() userToDisplay: User;
 
   //avatar updating
   openUpdateAvatar = false;
   newAvatar: string;
 
+  openPseudoInput: boolean;
+  newPseudo: string;
+
+  dataArray = ["pseudo", "city", "email", "password", "avatar"];
+
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.openUpdateAvatar = false;
+    //observable
+    this.userService.userModified.subscribe((user) => {
+      this.userService.connectedUser = user;
+      this.userToDisplay = user;
+    });
   }
 
   updateAvatar(id: number) {
     this.openUpdateAvatar = true;
   }
 
-  updateUser(id: number, avatar: string) {
-    console.log(this.newAvatar);
-    const newUser = { id: id, avatar: avatar };
-    this.userService.update(id, newUser).subscribe();
+  updateUser(id: number, newInfo: object) {
+    let newUser = newInfo;
+    if (newUser) {
+      console.log(newUser);
+      this.sendNewInformations(id, newUser);
+    }
+  }
+
+  sendNewInformations(id: number, newUser: User) {
+    this.userService.update(id, newUser).subscribe((data: User) => {
+      this.userToDisplay = data;
+    });
+  }
+
+  openUpdatePseudoInput() {
+    this.openPseudoInput = true;
+  }
+
+  ngOnDestroy() {
+    this.userService.userModified.unsubscribe();
   }
 }

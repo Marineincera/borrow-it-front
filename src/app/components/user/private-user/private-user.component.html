@@ -1,11 +1,24 @@
 <section *ngIf="userToDisplay">
   <mat-card class="user">
-    <h1>{{ userToDisplay.pseudo }}</h1>
+    <div>
+      <app-information
+        [information]="userToDisplay.pseudo"
+        (newInformation)="updateUser(userToDisplay.id, { pseudo: $event })"
+      ></app-information>
+
+      <app-information
+        [information]="userToDisplay.email"
+        (newInformation)="updateUser(userToDisplay.id, { email: $event })"
+      ></app-information>
+    </div>
     <div class="place">
       <span class="material-icons">
         place
       </span>
-      <h2>{{ userToDisplay.city }}</h2>
+      <app-information
+        [information]="userToDisplay.city"
+        (newInformation)="updateUser(userToDisplay.id, { city: $event })"
+      ></app-information>
     </div>
   </mat-card>
 
@@ -26,7 +39,7 @@
       name="avatar"
     />
   </mat-form-field>
-  <button (click)="updateUser(userToDisplay.id, newAvatar)">
+  <button (click)="updateUser(userToDisplay.id, { avatar: newAvatar })">
     Valider changement
   </button>
 </div>

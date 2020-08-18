@@ -1,0 +1,20 @@
+<section>
+  <!-- <div>
+    <span class="material-icons" ">
+      create
+    </span> -->
+  <h1 title="modifier" (click)="openUpdateInput()">{{ information }}</h1>
+  <!-- </div> -->
+  <form class="example-form" *ngIf="openInput">
+    <mat-form-field class="example-full-width">
+      <mat-label>{{ information }}</mat-label>
+      <input
+        matInput
+        value="{{ information }}"
+        [(ngModel)]="newInfo"
+        name="value"
+      />
+    </mat-form-field>
+    <button (click)="sendNewValue(newInfo)">Valider</button>
+  </form>
+</section>

@@ -60,6 +60,7 @@ import { PrivateUserComponent } from "./components/user/private-user/private-use
 import { ManagingComponent } from './components/managing/managing.component';
 import { FriendshipDemandComponent } from './components/friendship/friendship-demand/friendship-demand.component';
 import { FriendshipsComponent } from './components/friendship/friendships/friendships.component';
+import { InformationComponent } from './components/common/information/information.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { FriendshipsComponent } from './components/friendship/friendships/friend
     ManagingComponent,
     FriendshipDemandComponent,
     FriendshipsComponent,
+    InformationComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,11 +1,27 @@
 <section>
   <app-searchbar
-    *ngIf="items && items.length > 0"
+    *ngIf="items && items.length > 0 && !searchBarClosed"
     [items]="items"
+    (searchResultsItems)="displaySearchResultsItems($event)"
   ></app-searchbar>
+
+  <div class="example-button-container" *ngIf="searchBarClosed">
+    <button
+      mat-fab
+      color="basic"
+      aria-label="Example icon button with a home icon"
+      (click)="openSearchbarAgain()"
+    >
+      <mat-icon>home</mat-icon>
+    </button>
+  </div>
   <h1>OBJETS</h1>
   <div *ngIf="items && items.length > 0" class="items">
-    <app-list [itemsList]="items"></app-list>
+    <app-list *ngIf="!searchResultsItems" [itemsList]="items"></app-list>
+    <app-list
+      *ngIf="searchResultsItems"
+      [itemsList]="searchResultsItems"
+    ></app-list>
   </div>
 
   <h1 *ngIf="friendsItems && friendsItems.length > 0">OBJETS DE MES AMIS</h1>

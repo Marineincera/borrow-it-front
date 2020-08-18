@@ -1,9 +1,8 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { Item } from "src/app/shared/models/item";
-import { StringifyOptions } from "querystring";
 
 @Component({
   selector: "app-searchbar",
@@ -13,8 +12,8 @@ import { StringifyOptions } from "querystring";
 export class SearchbarComponent implements OnInit {
   myControl = new FormControl();
   @Input() items: Array<Item>;
+  @Output() searchResultsItems = new EventEmitter<Array<Item>>();
   options: Array<string>;
-  // options: string[] = ["One", "Two", "Three"];
   filteredOptions: Observable<string[]>;
   inputValue: string;
 
@@ -89,9 +88,15 @@ export class SearchbarComponent implements OnInit {
     let newArray = [];
     let num = 0;
     array.forEach((item) => {
-      if ((item.title || item.author || item.console.name) === value) {
+      if ((item.title || item.author) === value) {
         newArray.push(item);
       }
+      if (item.console) {
+        if (item.console.name === value) {
+          newArray.push(item);
+        }
+      }
+
       if (item.tags) {
         item.tags.forEach((tag) => {
           if (tag.name === value) {
@@ -102,6 +107,8 @@ export class SearchbarComponent implements OnInit {
       num = num + 1;
       if (num === array.length) {
         console.log(newArray);
+        this.searchResultsItems.emit(newArray);
+        this.myControl = new FormControl();
       }
     });
   }

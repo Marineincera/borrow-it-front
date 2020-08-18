@@ -15,6 +15,8 @@ export class HomepageComponent implements OnInit {
   connectedUser: User;
   friends: Array<User>;
   friendsItems: Array<Item>;
+  searchResultsItems: Array<Item>;
+  searchBarClosed = false;
 
   constructor(
     private itemService: ItemService,
@@ -75,5 +77,15 @@ export class HomepageComponent implements OnInit {
         }
       });
     });
+  }
+
+  displaySearchResultsItems(items: Array<Item>) {
+    this.searchResultsItems = items;
+    this.searchBarClosed = true;
+  }
+
+  openSearchbarAgain() {
+    this.searchResultsItems = undefined;
+    this.searchBarClosed = false;
   }
 }

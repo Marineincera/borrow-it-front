@@ -81,11 +81,9 @@ export class HomepageComponent implements OnInit {
 
   displaySearchResultsItems(items: Array<Item>) {
     this.searchResultsItems = items;
-    this.searchBarClosed = true;
   }
 
   openSearchbarAgain() {
     this.searchResultsItems = undefined;
-    this.searchBarClosed = false;
   }
 }

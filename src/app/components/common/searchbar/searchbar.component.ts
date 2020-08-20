@@ -33,14 +33,6 @@ export class SearchbarComponent implements OnInit {
         this.initializeTheFilter();
       }
     }
-    if (this.users) {
-      this.options = this.determineUsersOptions(this.users);
-      console.log(this.options);
-    }
-    if (this.cities) {
-      this.options = this.determineCitiesOptions(this.users);
-      console.log(this.cities);
-    }
   }
 
   initializeTheFilter() {
@@ -68,6 +60,7 @@ export class SearchbarComponent implements OnInit {
           options.push(item.console.name);
         }
       }
+
       if (item.tags) {
         if (item.tags) {
           item.tags.forEach((tag) => {
@@ -129,37 +122,38 @@ export class SearchbarComponent implements OnInit {
     });
   }
 
-  determineUsersOptions(users: Array<User>): Array<string> {
-    let newArray = [];
-    let num = 0;
-    let done;
-    users.forEach((user) => {
-      newArray.push(user.pseudo);
-      num = num + 1;
-      if (num === users.length) {
-        done = true;
-      }
-    });
-    if (done) {
-      return newArray;
-    }
-  }
+  // determineUsersOptions(users: Array<User>): Array<string> {
+  //   let newArray = [];
+  //   let num = 0;
+  //   let done;
+  //   users.forEach((user) => {
+  //     newArray.push(user.pseudo);
+  //     num = num + 1;
+  //     if (num === users.length) {
+  //       done = true;
+  //       return newArray;
+  //     }
+  //   });
+  //   if (done) {
+  //     return newArray;
+  //   }
+  // }
 
-  determineCitiesOptions(users: Array<User>) {
-    let newArray = [];
-    let num = 0;
-    let done;
-    users.forEach((item) => {
-      if (!newArray.find((element) => element === item.city)) {
-        newArray.push(item.city);
-      }
+  // determineCitiesOptions(users: Array<User>) {
+  //   let newArray = [];
+  //   let num = 0;
+  //   let done;
+  //   users.forEach((item) => {
+  //     if (!newArray.find((element) => element === item.city)) {
+  //       newArray.push(item.city);
+  //     }
 
-      if (num === users.length) {
-        done = true;
-      }
-    });
-    if (done) {
-      return newArray;
-    }
-  }
+  //     if (num === users.length) {
+  //       done = true;
+  //     }
+  //   });
+  //   if (done) {
+  //     return newArray;
+  //   }
+  // }
 }

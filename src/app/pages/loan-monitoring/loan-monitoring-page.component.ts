@@ -3,6 +3,7 @@ import { Loan } from "src/app/shared/models/loan";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
 import { LoanService } from "src/app/shared/services/loan.service";
+import { FriendshipDemand } from "src/app/shared/models/friendship-demand";
 
 @Component({
   selector: "app-loan-monitoring-page",
@@ -11,6 +12,7 @@ import { LoanService } from "src/app/shared/services/loan.service";
 })
 export class LoanMonitoringPageComponent implements OnInit {
   user: User;
+  //Loans & Borrows
   allLoans: Array<Loan>;
   allBorrows: Array<Loan>;
   loansRequestsReceived: Array<Loan>;
@@ -22,11 +24,13 @@ export class LoanMonitoringPageComponent implements OnInit {
   loansDemandsReturn: Array<Loan>;
   waitingLoansToComplete: Array<Loan>;
   waitingBorrowsToComplete: Array<Loan>;
-
+  //Loans & Borrows extras
   loansFinished: Array<Loan>;
-
   loansAnalyseDone = false;
   borrowsAnalyseDone = false;
+
+  //Friendships
+  friendshipsDemandsReceived: Array<FriendshipDemand>;
 
   constructor(
     private userService: UserService,
@@ -40,13 +44,15 @@ export class LoanMonitoringPageComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getMe().subscribe((data) => {
+    this.userService.getMe().subscribe((data: User) => {
       this.user = data;
+      //Loans & borrows
       this.allLoans = data.loans;
-      // this.allBorrows = data.borrows;
-      // console.log(this.allBorrows);
       this.determineLoansCategories();
       this.determineBorrowsCategories();
+      //Friendships
+      this.friendshipsDemandsReceived = data.friendDemandsReceived;
+      console.log(this.friendshipsDemandsReceived);
     });
   }
 

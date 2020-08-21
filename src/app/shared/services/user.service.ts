@@ -15,6 +15,7 @@ export class UserService {
   static URL = "http://localhost:3000/";
 
   connectedUser;
+  userNotifications: number;
   loans: Array<Loan>;
   borrows: Array<Loan>;
 
@@ -169,6 +170,7 @@ export class UserService {
     user.friendDemandsReceived.forEach((demand) => {
       if (demand.status.id === 1) {
         this.friendsDemandsReceived.push(demand);
+        console.log(demand);
       }
       if (demand.status.id === 2) {
         this.friends.push(demand.asker);
@@ -184,6 +186,14 @@ export class UserService {
         this.allFriendships.push(demand);
       }
     });
+  }
+
+  determineUserNotifications() {
+    this.userNotifications =
+      this.loansPending.length +
+      this.waitingfinishedLoans.length +
+      this.loansDemandsReturn.length +
+      this.loansRequest.length;
   }
 
   //observable

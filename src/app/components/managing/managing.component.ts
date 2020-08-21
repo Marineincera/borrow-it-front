@@ -3,6 +3,7 @@ import { Loan } from "src/app/shared/models/loan";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
+import { FriendshipDemand } from "src/app/shared/models/friendship-demand";
 
 @Component({
   selector: "app-managing",
@@ -22,6 +23,8 @@ export class ManagingComponent implements OnInit {
   @Input() borrowsInPending: Array<Loan>;
   @Input() borrowsInProgress: Array<Loan>;
   @Input() waitingfinishedBorrows: Array<Loan>;
+
+  @Input() friendshipDemandsReceived: Array<FriendshipDemand>;
 
   constructor(private router: Router, private userService: UserService) {}
 

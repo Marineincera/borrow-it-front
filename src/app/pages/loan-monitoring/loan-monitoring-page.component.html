@@ -10,6 +10,7 @@
     [borrowsInPending]="borrowsPending"
     [borrowsInProgress]="borrowsInProgress"
     [waitingfinishedBorrows]="waitingBorrowsToComplete"
+    [friendshipDemandsReceived]="friendshipsDemandsReceived"
   ></app-managing>
   <mat-tab-group *ngIf="loansAnalyseDone && borrowsAnalyseDone">
     <mat-tab label="Demandes d'emprunt reçues" *ngIf="loansRequestsReceived">
@@ -102,6 +103,23 @@
       <div class="loans">
         <div *ngFor="let loan of waitingLoansToComplete" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab
+      label="Demandes en ami reçues"
+      *ngIf="
+        friendshipsDemandsReceived && friendshipsDemandsReceived.length > 0
+      "
+    >
+      <div class="loans">
+        <div
+          *ngFor="let friendshipDemand of friendshipsDemandsReceived"
+          class="loan"
+        >
+          <app-public-small-user
+            [userReceived]="friendshipDemand.asker"
+          ></app-public-small-user>
         </div>
       </div>
     </mat-tab>

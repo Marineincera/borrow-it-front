@@ -3,6 +3,7 @@
 <div *ngIf="user">
   <app-private-user [userToDisplay]="user"></app-private-user>
 </div>
+<a [routerLink]="['/item/create/new']">Ajouter un objet</a>
 <div *ngIf="user" class="wrapper">
   <div class="style-container">
     <h2>Mes objets disponibles</h2>

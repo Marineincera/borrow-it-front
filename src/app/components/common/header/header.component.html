@@ -1,20 +1,24 @@
 <section>
   <div class="title">
-    <h1>Borrow It</h1>
+    <h1 (click)="openHomepage()">Borrow It</h1>
   </div>
-  <h2 *ngIf="user && notifications" (click)="openLoansMonitoring(user.id)">
-    {{ notifications }} notifications
-  </h2>
 
   <div class="account" *ngIf="!user">
-    <h3>Logo</h3>
-    <h3 (click)="openAuthentification()">Connexion</h3>
+    <h2 (click)="openAuthentification()">Connexion</h2>
   </div>
-  <div *ngIf="user">
-    <a [routerLink]="['/item/create/new']">Ajouter un objet</a>
-    <h3>{{ user.pseudo }}</h3>
-    <h3 (click)="openPrivateAccount(user.id)">voir mon profil</h3>
+  <div *ngIf="user" class="user">
+    <h2 *ngIf="user && notifications" (click)="openLoansMonitoring(user.id)">
+      {{ notifications }} notifications
+    </h2>
+    <h2 *ngIf="user && !notifications" (click)="openLoansMonitoring(user.id)">
+      Tableau de bord
+    </h2>
+    <h2 (click)="openPrivateAccount(user.id)">Mon profil</h2>
 
-    <h3 (click)="signOut()">Se déconnecter</h3>
+    <h2 (click)="signOut()">Se déconnecter</h2>
+    <div class="user-card">
+      <img src="{{ user.avatar }}" alt="user.pseudo" />
+      <h3>{{ user.pseudo }}</h3>
+    </div>
   </div>
 </section>

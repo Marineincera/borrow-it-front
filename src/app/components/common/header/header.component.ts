@@ -53,6 +53,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  openHomepage() {
+    this.router.navigate(["homepage"]);
+  }
+
   openAuthentification() {
     this.getConnectedUser();
     this.router.navigate(["auth"]);
@@ -65,14 +69,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   openLoansMonitoring(id: number) {
     this.router.navigate([`loansmonitoring/$${id}`]);
   }
-
-  // determineNotifications() {
-  //   this.notifications =
-  //     this.userService.loansPending.length +
-  //     this.userService.waitingfinishedLoans.length +
-  //     this.userService.loansDemandsReturn.length +
-  //     this.userService.loansRequest.length;
-  // }
 
   signOut() {
     localStorage.clear();

@@ -1,5 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+} from "@angular/core";
 import { Item } from "src/app/shared/models/item";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-searchbar-container",
@@ -10,9 +18,9 @@ export class SearchbarContainerComponent implements OnInit {
   @Input() items: Array<Item>;
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
   searchBarClosed = false;
-  constructor() {}
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
   displaySearchResultsItems(items: Array<Item>) {
     this.searchBarClosed = true;

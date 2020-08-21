@@ -15,8 +15,8 @@ import { newArray } from "@angular/compiler/src/util";
 export class SearchbarComponent implements OnInit {
   myControl = new FormControl();
   @Input() items: Array<Item>;
-  @Input() users: Array<User>;
-  @Input() cities: Array<User>;
+  // @Input() users: Array<User>;
+
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
   options: Array<string>;
 
@@ -29,7 +29,6 @@ export class SearchbarComponent implements OnInit {
     if (this.items) {
       this.options = this.determineItemsOptions(this.items);
       if (this.options) {
-        console.log(this.options);
         this.initializeTheFilter();
       }
     }

@@ -23,6 +23,7 @@ export class PrivateUserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.openUpdateAvatar = false;
+    this.userToDisplay = this.userService.connectedUser;
     //observable
     this.userService.userModified.subscribe((user) => {
       this.userService.connectedUser = user;
@@ -53,6 +54,8 @@ export class PrivateUserComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userService.userModified.unsubscribe();
+    if (!this.userService.connectedUser) {
+      this.userService.userModified.unsubscribe();
+    }
   }
 }

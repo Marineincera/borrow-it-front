@@ -18,7 +18,7 @@
         <div *ngFor="let loan of loansRequestsReceived" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
-        <div *ngIf="loansRequestsReceived.length === 0">
+        <div *ngIf="loansRequestsReceived.length === 0" class="text">
           Vous n'avez actuellement pas reçu de demande pour prêter un de vos
           objets.
         </div>
@@ -29,7 +29,7 @@
         <div *ngFor="let loan of borrowsRequestsSend" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
-        <div *ngIf="borrowsRequestsSend.length === 0">
+        <div *ngIf="borrowsRequestsSend.length === 0" class="text">
           Vous n'avez actuellement pas envoyé de demande pour emprunter un
           objet.
         </div>
@@ -71,7 +71,7 @@
         <div *ngFor="let loan of loansInProgress" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
-        <div *ngIf="loansInProgress.length === 0">
+        <div *ngIf="loansInProgress.length === 0" class="text">
           Vous ne prêtez aucun objet actuellement.
         </div>
       </div>
@@ -81,7 +81,7 @@
         <div *ngFor="let loan of borrowsInProgress" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
-        <div *ngIf="borrowsInProgress.length === 0">
+        <div *ngIf="borrowsInProgress.length === 0" class="text">
           Vous n'empruntez aucun objet actuellement.
         </div>
       </div>
@@ -112,10 +112,10 @@
         friendshipsDemandsReceived && friendshipsDemandsReceived.length > 0
       "
     >
-      <div class="loans">
+      <div class="friends">
         <div
           *ngFor="let friendshipDemand of friendshipsDemandsReceived"
-          class="loan"
+          class="friend"
         >
           <app-public-small-user
             [userReceived]="friendshipDemand.asker"

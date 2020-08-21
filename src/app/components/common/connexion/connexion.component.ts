@@ -52,9 +52,9 @@ export class ConnexionComponent implements OnInit {
     this.userService.connexion(email, password).subscribe((data: User) => {
       let navigationId = data.id.toString();
       this.userService.connectedUser = data;
+      this.router.navigate(["user/account/" + navigationId]);
       //observable
       this.userService.userModified.next(data);
-      this.router.navigate(["user/account/" + navigationId]);
     });
   }
 }

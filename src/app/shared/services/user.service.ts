@@ -188,12 +188,15 @@ export class UserService {
     });
   }
 
-  determineUserNotifications() {
-    this.userNotifications =
+  determineUserNotifications(): number {
+    // this.userNotifications =
+    return (
       this.loansPending.length +
       this.waitingfinishedLoans.length +
       this.loansDemandsReturn.length +
-      this.loansRequest.length;
+      this.loansRequest.length +
+      this.friendsDemandsReceived.length
+    );
   }
 
   //observable

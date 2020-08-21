@@ -47,7 +47,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.userService.getMe().subscribe((data) => {
         this.user = data;
         this.userService.connectedUser = data;
-        this.determineNotifications();
+        // this.determineNotifications();
+        this.notifications = this.userService.determineUserNotifications();
       });
     }
   }
@@ -65,13 +66,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate([`loansmonitoring/$${id}`]);
   }
 
-  determineNotifications() {
-    this.notifications =
-      this.userService.loansPending.length +
-      this.userService.waitingfinishedLoans.length +
-      this.userService.loansDemandsReturn.length +
-      this.userService.loansRequest.length;
-  }
+  // determineNotifications() {
+  //   this.notifications =
+  //     this.userService.loansPending.length +
+  //     this.userService.waitingfinishedLoans.length +
+  //     this.userService.loansDemandsReturn.length +
+  //     this.userService.loansRequest.length;
+  // }
 
   signOut() {
     localStorage.clear();

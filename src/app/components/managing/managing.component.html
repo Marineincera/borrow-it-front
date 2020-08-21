@@ -45,14 +45,14 @@
         <span>{{ borrowsInProgress.length }} </span>Objets empruntés
       </p>
     </div>
-    <div *ngIf="waitingfinishedBorrows && waitingfinishedBorrows.length >= 0">
+    <div *ngIf="waitingfinishedBorrows && waitingfinishedBorrows.length > 0">
       <p>
         <span>{{ waitingfinishedBorrows.length }} </span>retours en attente de
         confirmation
       </p>
     </div>
     <div
-      *ngIf="friendshipDemandsReceived && friendshipDemandsReceived.length >= 0"
+      *ngIf="friendshipDemandsReceived && friendshipDemandsReceived.length > 0"
     >
       <p>
         <span>{{ friendshipDemandsReceived.length }} </span>Demandes en amis

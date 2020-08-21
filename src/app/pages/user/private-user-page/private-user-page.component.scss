@@ -24,3 +24,16 @@ h2 {
   flex-direction: column;
   align-items: center;
 }
+
+a {
+  text-align: center;
+  text-decoration-style: none;
+  font-size: 25px;
+  align-self: center;
+}
+
+a:hover {
+  text-decoration-style: none;
+  background-color: #eadda6;
+  color: white;
+}

@@ -32,7 +32,7 @@ export class PrivateUserComponent implements OnInit, OnDestroy {
   }
 
   updateAvatar(id: number) {
-    this.openUpdateAvatar = true;
+    this.openUpdateAvatar = !this.openUpdateAvatar;
   }
 
   updateUser(id: number, newInfo: object) {

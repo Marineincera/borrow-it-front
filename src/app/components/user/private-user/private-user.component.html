@@ -21,25 +21,27 @@
       ></app-information>
     </div>
   </mat-card>
-
-  <img
-    src="{{ userToDisplay.avatar }}"
-    alt="{{ userToDisplay.pseudo }}"
-    title="modifier l'avatar"
-    (click)="updateAvatar(userToDisplay.id)"
-  />
-</section>
-<div *ngIf="openUpdateAvatar">
-  <mat-form-field class="example-full-width">
-    <mat-label>Leave a comment</mat-label>
-    <input
-      matInput
-      placeholder="Ex. It makes me feel..."
-      [(ngModel)]="newAvatar"
-      name="avatar"
+  <div class="avatar">
+    <img
+      src="{{ userToDisplay.avatar }}"
+      alt="{{ userToDisplay.pseudo }}"
+      title="modifier l'avatar"
+      (click)="updateAvatar(userToDisplay.id)"
     />
-  </mat-form-field>
-  <button (click)="updateUser(userToDisplay.id, { avatar: newAvatar })">
-    Valider changement
-  </button>
-</div>
+
+    <div *ngIf="openUpdateAvatar">
+      <mat-form-field class="example-full-width">
+        <mat-label>Leave a comment</mat-label>
+        <input
+          matInput
+          placeholder="Ex. It makes me feel..."
+          [(ngModel)]="newAvatar"
+          name="avatar"
+        />
+      </mat-form-field>
+      <button (click)="updateUser(userToDisplay.id, { avatar: newAvatar })">
+        Valider changement
+      </button>
+    </div>
+  </div>
+</section>

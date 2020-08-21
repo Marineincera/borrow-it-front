@@ -139,6 +139,7 @@ export class UserService {
     this.borrowsRequest = [];
     this.borrowsInPending = [];
     this.borrowsInProgress = [];
+    this.waitingfinishedBorrows = [];
     if (user.borrows.length > 0) {
       user.borrows.forEach((borrow) => {
         if (borrow.loanStatus.id === 1) {

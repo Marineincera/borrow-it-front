@@ -19,6 +19,7 @@ export class LoanMonitoringPageComponent implements OnInit {
   borrowsPending: Array<Loan>;
   loansInProgress: Array<Loan>;
   borrowsInProgress: Array<Loan>;
+  loansDemandsReturn: Array<Loan>;
   waitingLoansToComplete: Array<Loan>;
   waitingBorrowsToComplete: Array<Loan>;
 
@@ -43,6 +44,8 @@ export class LoanMonitoringPageComponent implements OnInit {
       this.user = data;
       this.allLoans = data.loans;
       this.allBorrows = data.borrows;
+      console.log(this.allBorrows);
+      console.log(this.borrowsInProgress);
       // this.loansRequestsReceived = data.loans;
       // this.borrowsRequestsSend = data.borrows;
       this.determineLoansCategories(data.loans);
@@ -55,6 +58,7 @@ export class LoanMonitoringPageComponent implements OnInit {
     this.loansPending = this.userService.loansPending;
     this.loansInProgress = this.userService.loansInProgress;
     this.waitingLoansToComplete = this.userService.waitingfinishedLoans;
+    this.loansDemandsReturn = this.userService.loansDemandsReturn;
     // this.loansRequestsReceived = [];
     // this.loansPending = [];
     // this.loansInProgress = [];

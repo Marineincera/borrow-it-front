@@ -17,6 +17,7 @@ export class ManagingComponent implements OnInit {
   loansRequest: Array<Loan>;
   loansPending: Array<Loan>;
   loansInProgress: Array<Loan>;
+  loansDemandsReturn: Array<Loan>;
   waitingfinishedLoans: Array<Loan>;
   borrowsRequest: Array<Loan>;
   borrowsInPending: Array<Loan>;
@@ -35,6 +36,7 @@ export class ManagingComponent implements OnInit {
     this.loansRequest = this.userService.loansRequest;
     this.loansPending = this.userService.loansPending;
     this.loansInProgress = this.userService.loansInProgress;
+    this.loansDemandsReturn = this.userService.loansDemandsReturn;
     this.waitingfinishedLoans = this.userService.waitingfinishedLoans;
     this.borrowsRequest = this.userService.borrowsRequest;
     this.borrowsInPending = this.userService.borrowsInPending;

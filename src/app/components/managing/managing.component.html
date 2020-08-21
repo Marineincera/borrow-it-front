@@ -2,19 +2,24 @@
   <div class="loans">
     <div *ngIf="loansRequest && loansRequest.length >= 0">
       <p>
-        <span>{{ loansRequest.length }}</span> Prêts demandé
+        <span>{{ loansRequest.length }}</span> Demandes d'emprunts reçues
       </p>
     </div>
 
     <div *ngIf="loansInProgress && loansInProgress.length >= 0">
       <p>
-        <span>{{ loansInProgress.length }} </span>prêts en cours
+        <span>{{ loansInProgress.length }} </span>objets prétés
       </p>
     </div>
 
     <div *ngIf="loansPending && loansPending.length >= 0">
       <p>
-        <span>{{ loansPending.length }}</span> prêts en attente
+        <span>{{ loansPending.length }}</span> objets à apporter à l'emprunteur
+      </p>
+    </div>
+    <div *ngIf="loansDemandsReturn && loansDemandsReturn.length >= 0">
+      <p>
+        <span>{{ loansDemandsReturn.length }} </span>Objets à récupérer
       </p>
     </div>
     <div *ngIf="waitingfinishedLoans && waitingfinishedLoans.length >= 0">
@@ -31,12 +36,13 @@
     </div>
     <div *ngIf="borrowsInPending && borrowsInPending.length >= 0">
       <p>
-        <span>{{ borrowsInPending.length }}</span> emprunts validés
+        <span>{{ borrowsInPending.length }}</span> objets attendus
       </p>
     </div>
+
     <div *ngIf="borrowsInProgress && borrowsInProgress.length >= 0">
       <p>
-        <span>{{ borrowsInProgress.length }} </span>emprunts en cours
+        <span>{{ borrowsInProgress.length }} </span>Objets empruntés
       </p>
     </div>
     <div *ngIf="waitingfinishedBorrows && waitingfinishedBorrows.length >= 0">

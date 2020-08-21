@@ -1,12 +1,17 @@
 import { Injectable } from "@angular/core";
 import { WshelperService } from "./wshelper.service";
 import { Loan } from "../models/loan";
+import { Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class LoanService {
   static URL = "http://localhost:3000/loans";
+
+  //observable
+  loanModified = new Subject<Loan>();
+  loan: Loan;
 
   constructor(private service: WshelperService) {}
 
@@ -28,5 +33,10 @@ export class LoanService {
 
   update(id, loan) {
     return this.service.put(LoanService.URL + "/update/" + id, loan);
+  }
+
+  //observable
+  emitModifiedLoan() {
+    this.loanModified.next(this.loan);
   }
 }

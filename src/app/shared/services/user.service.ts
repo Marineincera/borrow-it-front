@@ -20,6 +20,7 @@ export class UserService {
   loansRequest: Array<Loan>;
   loansPending: Array<Loan>;
   loansInProgress: Array<Loan>;
+  loansDemandsReturn: Array<Loan>;
   waitingfinishedLoans: Array<Loan>;
   borrowsRequest: Array<Loan>;
   borrowsInPending: Array<Loan>;
@@ -108,6 +109,7 @@ export class UserService {
     this.loansRequest = [];
     this.loansPending = [];
     this.loansInProgress = [];
+    this.loansDemandsReturn = [];
     this.waitingfinishedLoans = [];
     if (user.loans.length > 0) {
       user.loans.forEach((loan) => {
@@ -117,9 +119,13 @@ export class UserService {
         if (loan.loanStatus.id === 5) {
           this.loansPending.push(loan);
         }
-        if (loan.loanStatus.id === 2) {
+        if (loan.loanStatus.id === 2 || 3) {
           this.loansInProgress.push(loan);
         }
+        if (loan.loanStatus.id === 3) {
+          this.loansDemandsReturn.push(loan);
+        }
+
         if (loan.loanStatus.id === 4) {
           this.waitingfinishedLoans.push(loan);
         }
@@ -139,9 +145,10 @@ export class UserService {
         if (borrow.loanStatus.id === 5) {
           this.borrowsInPending.push(borrow);
         }
-        if (borrow.loanStatus.id === 2) {
+        if (borrow.loanStatus.id === 2 || 3) {
           this.borrowsInProgress.push(borrow);
         }
+
         if (borrow.loanStatus.id === 4) {
           this.waitingfinishedBorrows.push(borrow);
         }

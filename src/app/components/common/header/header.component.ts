@@ -69,6 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.notifications =
       this.userService.loansPending.length +
       this.userService.waitingfinishedLoans.length +
+      this.userService.loansDemandsReturn.length +
       this.userService.loansRequest.length;
   }
 

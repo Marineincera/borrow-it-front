@@ -42,103 +42,30 @@ export class LoanMonitoringPageComponent implements OnInit {
   getUser() {
     this.userService.getMe().subscribe((data) => {
       this.user = data;
-      this.allLoans = data.loans;
-      this.allBorrows = data.borrows;
-      console.log(this.allBorrows);
-      console.log(this.borrowsInProgress);
-      // this.loansRequestsReceived = data.loans;
-      // this.borrowsRequestsSend = data.borrows;
-      this.determineLoansCategories(data.loans);
-      this.determineBorrowsCategories(data.borrows);
+      // this.allLoans = data.loans;
+      // this.allBorrows = data.borrows;
+      // console.log(this.allBorrows);
+      this.determineLoansCategories();
+      this.determineBorrowsCategories();
     });
   }
 
-  determineLoansCategories(receivedArray: Array<Loan>) {
+  determineLoansCategories() {
     this.loansRequestsReceived = this.userService.loansRequest;
     this.loansPending = this.userService.loansPending;
     this.loansInProgress = this.userService.loansInProgress;
     this.waitingLoansToComplete = this.userService.waitingfinishedLoans;
     this.loansDemandsReturn = this.userService.loansDemandsReturn;
-    // this.loansRequestsReceived = [];
-    // this.loansPending = [];
-    // this.loansInProgress = [];
-    // receivedArray.forEach((loan) => {
-    //   if (loan.loanStatus.id === 1) {
-    //     this.loansRequestsReceived.push(loan);
-    //   }
-    //   if (loan.loanStatus.id === 5) {
-    //     this.loansPending.push(loan);
-    //   }
-    //   if (loan.loanStatus.id === 2) {
-    //     this.loansInProgress.push(loan);
-    //   }
-    // });
     this.loansAnalyseDone = true;
   }
 
-  determineBorrowsCategories(receivedArray: Array<Loan>) {
+  determineBorrowsCategories() {
     this.borrowsRequestsSend = this.userService.borrowsRequest;
     this.borrowsPending = this.userService.borrowsInPending;
     this.borrowsInProgress = this.userService.borrowsInProgress;
     this.waitingBorrowsToComplete = this.userService.waitingfinishedBorrows;
-    // this.borrowsRequestsSend = [];
-    // this.borrowsPending = [];
-    // this.borrowsInProgress = [];
-    // receivedArray.forEach((loan) => {
-    //   if (loan.loanStatus.id === 1) {
-    //     this.borrowsRequestsSend.push(loan);
-    //   }
-    //   if (loan.loanStatus.id === 5) {
-    //     this.borrowsPending.push(loan);
-    //   }
-    //   if (loan.loanStatus.id === 2) {
-    //     this.borrowsInProgress.push(loan);
-    //   }
-    // });
     this.borrowsAnalyseDone = true;
+    console.log(this.borrowsInProgress);
+    console.log(this.userService.borrowsInProgress);
   }
-
-  // initializeArrays(loans: Array<Loan>, borrows: Array<Loan>) {
-  //   this.determineLoansCategories(
-  //     loans,
-  //     this.loansRequestsReceived,
-  //     this.loansPending,
-  //     this.loansInProgress,
-  //     this.loansAnalyseDone
-  //   );
-  //   this.determineLoansCategories(
-  //     borrows,
-  //     this.borrowsRequestsSend,
-  //     this.borrowsPending,
-  //     this.borrowsInProgress,
-  //     this.borrowsAnalyseDone
-  //   );
-  //   this.loansAnalyseDone = true;
-  //   this.borrowsAnalyseDone = true;
-  // }
-
-  // determineLoansCategories(
-  //   receivedArray: Array<Loan>,
-  //   requestArray: Array<Loan>,
-  //   pendingArray: Array<Loan>,
-  //   inProgressArray: Array<Loan>,
-  //   doneBoolean: boolean
-  // ) {
-  //   requestArray = [];
-  //   pendingArray = [];
-  //   receivedArray.forEach((loan) => {
-  //     if (loan.loanStatus.id === 1) {
-  //       requestArray.push(loan);
-  //     }
-  //     if (loan.loanStatus.id === 5) {
-  //       pendingArray.push(loan);
-  //     }
-  //     if (loan.loanStatus.id === 2) {
-  //       inProgressArray.push(loan);
-  //     }
-  //   });
-  //   doneBoolean = true;
-  //   console.log(requestArray);
-  //   console.log(this.loansAnalyseDone);
-  // }
 }

@@ -19,6 +19,9 @@ export class ValidationPageComponent implements OnInit {
   isOwner: boolean;
   isBorrower: boolean;
   status = "";
+  //
+  statusChanged: boolean;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -113,10 +116,21 @@ export class ValidationPageComponent implements OnInit {
 
   changeLoanStatus(loan: Loan) {
     const newStatus = this.changementLoanStatus(loan);
-
-    this.loanService
-      .update(loan.id, { loanStatus: { id: newStatus } })
-      .subscribe((data) => console.log(data));
+    if (newStatus) {
+      this.loanService
+        .update(loan.id, { loanStatus: { id: newStatus } })
+        .subscribe((data) => {
+          if (newStatus === 6) {
+            this.deleteLoan(loan);
+            this.changeItemAvailability(loan);
+            this.router.navigate([
+              "loansmonitoring/" + this.userService.connectedUser.id,
+            ]);
+          } else {
+            location.reload();
+          }
+        });
+    }
   }
 
   changeItemAvailability(loan: Loan) {
@@ -128,6 +142,8 @@ export class ValidationPageComponent implements OnInit {
 
   deleteLoan(loan: Loan) {
     this.loanService.delete(loan.id).subscribe();
+    //test
+    // this.userService.emitModifiedUser();
   }
 
   changementLoanStatus(loan: Loan) {
@@ -143,14 +159,10 @@ export class ValidationPageComponent implements OnInit {
       }
       if (loan.loanStatus.id === 4) {
         newLoanStatus = 6;
-        this.changeItemAvailability(loan);
-        this.deleteLoan(loan);
         return newLoanStatus;
       }
       if (loan.loanStatus.id === 3) {
         newLoanStatus = 6;
-        this.changeItemAvailability(loan);
-        this.deleteLoan(loan);
         return newLoanStatus;
       }
     } else {

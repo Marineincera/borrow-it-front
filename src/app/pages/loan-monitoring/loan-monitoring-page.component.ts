@@ -42,7 +42,7 @@ export class LoanMonitoringPageComponent implements OnInit {
   getUser() {
     this.userService.getMe().subscribe((data) => {
       this.user = data;
-      // this.allLoans = data.loans;
+      this.allLoans = data.loans;
       // this.allBorrows = data.borrows;
       // console.log(this.allBorrows);
       this.determineLoansCategories();

@@ -1,5 +1,16 @@
 <section *ngIf="user">
-  <app-managing></app-managing>
+  <app-managing
+    *ngIf="loansAnalyseDone && borrowsAnalyseDone"
+    [loans]="allLoans"
+    [loansRequest]="loansRequestsReceived"
+    [loansPending]="loansPending"
+    [loansInProgress]="loansInProgress"
+    [loansDemandsReturn]="loansDemandsReturn"
+    [waitingfinishedLoans]="waitingLoansToComplete"
+    [borrowsInPending]="borrowsPending"
+    [borrowsInProgress]="borrowsInProgress"
+    [waitingfinishedBorrows]="waitingBorrowsToComplete"
+  ></app-managing>
   <mat-tab-group *ngIf="loansAnalyseDone && borrowsAnalyseDone">
     <mat-tab label="Demandes d'emprunt reçues" *ngIf="loansRequestsReceived">
       <div class="loans">

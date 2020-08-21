@@ -12,38 +12,39 @@ import { User } from "src/app/shared/models/user";
 export class ManagingComponent implements OnInit {
   @Input() user: User;
 
-  loans: Array<Loan>;
-  borrows: Array<Loan>;
-  loansRequest: Array<Loan>;
-  loansPending: Array<Loan>;
-  loansInProgress: Array<Loan>;
-  loansDemandsReturn: Array<Loan>;
-  waitingfinishedLoans: Array<Loan>;
-  borrowsRequest: Array<Loan>;
-  borrowsInPending: Array<Loan>;
-  borrowsInProgress: Array<Loan>;
-  waitingfinishedBorrows: Array<Loan>;
+  @Input() loans: Array<Loan>;
+  @Input() loansRequest: Array<Loan>;
+  @Input() loansPending: Array<Loan>;
+  @Input() loansInProgress: Array<Loan>;
+  @Input() loansDemandsReturn: Array<Loan>;
+  @Input() waitingfinishedLoans: Array<Loan>;
+  // borrowsRequest: Array<Loan>;
+  @Input() borrowsInPending: Array<Loan>;
+  @Input() borrowsInProgress: Array<Loan>;
+  @Input() waitingfinishedBorrows: Array<Loan>;
 
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.determineArraysLoansAndBorrows(this.user);
+    if (this.loans && this.waitingfinishedBorrows) {
+      console.log(this.waitingfinishedBorrows);
+    }
   }
 
   determineArraysLoansAndBorrows(user: User) {
-    this.loans = this.userService.loans;
-    this.borrows = this.userService.borrows;
-    this.loansRequest = this.userService.loansRequest;
-    this.loansPending = this.userService.loansPending;
-    this.loansInProgress = this.userService.loansInProgress;
-    this.loansDemandsReturn = this.userService.loansDemandsReturn;
-    this.waitingfinishedLoans = this.userService.waitingfinishedLoans;
-    this.borrowsRequest = this.userService.borrowsRequest;
-    this.borrowsInPending = this.userService.borrowsInPending;
-    this.borrowsInProgress = this.userService.borrowsInProgress;
-    this.waitingfinishedBorrows = this.userService.waitingfinishedBorrows;
-
-    console.log(this.userService.loansInProgress);
+    // this.loans = this.userService.loans;
+    // this.borrows = this.userService.borrows;
+    // this.loansRequest = this.userService.loansRequest;
+    // this.loansPending = this.userService.loansPending;
+    // this.loansInProgress = this.userService.loansInProgress;
+    // this.loansDemandsReturn = this.userService.loansDemandsReturn;
+    // this.waitingfinishedLoans = this.userService.waitingfinishedLoans;
+    // this.borrowsRequest = this.userService.borrowsRequest;
+    // this.borrowsInPending = this.userService.borrowsInPending;
+    // this.borrowsInProgress = this.userService.borrowsInProgress;
+    // this.waitingfinishedBorrows = this.userService.waitingfinishedBorrows;
+    // console.log(this.userService.loansInProgress);
   }
 
   openLoansMonitoring(id: number) {

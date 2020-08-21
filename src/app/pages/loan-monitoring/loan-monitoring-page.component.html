@@ -12,26 +12,42 @@
     [waitingfinishedBorrows]="waitingBorrowsToComplete"
     [friendshipDemandsReceived]="friendshipsDemandsReceived"
   ></app-managing>
+
   <mat-tab-group *ngIf="loansAnalyseDone && borrowsAnalyseDone">
     <mat-tab label="Demandes d'emprunt reçues" *ngIf="loansRequestsReceived">
-      <div class="loans">
+      <div
+        [ngClass]="{
+          loans: loansRequestsReceived.length > 0,
+          empty: loansRequestsReceived.length === 0
+        }"
+      >
         <div *ngFor="let loan of loansRequestsReceived" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
         <div *ngIf="loansRequestsReceived.length === 0" class="text">
-          Vous n'avez actuellement pas reçu de demande pour prêter un de vos
-          objets.
+          <p>
+            Vous n'avez actuellement pas reçu de demande pour prêter un de vos
+            objets.
+          </p>
         </div>
       </div>
     </mat-tab>
+
     <mat-tab label="Demandes de prêt envoyées" *ngIf="borrowsRequestsSend">
-      <div class="loans">
+      <div
+        [ngClass]="{
+          loans: borrowsRequestsSend.length > 0,
+          empty: borrowsRequestsSend.length === 0
+        }"
+      >
         <div *ngFor="let loan of borrowsRequestsSend" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
         <div *ngIf="borrowsRequestsSend.length === 0" class="text">
-          Vous n'avez actuellement pas envoyé de demande pour emprunter un
-          objet.
+          <p>
+            Vous n'avez actuellement pas envoyé de demande pour emprunter un
+            objet.
+          </p>
         </div>
       </div>
     </mat-tab>
@@ -45,6 +61,7 @@
         </div>
       </div>
     </mat-tab>
+
     <mat-tab
       label="Objets à acheminer à l'emprunteur"
       *ngIf="loansPending && loansPending.length > 0"
@@ -67,22 +84,36 @@
     </mat-tab>
 
     <mat-tab label="Objets que je prête" *ngIf="loansInProgress">
-      <div class="loans">
+      <div
+        [ngClass]="{
+          loans: loansInProgress.length > 0,
+          empty: loansInProgress.length === 0
+        }"
+      >
         <div *ngFor="let loan of loansInProgress" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
         <div *ngIf="loansInProgress.length === 0" class="text">
-          Vous ne prêtez aucun objet actuellement.
+          <p>
+            Vous ne prêtez aucun objet actuellement.
+          </p>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Objets que j'ai empruntés" *ngIf="borrowsInProgress">
-      <div class="loans">
+      <div
+        [ngClass]="{
+          loans: borrowsInProgress.length > 0,
+          empty: borrowsInProgress.length === 0
+        }"
+      >
         <div *ngFor="let loan of borrowsInProgress" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
         <div *ngIf="borrowsInProgress.length === 0" class="text">
-          Vous n'empruntez aucun objet actuellement.
+          <p>
+            Vous n'empruntez aucun objet actuellement.
+          </p>
         </div>
       </div>
     </mat-tab>

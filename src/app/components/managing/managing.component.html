@@ -10,7 +10,7 @@
     </div>
 
     <div *ngIf="loansInProgress && loansInProgress.length >= 0">
-      <p *ngIf="loansInProgress.length > 1">
+      <p *ngIf="loansInProgress.length > 1 || loansInProgress.length === 0">
         <span>{{ loansInProgress.length }} </span>objets prétés
       </p>
       <p *ngIf="loansInProgress.length === 1">
@@ -59,7 +59,7 @@
     </div>
 
     <div *ngIf="borrowsInProgress && borrowsInProgress.length >= 0">
-      <p *ngIf="borrowsInProgress.length > 1">
+      <p *ngIf="borrowsInProgress.length > 1 || borrowsInProgress.length === 0">
         <span>{{ borrowsInProgress.length }} </span>Objets empruntés
       </p>
       <p *ngIf="borrowsInProgress.length === 1">

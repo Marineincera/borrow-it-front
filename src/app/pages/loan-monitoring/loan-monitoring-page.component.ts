@@ -4,6 +4,7 @@ import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
 import { LoanService } from "src/app/shared/services/loan.service";
 import { FriendshipDemand } from "src/app/shared/models/friendship-demand";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-loan-monitoring-page",
@@ -32,9 +33,23 @@ export class LoanMonitoringPageComponent implements OnInit {
   //Friendships
   friendshipsDemandsReceived: Array<FriendshipDemand>;
 
+  //ArrayForNavigation
+  // navigationHelperArray = [
+  //   "loansRequests",
+  //   "loansInProgress",
+  //   "loansPending",
+  //   "loansDemandsReturn",
+  //   "waitingFinishedLoans",
+  //   "borrowsInPending",
+  //   "borrowsInProgress",
+  //   "waitingFinishedBorrows",
+  //   "friendshipDemandsReceived",
+  // ];
+  // navigationReceived: number;
   constructor(
     private userService: UserService,
-    private loanService: LoanService
+    private loanService: LoanService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +57,17 @@ export class LoanMonitoringPageComponent implements OnInit {
       this.getUser();
     }
   }
+
+  // openSection(sectionName: string) {
+  //   console.log(sectionName);
+
+  //   this.navigationHelperArray.forEach((name) => {
+  //     if (name === sectionName) {
+  //       console.log(sectionName);
+  //       this.navigationReceived = 2;
+  //     }
+  //   });
+  // }
 
   getUser() {
     this.userService.getMe().subscribe((data: User) => {

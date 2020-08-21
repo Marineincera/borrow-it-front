@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Loan } from "src/app/shared/models/loan";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
@@ -26,6 +26,9 @@ export class ManagingComponent implements OnInit {
 
   @Input() friendshipDemandsReceived: Array<FriendshipDemand>;
 
+  // @Input() navigationHelperArray: Array<string>;
+  // @Output() sectionMonitoringToOpen = new EventEmitter<string>();
+
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
@@ -34,7 +37,8 @@ export class ManagingComponent implements OnInit {
     }
   }
 
-  openLoansMonitoring(id: number) {
-    this.router.navigate([`loansmonitoring/$${id}`]);
-  }
+  // openSectionMonitoring(sectionName: string) {
+  //   console.log(sectionName);
+  //   this.sectionMonitoringToOpen.emit(sectionName);
+  // }
 }

@@ -33,4 +33,12 @@ export class ItemService {
   update(id, item) {
     return this.service.put(ItemService.URL + "/update/" + id, item);
   }
+
+  getByOwner(id: number) {
+    return this.service.get(ItemService.URL + "/owner/" + id.toString());
+  }
+
+  getItemsByKeywords(keyword: string) {
+    return this.service.get(ItemService.URL + "/search/" + keyword);
+  }
 }

@@ -62,6 +62,10 @@ export class UserService {
     return this.service.put(UserService.URL + "users/modify/" + id, user);
   }
 
+  getFriendsById(id: number) {
+    return this.service.get(UserService.URL + "users/friends/" + id.toString());
+  }
+
   public inscription(
     pseudo: string,
     email: string,

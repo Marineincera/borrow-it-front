@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Loan } from "src/app/shared/models/loan";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
+import { FriendshipDemand } from "src/app/shared/models/friendship-demand";
 
 @Component({
   selector: "app-managing",
@@ -12,39 +13,32 @@ import { User } from "src/app/shared/models/user";
 export class ManagingComponent implements OnInit {
   @Input() user: User;
 
-  loans: Array<Loan>;
-  borrows: Array<Loan>;
-  loansRequest: Array<Loan>;
-  loansPending: Array<Loan>;
-  loansInProgress: Array<Loan>;
-  waitingfinishedLoans: Array<Loan>;
-  borrowsRequest: Array<Loan>;
-  borrowsInPending: Array<Loan>;
-  borrowsInProgress: Array<Loan>;
-  waitingfinishedBorrows: Array<Loan>;
+  @Input() loans: Array<Loan>;
+  @Input() loansRequest: Array<Loan>;
+  @Input() loansPending: Array<Loan>;
+  @Input() loansInProgress: Array<Loan>;
+  @Input() loansDemandsReturn: Array<Loan>;
+  @Input() waitingfinishedLoans: Array<Loan>;
+
+  @Input() borrowsInPending: Array<Loan>;
+  @Input() borrowsInProgress: Array<Loan>;
+  @Input() waitingfinishedBorrows: Array<Loan>;
+
+  @Input() friendshipDemandsReceived: Array<FriendshipDemand>;
+
+  // @Input() navigationHelperArray: Array<string>;
+  // @Output() sectionMonitoringToOpen = new EventEmitter<string>();
 
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
-    this.determineArraysLoansAndBorrows(this.user);
+    if (this.loans && this.waitingfinishedBorrows) {
+      console.log(this.waitingfinishedBorrows);
+    }
   }
 
-  determineArraysLoansAndBorrows(user: User) {
-    this.loans = this.userService.loans;
-    this.borrows = this.userService.borrows;
-    this.loansRequest = this.userService.loansRequest;
-    this.loansPending = this.userService.loansPending;
-    this.loansInProgress = this.userService.loansInProgress;
-    this.waitingfinishedLoans = this.userService.waitingfinishedLoans;
-    this.borrowsRequest = this.userService.borrowsRequest;
-    this.borrowsInPending = this.userService.borrowsInPending;
-    this.borrowsInProgress = this.userService.borrowsInProgress;
-    this.waitingfinishedBorrows = this.userService.waitingfinishedBorrows;
-
-    console.log(this.userService.loansInProgress);
-  }
-
-  openLoansMonitoring(id: number) {
-    this.router.navigate([`loansmonitoring/$${id}`]);
-  }
+  // openSectionMonitoring(sectionName: string) {
+  //   console.log(sectionName);
+  //   this.sectionMonitoringToOpen.emit(sectionName);
+  // }
 }

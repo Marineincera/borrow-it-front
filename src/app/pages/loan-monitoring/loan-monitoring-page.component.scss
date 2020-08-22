@@ -1,4 +1,5 @@
-.loans {
+.loans,
+.friends {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -12,4 +13,11 @@
 section {
   display: flex;
   flex-direction: column;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15vh;
 }

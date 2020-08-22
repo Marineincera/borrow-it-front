@@ -1,8 +1,15 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+} from "@angular/core";
 import { Item } from "src/app/shared/models/item";
 import { ItemService } from "src/app/shared/services/item.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
+import { ViewportScroller } from "@angular/common";
 
 @Component({
   selector: "app-homepage",
@@ -18,20 +25,25 @@ export class HomepageComponent implements OnInit {
   searchResultsItems: Array<Item>;
   searchBarClosed = false;
 
+  @ViewChild("results") results: ElementRef;
+
   constructor(
     private itemService: ItemService,
-    private _userService: UserService
+    private _userService: UserService,
+    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
     this.initializeItemsArray();
-    this.initializeUsersArray();
+    // this.initializeUsersArray();
     this.getConnectedUser();
   }
 
   initializeItemsArray() {
     this.items = [];
     this.itemService.getAllItem().subscribe((data: Array<Item>) => {
+      console.log(data);
+      let num = 0;
       data.forEach((item) => {
         if (item.itemStatus.id === 1) {
           if (item.visibility && item.visibility === "all") {
@@ -42,11 +54,11 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  initializeUsersArray() {
-    this._userService.getAllUsers().subscribe((data: Array<User>) => {
-      this.users = data;
-    });
-  }
+  // initializeUsersArray() {
+  //   this._userService.getAllUsers().subscribe((data: Array<User>) => {
+  //     this.users = data;
+  //   });
+  // }
 
   getConnectedUser() {
     if (localStorage.getItem("TOKEN")) {
@@ -81,6 +93,12 @@ export class HomepageComponent implements OnInit {
 
   displaySearchResultsItems(items: Array<Item>) {
     this.searchResultsItems = items;
+    const targetElement = this.results.nativeElement;
+    targetElement.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
   }
 
   openSearchbarAgain() {

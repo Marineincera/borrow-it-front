@@ -1,7 +1,7 @@
 <section *ngIf="itemsList || usersList">
   <div class="list">
-    <div *ngIf="itemsList && itemsList.length == 0">
-      <p>Il n'y a aucun objets dans cette section</p>
+    <div *ngIf="itemsList && itemsList.length == 0" class="empty">
+      <p>Il n'y a aucun objet dans cette section</p>
     </div>
     <div *ngFor="let element of array" class="element">
       <div *ngIf="itemsList">

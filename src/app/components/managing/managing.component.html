@@ -1,48 +1,89 @@
 <div class="monitoring" *ngIf="loans">
   <div class="loans">
-    <div *ngIf="loansRequest && loansRequest.length >= 0">
-      <p>
-        <span>{{ loansRequest.length }}</span> Prêts demandé
+    <div *ngIf="loansRequest && loansRequest.length > 0">
+      <p *ngIf="loansRequest.length > 1">
+        <span>{{ loansRequest.length }}</span> Demandes d'emprunt reçues
+      </p>
+      <p *ngIf="loansRequest.length === 1">
+        <span>{{ loansRequest.length }}</span> Demande d'emprunt reçue
       </p>
     </div>
 
     <div *ngIf="loansInProgress && loansInProgress.length >= 0">
-      <p>
-        <span>{{ loansInProgress.length }} </span>prêts en cours
+      <p *ngIf="loansInProgress.length > 1 || loansInProgress.length === 0">
+        <span>{{ loansInProgress.length }} </span>objets prétés
+      </p>
+      <p *ngIf="loansInProgress.length === 1">
+        <span>{{ loansInProgress.length }} </span>objet prété
       </p>
     </div>
 
-    <div *ngIf="loansPending && loansPending.length >= 0">
-      <p>
-        <span>{{ loansPending.length }}</span> prêts en attente
+    <div *ngIf="loansPending && loansPending.length > 0">
+      <p *ngIf="loansPending.length > 1">
+        <span>{{ loansPending.length }}</span> objets à apporter à l'emprunteur
+      </p>
+      <p *ngIf="loansPending.length === 1">
+        <span>{{ loansPending.length }}</span> objet à apporter à l'emprunteur
       </p>
     </div>
-    <div *ngIf="waitingfinishedLoans && waitingfinishedLoans.length >= 0">
-      <p>
+    <div *ngIf="loansDemandsReturn && loansDemandsReturn.length > 0">
+      <p *ngIf="loansDemandsReturn.length > 1">
+        <span>{{ loansDemandsReturn.length }} </span>Objets à récupérer
+      </p>
+      <p *ngIf="loansDemandsReturn.length === 1">
+        <span>{{ loansDemandsReturn.length }} </span>Objet à récupérer
+      </p>
+    </div>
+    <div *ngIf="waitingfinishedLoans && waitingfinishedLoans.length > 0">
+      <p *ngIf="waitingfinishedLoans.length > 1">
         <span>{{ waitingfinishedLoans.length }} </span>retours à valider
+      </p>
+      <p *ngIf="waitingfinishedLoans.length === 1">
+        <span>{{ waitingfinishedLoans.length }} </span>retour à valider
       </p>
     </div>
   </div>
   <div class="borrows">
-    <div *ngIf="borrowsRequest && borrowsRequest.length >= 0">
+    <!-- <div *ngIf="borrowsRequest && borrowsRequest.length >= 0">
       <p>
         <span>{{ borrowsRequest.length }} </span> demande d'emprunts en cours
       </p>
-    </div>
-    <div *ngIf="borrowsInPending && borrowsInPending.length >= 0">
-      <p>
-        <span>{{ borrowsInPending.length }}</span> emprunts validés
+    </div> -->
+    <div *ngIf="borrowsInPending && borrowsInPending.length > 0">
+      <p *ngIf="borrowsInPending.length > 1">
+        <span>{{ borrowsInPending.length }}</span> objets attendus
+      </p>
+      <p *ngIf="borrowsInPending.length === 1">
+        <span>{{ borrowsInPending.length }}</span> objet attendu
       </p>
     </div>
+
     <div *ngIf="borrowsInProgress && borrowsInProgress.length >= 0">
-      <p>
-        <span>{{ borrowsInProgress.length }} </span>emprunts en cours
+      <p *ngIf="borrowsInProgress.length > 1 || borrowsInProgress.length === 0">
+        <span>{{ borrowsInProgress.length }} </span>Objets empruntés
+      </p>
+      <p *ngIf="borrowsInProgress.length === 1">
+        <span>{{ borrowsInProgress.length }} </span>Objet emprunté
       </p>
     </div>
-    <div *ngIf="waitingfinishedBorrows && waitingfinishedBorrows.length >= 0">
-      <p>
+    <div *ngIf="waitingfinishedBorrows && waitingfinishedBorrows.length > 0">
+      <p *ngIf="waitingfinishedBorrows.length > 1">
         <span>{{ waitingfinishedBorrows.length }} </span>retours en attente de
         confirmation
+      </p>
+      <p *ngIf="waitingfinishedBorrows.length === 1">
+        <span>{{ waitingfinishedBorrows.length }} </span>retour en attente de
+        confirmation
+      </p>
+    </div>
+    <div
+      *ngIf="friendshipDemandsReceived && friendshipDemandsReceived.length > 0"
+    >
+      <p *ngIf="friendshipDemandsReceived.length > 1">
+        <span>{{ friendshipDemandsReceived.length }} </span>Demandes en amis
+      </p>
+      <p *ngIf="friendshipDemandsReceived.length === 1">
+        <span>{{ friendshipDemandsReceived.length }} </span>Demande en ami
       </p>
     </div>
   </div>

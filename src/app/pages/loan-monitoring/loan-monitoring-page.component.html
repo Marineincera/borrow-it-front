@@ -1,46 +1,156 @@
 <section *ngIf="user">
-  <app-managing></app-managing>
-  <mat-tab-group>
-    <mat-tab label="Prêts demandés" *ngIf="loansAnalyseDone">
-      <div *ngIf="loansRequestsReceived" class="loans">
+  <app-managing
+    *ngIf="loansAnalyseDone && borrowsAnalyseDone"
+    [loans]="allLoans"
+    [loansRequest]="loansRequestsReceived"
+    [loansPending]="loansPending"
+    [loansInProgress]="loansInProgress"
+    [loansDemandsReturn]="loansDemandsReturn"
+    [waitingfinishedLoans]="waitingLoansToComplete"
+    [borrowsInPending]="borrowsPending"
+    [borrowsInProgress]="borrowsInProgress"
+    [waitingfinishedBorrows]="waitingBorrowsToComplete"
+    [friendshipDemandsReceived]="friendshipsDemandsReceived"
+  ></app-managing>
+
+  <mat-tab-group *ngIf="loansAnalyseDone && borrowsAnalyseDone">
+    <mat-tab label="Demandes d'emprunt reçues" *ngIf="loansRequestsReceived">
+      <div
+        [ngClass]="{
+          loans: loansRequestsReceived.length > 0,
+          empty: loansRequestsReceived.length === 0
+        }"
+      >
         <div *ngFor="let loan of loansRequestsReceived" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
-      </div>
-    </mat-tab>
-    <mat-tab label="Demandes Reçues" *ngIf="borrowsAnalyseDone">
-      <div *ngIf="borrowsRequestsSend" class="loans">
-        <div *ngFor="let loan of borrowsRequestsSend" class="loan">
-          <app-private-loan [loan]="loan"></app-private-loan>
+        <div *ngIf="loansRequestsReceived.length === 0" class="text">
+          <p>
+            Vous n'avez actuellement pas reçu de demande pour prêter un de vos
+            objets.
+          </p>
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Emprunts en attente" *ngIf="borrowsAnalyseDone">
-      <div *ngIf="borrowsPending" class="loans">
+
+    <mat-tab label="Demandes de prêt envoyées" *ngIf="borrowsRequestsSend">
+      <div
+        [ngClass]="{
+          loans: borrowsRequestsSend.length > 0,
+          empty: borrowsRequestsSend.length === 0
+        }"
+      >
+        <div *ngFor="let loan of borrowsRequestsSend" class="loan">
+          <app-private-loan [loan]="loan"></app-private-loan>
+        </div>
+        <div *ngIf="borrowsRequestsSend.length === 0" class="text">
+          <p>
+            Vous n'avez actuellement pas envoyé de demande pour emprunter un
+            objet.
+          </p>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab
+      label="Objets attendus"
+      *ngIf="borrowsPending && borrowsPending.length > 0"
+    >
+      <div class="loans">
         <div *ngFor="let loan of borrowsPending" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Prêts validés" *ngIf="loansAnalyseDone">
-      <div *ngIf="loansPending" class="loans">
+
+    <mat-tab
+      label="Objets à acheminer à l'emprunteur"
+      *ngIf="loansPending && loansPending.length > 0"
+    >
+      <div class="loans">
         <div *ngFor="let loan of loansPending" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
-
-    <mat-tab label="Mes prêts en cours" *ngIf="loansAnalyseDone">
-      <div *ngIf="loansInProgress" class="loans">
-        <div *ngFor="let loan of loansInProgress" class="loan">
+    <mat-tab
+      label="Objets à récupérer"
+      *ngIf="loansDemandsReturn && loansDemandsReturn.length > 0"
+    >
+      <div class="loans">
+        <div *ngFor="let loan of loansDemandsReturn" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Mes emprunts en cours" *ngIf="borrowsAnalyseDone">
-      <div *ngIf="borrowsInProgress" class="loans">
+
+    <mat-tab label="Objets que je prête" *ngIf="loansInProgress">
+      <div
+        [ngClass]="{
+          loans: loansInProgress.length > 0,
+          empty: loansInProgress.length === 0
+        }"
+      >
+        <div *ngFor="let loan of loansInProgress" class="loan">
+          <app-private-loan [loan]="loan"></app-private-loan>
+        </div>
+        <div *ngIf="loansInProgress.length === 0" class="text">
+          <p>
+            Vous ne prêtez aucun objet actuellement.
+          </p>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Objets que j'ai empruntés" *ngIf="borrowsInProgress">
+      <div
+        [ngClass]="{
+          loans: borrowsInProgress.length > 0,
+          empty: borrowsInProgress.length === 0
+        }"
+      >
         <div *ngFor="let loan of borrowsInProgress" class="loan">
           <app-private-loan [loan]="loan"></app-private-loan>
+        </div>
+        <div *ngIf="borrowsInProgress.length === 0" class="text">
+          <p>
+            Vous n'empruntez aucun objet actuellement.
+          </p>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab
+      label="Objets rendus en attente de confirmation"
+      *ngIf="waitingBorrowsToComplete && waitingBorrowsToComplete.length > 0"
+    >
+      <div class="loans">
+        <div *ngFor="let loan of waitingBorrowsToComplete" class="loan">
+          <app-private-loan [loan]="loan"></app-private-loan>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab
+      label="Retours à confirmer"
+      *ngIf="waitingLoansToComplete && waitingLoansToComplete.length > 0"
+    >
+      <div class="loans">
+        <div *ngFor="let loan of waitingLoansToComplete" class="loan">
+          <app-private-loan [loan]="loan"></app-private-loan>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab
+      label="Demandes en ami reçues"
+      *ngIf="
+        friendshipsDemandsReceived && friendshipsDemandsReceived.length > 0
+      "
+    >
+      <div class="friends">
+        <div
+          *ngFor="let friendshipDemand of friendshipsDemandsReceived"
+          class="friend"
+        >
+          <app-public-small-user
+            [userReceived]="friendshipDemand.asker"
+          ></app-public-small-user>
         </div>
       </div>
     </mat-tab>

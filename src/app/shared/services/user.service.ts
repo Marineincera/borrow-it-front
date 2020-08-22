@@ -15,12 +15,16 @@ export class UserService {
   static URL = "http://localhost:3000/";
 
   connectedUser;
+  userNotifications: number;
   loans: Array<Loan>;
   borrows: Array<Loan>;
+
   loansRequest: Array<Loan>;
   loansPending: Array<Loan>;
   loansInProgress: Array<Loan>;
+  loansDemandsReturn: Array<Loan>;
   waitingfinishedLoans: Array<Loan>;
+
   borrowsRequest: Array<Loan>;
   borrowsInPending: Array<Loan>;
   borrowsInProgress: Array<Loan>;
@@ -108,6 +112,7 @@ export class UserService {
     this.loansRequest = [];
     this.loansPending = [];
     this.loansInProgress = [];
+    this.loansDemandsReturn = [];
     this.waitingfinishedLoans = [];
     if (user.loans.length > 0) {
       user.loans.forEach((loan) => {
@@ -120,6 +125,10 @@ export class UserService {
         if (loan.loanStatus.id === 2) {
           this.loansInProgress.push(loan);
         }
+        if (loan.loanStatus.id === 3) {
+          this.loansDemandsReturn.push(loan);
+        }
+
         if (loan.loanStatus.id === 4) {
           this.waitingfinishedLoans.push(loan);
         }
@@ -131,6 +140,7 @@ export class UserService {
     this.borrowsRequest = [];
     this.borrowsInPending = [];
     this.borrowsInProgress = [];
+    this.waitingfinishedBorrows = [];
     if (user.borrows.length > 0) {
       user.borrows.forEach((borrow) => {
         if (borrow.loanStatus.id === 1) {
@@ -140,6 +150,9 @@ export class UserService {
           this.borrowsInPending.push(borrow);
         }
         if (borrow.loanStatus.id === 2) {
+          this.borrowsInProgress.push(borrow);
+        }
+        if (borrow.loanStatus.id === 3) {
           this.borrowsInProgress.push(borrow);
         }
         if (borrow.loanStatus.id === 4) {
@@ -157,6 +170,7 @@ export class UserService {
     user.friendDemandsReceived.forEach((demand) => {
       if (demand.status.id === 1) {
         this.friendsDemandsReceived.push(demand);
+        console.log(demand);
       }
       if (demand.status.id === 2) {
         this.friends.push(demand.asker);
@@ -172,6 +186,17 @@ export class UserService {
         this.allFriendships.push(demand);
       }
     });
+  }
+
+  determineUserNotifications(): number {
+    // this.userNotifications =
+    return (
+      this.loansPending.length +
+      this.waitingfinishedLoans.length +
+      this.loansDemandsReturn.length +
+      this.loansRequest.length +
+      this.friendsDemandsReceived.length
+    );
   }
 
   //observable

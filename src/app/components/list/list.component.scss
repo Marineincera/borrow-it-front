@@ -32,3 +32,10 @@ section {
   margin-bottom: 3vh;
   align-self: center;
 }
+
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

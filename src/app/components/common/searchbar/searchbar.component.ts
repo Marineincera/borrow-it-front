@@ -8,6 +8,7 @@ import { UserService } from "src/app/shared/services/user.service";
 import { newArray } from "@angular/compiler/src/util";
 import { ItemService } from "src/app/shared/services/item.service";
 import { timeStamp } from "console";
+import { element } from "protractor";
 
 @Component({
   selector: "app-searchbar",
@@ -16,14 +17,17 @@ import { timeStamp } from "console";
 })
 export class SearchbarComponent implements OnInit {
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
-
+  //test
+  @Output() searchResultsUsers = new EventEmitter<Array<User>>();
   inputValue: string;
   searchbarForm = this.fb.group({
     search: [""],
   });
   itemsForAll: Array<Item>;
   itemsForFriends: Array<Item>;
-  results = [];
+  itemsResults = [];
+  usersResults = [];
+  userinformations: Array<string>;
 
   constructor(
     private userService: UserService,
@@ -34,8 +38,40 @@ export class SearchbarComponent implements OnInit {
   ngOnInit() {}
 
   displayResultsSearch(value: string) {
-    this.getItemsForAll(value);
-    this.getItemsForFriends(value);
+    this.getUsersInfos(this.userService.allUsers, value);
+  }
+
+  getUsersInfos(users: Array<User>, value: string) {
+    this.userinformations = [];
+    let num = 0;
+    let done = false;
+    users.forEach((user) => {
+      this.userinformations.push(user.pseudo.toLocaleLowerCase());
+      this.userinformations.push(user.city.toLocaleLowerCase());
+      num = num + 1;
+      if (num === users.length) {
+        done = true;
+      }
+    });
+    if (done && this.userinformations) {
+      this.defineTypeOfItems(value, this.userinformations);
+    }
+  }
+
+  defineTypeOfItems(value: string, infos: Array<string>) {
+    let items = false;
+    let users = false;
+    if (
+      infos.find(
+        (word) => word.toLocaleLowerCase() === value.toLocaleLowerCase()
+      )
+    ) {
+      users = true;
+      this.getUserByKeyword(value);
+    } else {
+      this.getItemsForAll(value);
+      this.getItemsForFriends(value);
+    }
   }
 
   getItemsForAll(value: string) {
@@ -43,7 +79,7 @@ export class SearchbarComponent implements OnInit {
       .getItemsByKeywordswithVisibilityForAll(value)
       .subscribe((results: Array<Item>) => {
         this.itemsForAll = results;
-        this.initializeResultsArray(results, "all");
+        this.initializeResultsArray("all", results);
       });
   }
 
@@ -52,23 +88,52 @@ export class SearchbarComponent implements OnInit {
       .getItemsByKeywordswithVisibilityForFriends(value)
       .subscribe((results: Array<Item>) => {
         this.itemsForFriends = results;
-        this.initializeResultsArray(results, "friends");
+        this.initializeResultsArray("friends", results);
       });
   }
 
-  initializeResultsArray(items: Array<Item>, name: string) {
-    items.forEach((item) => {
-      this.results.push(item);
-    });
+  initializeResultsArray(name: string, results?: Array<Item> | Array<User>) {
+    let num = 0;
     if (name === "friends") {
-      this.sendResultsToDisplay(this.results);
+      results.forEach((result) => {
+        this.itemsResults.push(result);
+        num = num + 1;
+        if (num === results.length) {
+          this.sendResultsToDisplay("friends", this.itemsResults);
+        }
+      });
+    }
+    if (name === "users") {
+      results.forEach((result) => {
+        this.usersResults.push(result);
+        num = num + 1;
+        if (num === results.length) {
+          this.sendResultsToDisplay("users", this.usersResults);
+        }
+      });
     }
   }
 
-  sendResultsToDisplay(items: Array<Item>) {
-    this.searchResultsItems.emit(items);
-    this.searchbarForm.value.search = "";
-    console.log(items);
-    this.ngOnInit();
+  getUserByKeyword(value: string) {
+    this.userService
+      .getUsersByKeyword(value)
+      .subscribe((results: Array<User>) => {
+        if (results.length > 0) {
+          this.initializeResultsArray("users", results);
+        }
+      });
+  }
+
+  sendResultsToDisplay(name: string, results?: Array<Item> | Array<User>) {
+    if (name === "friends") {
+      this.searchResultsItems.emit(results);
+      this.searchbarForm.value.search = "";
+      this.ngOnInit();
+    }
+    if (name === "users") {
+      this.searchResultsUsers.emit(results);
+      this.searchbarForm.value.search = "";
+      this.ngOnInit();
+    }
   }
 }

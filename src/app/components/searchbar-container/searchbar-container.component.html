@@ -3,6 +3,7 @@
     <app-searchbar
       *ngIf="!searchBarClosed"
       (searchResultsItems)="displaySearchResultsItems($event)"
+      (searchResultsUsers)="displaySearchResultsUsers($event)"
     ></app-searchbar>
 
     <div class="new-search" *ngIf="searchBarClosed">

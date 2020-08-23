@@ -27,6 +27,8 @@ export class ListComponent implements OnInit {
       this.initializeArray(this.itemsList);
     }
     if (this.usersList) {
+      console.log(this.usersList);
+
       this.filter = 0;
       this.initializeArray(this.usersList);
     }

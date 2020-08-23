@@ -24,6 +24,7 @@ export class HomepageComponent implements OnInit {
   friends: Array<User>;
   friendsItems: Array<Item>;
   searchResultsItems: Array<Item>;
+  searchResultsUsers: Array<User>;
   searchBarClosed = false;
 
   @ViewChild("results") results: ElementRef;
@@ -60,6 +61,7 @@ export class HomepageComponent implements OnInit {
       const index = users.findIndex((user) => user.id === id);
       users.splice(index, 1);
       this.users = users;
+      this._userService.allUsers = users;
     });
   }
 
@@ -98,6 +100,7 @@ export class HomepageComponent implements OnInit {
   }
 
   displaySearchResultsItems(items: Array<Item>) {
+    this.searchResultsUsers = undefined;
     this.searchResultsItems = items;
     if (items && items.length > 0) {
       const targetElement = this.results.nativeElement;
@@ -109,7 +112,21 @@ export class HomepageComponent implements OnInit {
     }
   }
 
+  displaySearchResultsUsers(users: Array<User>) {
+    this.searchResultsItems = undefined;
+    this.searchResultsUsers = users;
+    if (users && users.length > 0) {
+      const targetElement = this.results.nativeElement;
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
+  }
+
   openSearchbarAgain() {
     this.searchResultsItems = undefined;
+    this.searchResultsUsers = undefined;
   }
 }

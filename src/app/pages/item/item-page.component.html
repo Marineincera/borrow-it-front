@@ -1,14 +1,14 @@
 <section class="displayer">
   <div *ngIf="itemToDisplay">
-    <div>
-      <span class="material-icons">
-        chevron_left
+    <div class="return">
+      <span class="material-icons" (click)="returnToHomepage()">
+        arrow_back
       </span>
 
-      <p (click)="returnToHomepage()" class="return">RETOUR</p>
+      <!-- <p (click)="returnToHomepage()">RETOUR</p> -->
     </div>
-    <div class="span-and-text">
-      <span class="material-icons">
+    <div class="span-and-text place">
+      <span class="material-icons place">
         place
       </span>
       <p>{{ itemToDisplay.user.city }}</p>
@@ -27,7 +27,7 @@
             Console : {{ itemToDisplay.console.name }}
           </h3>
           <h3>{{ itemToDisplay.itemStatus.name }}</h3>
-          <h3>{{ itemToDisplay.visibility }}</h3>
+          <h3 *ngIf="userIsOwner">{{ itemToDisplay.visibility }}</h3>
           <button *ngIf="userIsOwner" (click)="openUpdatingVisibility()">
             Changer la visibilité
           </button>

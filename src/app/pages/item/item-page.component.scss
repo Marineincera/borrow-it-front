@@ -53,9 +53,22 @@ span {
   color: #eadda6;
 }
 
-.return:hover {
-  text-decoration: underline overline #eadda6;
+.return {
+  color: #eadda6;
+  cursor: pointer;
 }
+
+.place {
+  margin-left: 7vw;
+}
+
+// .return-arrow {
+//   font-size: 10vh;
+// }
+// .return:hover {
+//   // text-decoration: underline overline #eadda6;
+//   cursor: pointer;
+// }
 
 .details {
   display: flex;

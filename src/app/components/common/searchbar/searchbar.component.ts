@@ -7,6 +7,7 @@ import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
 import { newArray } from "@angular/compiler/src/util";
 import { ItemService } from "src/app/shared/services/item.service";
+import { timeStamp } from "console";
 
 @Component({
   selector: "app-searchbar",
@@ -14,18 +15,15 @@ import { ItemService } from "src/app/shared/services/item.service";
   styleUrls: ["./searchbar.component.scss"],
 })
 export class SearchbarComponent implements OnInit {
-  // myControl = new FormControl();
-  @Input() items: Array<Item>;
-  // @Input() users: Array<User>;
-
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
-  // options: Array<string>;
 
-  // filteredOptions: Observable<string[]>;
   inputValue: string;
   searchbarForm = this.fb.group({
     search: [""],
   });
+  itemsForAll: Array<Item>;
+  itemsForFriends: Array<Item>;
+  results = [];
 
   constructor(
     private userService: UserService,
@@ -36,11 +34,41 @@ export class SearchbarComponent implements OnInit {
   ngOnInit() {}
 
   displayResultsSearch() {
+    this.getItemsForAll();
+    this.getItemsForFriends();
+  }
+
+  getItemsForAll() {
     return this.itemService
-      .getItemsByKeywords(this.searchbarForm.value.search)
-      .subscribe((results: Item[]) => {
-        this.searchResultsItems.emit(results);
-        this.searchbarForm.value.search = "";
+      .getItemsByKeywordswithVisibilityForAll(this.searchbarForm.value.search)
+      .subscribe((results: Array<Item>) => {
+        this.itemsForAll = results;
+        this.initializeResultsArray(results, "all");
       });
+  }
+
+  getItemsForFriends() {
+    return this.itemService
+      .getItemsByKeywordswithVisibilityForFriends(
+        this.searchbarForm.value.search
+      )
+      .subscribe((results: Array<Item>) => {
+        this.itemsForFriends = results;
+        this.initializeResultsArray(results, "friends");
+      });
+  }
+
+  initializeResultsArray(items: Array<Item>, name: string) {
+    items.forEach((item) => {
+      this.results.push(item);
+    });
+    if (name === "friends") {
+      this.sendResultsToDisplay(this.results);
+    }
+  }
+
+  sendResultsToDisplay(items: Array<Item>) {
+    this.searchResultsItems.emit(items);
+    this.searchbarForm.value.search = "";
   }
 }

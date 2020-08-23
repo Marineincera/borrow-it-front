@@ -38,7 +38,11 @@ export class ItemService {
     return this.service.get(ItemService.URL + "/owner/" + id.toString());
   }
 
-  getItemsByKeywords(keyword: string) {
-    return this.service.get(ItemService.URL + "/search/" + keyword);
+  getItemsByKeywordswithVisibilityForAll(keyword: string) {
+    return this.service.get(ItemService.URL + "/search/all/" + keyword);
+  }
+
+  getItemsByKeywordswithVisibilityForFriends(keyword: string) {
+    return this.service.get(ItemService.URL + "/search/friends/" + keyword);
   }
 }

@@ -33,25 +33,23 @@ export class SearchbarComponent implements OnInit {
 
   ngOnInit() {}
 
-  displayResultsSearch() {
-    this.getItemsForAll();
-    this.getItemsForFriends();
+  displayResultsSearch(value: string) {
+    this.getItemsForAll(value);
+    this.getItemsForFriends(value);
   }
 
-  getItemsForAll() {
+  getItemsForAll(value: string) {
     return this.itemService
-      .getItemsByKeywordswithVisibilityForAll(this.searchbarForm.value.search)
+      .getItemsByKeywordswithVisibilityForAll(value)
       .subscribe((results: Array<Item>) => {
         this.itemsForAll = results;
         this.initializeResultsArray(results, "all");
       });
   }
 
-  getItemsForFriends() {
+  getItemsForFriends(value: string) {
     return this.itemService
-      .getItemsByKeywordswithVisibilityForFriends(
-        this.searchbarForm.value.search
-      )
+      .getItemsByKeywordswithVisibilityForFriends(value)
       .subscribe((results: Array<Item>) => {
         this.itemsForFriends = results;
         this.initializeResultsArray(results, "friends");
@@ -70,5 +68,7 @@ export class SearchbarComponent implements OnInit {
   sendResultsToDisplay(items: Array<Item>) {
     this.searchResultsItems.emit(items);
     this.searchbarForm.value.search = "";
+    console.log(items);
+    this.ngOnInit();
   }
 }

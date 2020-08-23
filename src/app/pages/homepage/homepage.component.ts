@@ -93,12 +93,14 @@ export class HomepageComponent implements OnInit {
 
   displaySearchResultsItems(items: Array<Item>) {
     this.searchResultsItems = items;
-    const targetElement = this.results.nativeElement;
-    targetElement.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
+    if (items && items.length > 0) {
+      const targetElement = this.results.nativeElement;
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
   }
 
   openSearchbarAgain() {

@@ -15,7 +15,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./searchbar-container.component.scss"],
 })
 export class SearchbarContainerComponent implements OnInit {
-  @Input() items: Array<Item>;
+  // @Input() items: Array<Item>;
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
   searchBarClosed = false;
   constructor(private router: Router) {}

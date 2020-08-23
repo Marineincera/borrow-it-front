@@ -1,26 +1,18 @@
 <section>
   <div>
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
+    <form
+      [formGroup]="searchbarForm"
+      (ngSubmit)="displayResultsSearch(this.searchbarForm.value.search)"
+    >
+      <mat-form-field>
         <input
           type="text"
-          placeholder="Pick one"
-          aria-label="Number"
+          aria-label="Search"
           matInput
-          [formControl]="myControl"
-          [matAutocomplete]="auto"
+          formControlName="search"
         />
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option
-            *ngFor="let option of filteredOptions | async"
-            [value]="option"
-            (click)="collectOptionValue(option)"
-          >
-            {{ option }}
-          </mat-option>
-        </mat-autocomplete>
       </mat-form-field>
-      <button (click)="displayFilteredOptions(inputValue, items)">
+      <button type="submit">
         Chercher
       </button>
     </form>

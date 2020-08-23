@@ -33,4 +33,16 @@ export class ItemService {
   update(id, item) {
     return this.service.put(ItemService.URL + "/update/" + id, item);
   }
+
+  getByOwner(id: number) {
+    return this.service.get(ItemService.URL + "/owner/" + id.toString());
+  }
+
+  getItemsByKeywordswithVisibilityForAll(keyword: string) {
+    return this.service.get(ItemService.URL + "/search/all/" + keyword);
+  }
+
+  getItemsByKeywordswithVisibilityForFriends(keyword: string) {
+    return this.service.get(ItemService.URL + "/search/friends/" + keyword);
+  }
 }

@@ -16,6 +16,9 @@ export class UserService {
 
   connectedUser;
   userNotifications: number;
+
+  allUsers: Array<User>;
+
   loans: Array<Loan>;
   borrows: Array<Loan>;
 
@@ -60,6 +63,17 @@ export class UserService {
 
   update(id, user) {
     return this.service.put(UserService.URL + "users/modify/" + id, user);
+  }
+
+  getFriendsById(id: number) {
+    return this.service.get(UserService.URL + "users/friends/" + id.toString());
+  }
+
+  //test
+  getUsersByKeyword(keyword: string) {
+    return this.service.get(
+      UserService.URL + "users/search/keyword/" + keyword
+    );
   }
 
   public inscription(

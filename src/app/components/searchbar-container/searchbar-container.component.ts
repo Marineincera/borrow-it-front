@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { Item } from "src/app/shared/models/item";
 import { Router } from "@angular/router";
+import { User } from "src/app/shared/models/user";
 
 @Component({
   selector: "app-searchbar-container",
@@ -15,8 +16,9 @@ import { Router } from "@angular/router";
   styleUrls: ["./searchbar-container.component.scss"],
 })
 export class SearchbarContainerComponent implements OnInit {
-  @Input() items: Array<Item>;
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
+  @Output() searchResultsUsers = new EventEmitter<Array<User>>();
+
   searchBarClosed = false;
   constructor(private router: Router) {}
 
@@ -27,8 +29,14 @@ export class SearchbarContainerComponent implements OnInit {
     this.searchResultsItems.emit(items);
   }
 
+  displaySearchResultsUsers(users: Array<User>) {
+    this.searchBarClosed = true;
+    this.searchResultsUsers.emit(users);
+  }
+
   openSearchbarAgain() {
     const items = undefined;
+    const users = undefined;
     this.searchResultsItems.emit(items);
     this.searchBarClosed = false;
   }

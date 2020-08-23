@@ -1,11 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { FormControl, FormBuilder } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
 import { newArray } from "@angular/compiler/src/util";
+import { ItemService } from "src/app/shared/services/item.service";
+import { timeStamp } from "console";
+import { element } from "protractor";
 
 @Component({
   selector: "app-searchbar",
@@ -13,146 +16,124 @@ import { newArray } from "@angular/compiler/src/util";
   styleUrls: ["./searchbar.component.scss"],
 })
 export class SearchbarComponent implements OnInit {
-  myControl = new FormControl();
-  @Input() items: Array<Item>;
-  // @Input() users: Array<User>;
-
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
-  options: Array<string>;
-
-  filteredOptions: Observable<string[]>;
+  //test
+  @Output() searchResultsUsers = new EventEmitter<Array<User>>();
   inputValue: string;
+  searchbarForm = this.fb.group({
+    search: [""],
+  });
+  itemsForAll: Array<Item>;
+  itemsForFriends: Array<Item>;
+  itemsResults = [];
+  usersResults = [];
+  userinformations: Array<string>;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private itemService: ItemService,
+    private fb: FormBuilder
+  ) {}
 
-  ngOnInit() {
-    if (this.items) {
-      this.options = this.determineItemsOptions(this.items);
-      if (this.options) {
-        this.initializeTheFilter();
-      }
-    }
+  ngOnInit() {}
+
+  displayResultsSearch(value: string) {
+    this.getUsersInfos(this.userService.allUsers, value);
   }
 
-  initializeTheFilter() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(""),
-      map((value) => this._filter(value))
-    );
-  }
-
-  determineItemsOptions(array: Array<Item>): Array<string> {
-    let options = [];
+  getUsersInfos(users: Array<User>, value: string) {
+    this.userinformations = [];
     let num = 0;
-    let done;
-    array.forEach((item) => {
-      if (!options.find((element) => element === item.title)) {
-        options.push(item.title);
-      }
-      if (item.author) {
-        if (!options.find((element) => element === item.author)) {
-          options.push(item.author);
-        }
-      }
-      if (item.console) {
-        if (!options.find((element) => element === item.console.name)) {
-          options.push(item.console.name);
-        }
-      }
-
-      if (item.tags) {
-        if (item.tags) {
-          item.tags.forEach((tag) => {
-            if (!options.find((element) => element === tag.name)) {
-              options.push(tag.name);
-            }
-          });
-        }
-      }
+    let done = false;
+    users.forEach((user) => {
+      this.userinformations.push(user.pseudo.toLocaleLowerCase());
+      this.userinformations.push(user.city.toLocaleLowerCase());
       num = num + 1;
-      if (num === array.length) {
+      if (num === users.length) {
         done = true;
       }
     });
-    if (done) {
-      return options;
+    if (done && this.userinformations) {
+      this.defineTypeOfItems(value, this.userinformations);
     }
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter((option) =>
-      option.toLowerCase().includes(filterValue)
-    );
+  defineTypeOfItems(value: string, infos: Array<string>) {
+    let items = false;
+    let users = false;
+    if (
+      infos.find(
+        (word) => word.toLocaleLowerCase() === value.toLocaleLowerCase()
+      )
+    ) {
+      users = true;
+      this.getUserByKeyword(value);
+    } else {
+      this.getItemsForAll(value);
+      this.getItemsForFriends(value);
+    }
   }
 
-  collectOptionValue(value: string) {
-    this.inputValue = value;
+  getItemsForAll(value: string) {
+    return this.itemService
+      .getItemsByKeywordswithVisibilityForAll(value)
+      .subscribe((results: Array<Item>) => {
+        this.itemsForAll = results;
+        this.initializeResultsArray("all", results);
+      });
   }
 
-  displayFilteredOptions(value: string, array: Array<Item>) {
-    console.log(value);
-    let newArray = [];
+  getItemsForFriends(value: string) {
+    return this.itemService
+      .getItemsByKeywordswithVisibilityForFriends(value)
+      .subscribe((results: Array<Item>) => {
+        this.itemsForFriends = results;
+        this.initializeResultsArray("friends", results);
+      });
+  }
+
+  initializeResultsArray(name: string, results?: Array<Item> | Array<User>) {
     let num = 0;
-    array.forEach((item) => {
-      if ((item.title || item.author) === value) {
-        newArray.push(item);
-      }
-      if (item.console) {
-        if (item.console.name === value) {
-          newArray.push(item);
+    if (name === "friends") {
+      results.forEach((result) => {
+        this.itemsResults.push(result);
+        num = num + 1;
+        if (num === results.length) {
+          this.sendResultsToDisplay("friends", this.itemsResults);
         }
-      }
-
-      if (item.tags) {
-        item.tags.forEach((tag) => {
-          if (tag.name === value) {
-            newArray.push(item);
-          }
-        });
-      }
-      num = num + 1;
-      if (num === array.length) {
-        console.log(newArray);
-        this.searchResultsItems.emit(newArray);
-        this.myControl = new FormControl();
-      }
-    });
+      });
+    }
+    if (name === "users") {
+      results.forEach((result) => {
+        this.usersResults.push(result);
+        num = num + 1;
+        if (num === results.length) {
+          this.sendResultsToDisplay("users", this.usersResults);
+        }
+      });
+    }
   }
 
-  // determineUsersOptions(users: Array<User>): Array<string> {
-  //   let newArray = [];
-  //   let num = 0;
-  //   let done;
-  //   users.forEach((user) => {
-  //     newArray.push(user.pseudo);
-  //     num = num + 1;
-  //     if (num === users.length) {
-  //       done = true;
-  //       return newArray;
-  //     }
-  //   });
-  //   if (done) {
-  //     return newArray;
-  //   }
-  // }
+  getUserByKeyword(value: string) {
+    this.userService
+      .getUsersByKeyword(value)
+      .subscribe((results: Array<User>) => {
+        if (results.length > 0) {
+          this.initializeResultsArray("users", results);
+        }
+      });
+  }
 
-  // determineCitiesOptions(users: Array<User>) {
-  //   let newArray = [];
-  //   let num = 0;
-  //   let done;
-  //   users.forEach((item) => {
-  //     if (!newArray.find((element) => element === item.city)) {
-  //       newArray.push(item.city);
-  //     }
-
-  //     if (num === users.length) {
-  //       done = true;
-  //     }
-  //   });
-  //   if (done) {
-  //     return newArray;
-  //   }
-  // }
+  sendResultsToDisplay(name: string, results?: Array<Item> | Array<User>) {
+    if (name === "friends") {
+      this.searchResultsItems.emit(results);
+      this.searchbarForm.value.search = "";
+      this.ngOnInit();
+    }
+    if (name === "users") {
+      this.searchResultsUsers.emit(results);
+      this.searchbarForm.value.search = "";
+      this.ngOnInit();
+    }
+  }
 }

@@ -1,9 +1,9 @@
 <section>
   <div class="search">
     <app-searchbar
-      *ngIf="items && items.length > 0 && !searchBarClosed"
-      [items]="items"
+      *ngIf="!searchBarClosed"
       (searchResultsItems)="displaySearchResultsItems($event)"
+      (searchResultsUsers)="displaySearchResultsUsers($event)"
     ></app-searchbar>
 
     <div class="new-search" *ngIf="searchBarClosed">

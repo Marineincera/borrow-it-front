@@ -18,20 +18,8 @@
     <app-list [itemsList]="friendsItems"></app-list>
   </div>
 
-  <h1>MEMBRES</h1>
-  <div class="search">
-    <div class="example-button-container" *ngIf="searchBarClosed">
-      <button
-        mat-fab
-        color="basic"
-        aria-label="Example icon button with a home icon"
-        (click)="openSearchbarAgain()"
-      >
-        <mat-icon>home</mat-icon>
-      </button>
-    </div>
-  </div>
-  <div *ngIf="users" class="users">
+  <h1 *ngIf="users && users.length > 0">MEMBRES</h1>
+  <div *ngIf="users && users.length > 0" class="users">
     <app-list [usersList]="users"></app-list>
   </div>
 </section>

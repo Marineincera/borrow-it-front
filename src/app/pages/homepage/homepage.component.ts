@@ -10,6 +10,7 @@ import { ItemService } from "src/app/shared/services/item.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
 import { ViewportScroller } from "@angular/common";
+import { element } from "protractor";
 
 @Component({
   selector: "app-homepage",
@@ -34,9 +35,8 @@ export class HomepageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initializeItemsArray();
-    // this.initializeUsersArray();
     this.getConnectedUser();
+    this.initializeItemsArray();
   }
 
   initializeItemsArray() {
@@ -54,17 +54,21 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  // initializeUsersArray() {
-  //   this._userService.getAllUsers().subscribe((data: Array<User>) => {
-  //     this.users = data;
-  //   });
-  // }
+  initializeUsersArray(id: number) {
+    this._userService.getAllUsers().subscribe((data: Array<User>) => {
+      const users = data;
+      const index = users.findIndex((user) => user.id === id);
+      users.splice(index, 1);
+      this.users = users;
+    });
+  }
 
   getConnectedUser() {
     if (localStorage.getItem("TOKEN")) {
       this._userService.getMe().subscribe((data: User) => {
         this.connectedUser = this._userService.connectedUser;
         this.initializeFriendsItemsArray(this._userService.friends);
+        this.initializeUsersArray(data.id);
       });
     }
   }
@@ -84,8 +88,10 @@ export class HomepageComponent implements OnInit {
   getItemsByFriend(friend: User) {
     this._userService.getOneUser(friend.id).subscribe((data: User) => {
       data.items.forEach((item) => {
-        if ((item.visibility && item.visibility === "all") || "friends") {
-          this.friendsItems.push(item);
+        if (item.itemStatus.id === 1) {
+          if ((item.visibility && item.visibility === "all") || "friends") {
+            this.friendsItems.push(item);
+          }
         }
       });
     });

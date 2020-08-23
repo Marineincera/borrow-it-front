@@ -4,6 +4,10 @@
   <span> / {{ numberOfNotes }} notes</span>
 </div>
 <!-- <div *ngIf="evaluations.length < 1"></div> -->
+<app-stars-container
+  *ngIf="generalNote"
+  [note]="generalNote"
+></app-stars-container>
 <div class="select">
   <mat-form-field>
     <mat-label>Donne ta note</mat-label>

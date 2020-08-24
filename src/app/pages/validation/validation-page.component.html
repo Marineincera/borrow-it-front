@@ -52,7 +52,7 @@
       (mouseout)="mouseOvered = false"
     >
       <h2
-        *ngIf="loan.loanStatus.id === 1"
+        *ngIf="isOwner && loan.loanStatus.id === 1"
         class="loan-details"
         (click)="declineLoan(loan)"
       >

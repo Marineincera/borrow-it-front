@@ -13,7 +13,6 @@ import { ItemService } from "src/app/shared/services/item.service";
 export class SearchbarComponent implements OnInit {
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
   @Output() searchResultsUsers = new EventEmitter<Array<User>>();
-  inputValue: string;
   searchbarForm = this.fb.group({
     search: [""],
   });

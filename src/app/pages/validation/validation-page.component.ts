@@ -173,12 +173,11 @@ export class ValidationPageComponent implements OnInit {
   deleteLoan(loan: Loan) {
     //and it must be deleted
 
-    this.loanService.delete(loan.id).subscribe((data) => {
-      this.router.navigate(["items/" + this.loan.borrowedItem.id]);
-    });
+    this.loanService.delete(loan.id).subscribe();
   }
 
   declineLoan(loan) {
     this.deleteLoan(loan);
+    this.router.navigate(["items/" + this.loan.borrowedItem.id]);
   }
 }

@@ -21,6 +21,11 @@ export class ValidationPageComponent implements OnInit {
   status = "";
   //
   statusChanged: boolean;
+  // sendMailToBorrower: string;
+  sendMailToOther: string;
+  personToContact: string;
+
+  mouseOvered;
 
   constructor(
     private router: Router,
@@ -48,7 +53,7 @@ export class ValidationPageComponent implements OnInit {
       //observable
       // this.loanService.loanModified.next(data);
       this.determineIfOwnerOrBorrower(data);
-      console.log(this.loan);
+      console.log(this.loan.borrower.email);
     });
   }
 
@@ -57,12 +62,15 @@ export class ValidationPageComponent implements OnInit {
       this.userService.getMe().subscribe((data: User) => {
         if (data.id === loan.owner.id) {
           this.isOwner = true;
+          this.sendMailToOther = `mailto:${loan.borrower.email}`;
+          this.personToContact = loan.borrower.pseudo;
           this.validationStatus = this.determineValidationStatus(this.loan);
         }
         if (data.id === loan.borrower.id) {
           this.isBorrower = true;
+          this.sendMailToOther = `mailto:${loan.owner.email}`;
+          this.personToContact = loan.owner.pseudo;
           this.isOwner = false;
-          console.log(this.isOwner);
           this.validationStatus = this.determineValidationStatus(this.loan);
         }
       });
@@ -144,6 +152,10 @@ export class ValidationPageComponent implements OnInit {
     this.loanService.delete(loan.id).subscribe();
     //test
     // this.userService.emitModifiedUser();
+  }
+
+  declineLoan(loan) {
+    console.log("eee");
   }
 
   changementLoanStatus(loan: Loan) {

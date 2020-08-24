@@ -2,8 +2,17 @@
   <div class="loan">
     <h1>Prêt</h1>
     <div>
-      <h2></h2>
+      <div class="decline-text" *ngIf="mouseOvered">
+        <p>
+          Si vous refuser le prêt, un éditeur de mail s'ouvrira afin de vour
+          permettre d'expliquer la raison de votre refus à
+          {{ personToContact }}.
+        </p>
+        <br />
+        <p>Merci de respecter les règles de courtoisie.</p>
+      </div>
       <app-public-small-item
+        *ngIf="!mouseOvered"
         [itemReceived]="loan.borrowedItem"
         class="small"
         [loan]="loan"
@@ -35,5 +44,25 @@
     <h2 (click)="changeLoanStatus(loan)" class="loan-details">
       {{ validationStatus }}
     </h2>
+
+    <a
+      *ngIf="sendMailToOther"
+      href="{{ sendMailToOther }}"
+      (mouseover)="mouseOvered = true"
+      (mouseout)="mouseOvered = false"
+    >
+      <h2
+        *ngIf="loan.loanStatus.id === 1"
+        class="loan-details"
+        (click)="declineLoan(loan)"
+      >
+        Refuser le prêt
+      </h2></a
+    >
+    <a *ngIf="sendMailToOther" href="{{ sendMailToOther }}">
+      <h2 *ngIf="loan.loanStatus.id !== 1 || 6" class="loan-details">
+        Contacter {{ personToContact }}
+      </h2>
+    </a>
   </div>
 </div>

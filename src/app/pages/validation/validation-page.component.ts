@@ -73,43 +73,34 @@ export class ValidationPageComponent implements OnInit {
     //to display a sentence according to the status
     if (this.isOwner) {
       let text = "";
-      // let newLoanStatus = 0;
       if (loan.loanStatus.id === 1) {
         text = "Valider le prêt";
-        // newLoanStatus = 5;
         return text;
       }
       if (loan.loanStatus.id === 5) {
         text = "Déclarer que l'objet est prêté";
-        // newLoanStatus = 2;
         return text;
       }
       if (loan.loanStatus.id === 3) {
         text = "Déclarer que l'objet a été rendu";
-        // newLoanStatus = 6;
         return text;
       }
       if (loan.loanStatus.id === 4) {
         text = "Déclarer que l'objet a été rendu";
-        // newLoanStatus = 6;
         return text;
       }
     } else {
       let text = "";
-      // let newLoanStatus = 0;
       if (loan.loanStatus.id === 2) {
         text = "Indiquer que vous souhaitez rendre l'objet";
-        // newLoanStatus = 3;
         return text;
       }
       if (loan.loanStatus.id === 5) {
         text = "Déclarer avoir reçu l'objet";
-        // newLoanStatus = 2;
         return text;
       }
       if (loan.loanStatus.id === 3) {
         text = "Déclarer que l'objet a été rendu";
-        // newLoanStatus = 4;
         return text;
       }
     }

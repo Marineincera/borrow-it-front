@@ -11,7 +11,7 @@
       ></app-public-small-user>
       <app-public-small-user [userReceived]="item.user"></app-public-small-user>
     </div>
-    <div>
+    <div class="validation-message">
       <h2
         *ngIf="item.itemStatus.id !== 2"
         (click)="requestTheLoan(item, requestUser, item.user)"

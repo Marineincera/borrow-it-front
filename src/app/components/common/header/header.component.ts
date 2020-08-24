@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userService.userModified.subscribe((user) => {
       this.userService.connectedUser = user;
       this.user = user;
+      this.notifications = this.userService.determineUserNotifications();
     });
   }
 

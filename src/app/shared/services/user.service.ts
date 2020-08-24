@@ -203,9 +203,9 @@ export class UserService {
   }
 
   determineUserNotifications(): number {
-    // this.userNotifications =
     return (
       this.loansPending.length +
+      this.borrowsInPending.length +
       this.waitingfinishedLoans.length +
       this.loansDemandsReturn.length +
       this.loansRequest.length +

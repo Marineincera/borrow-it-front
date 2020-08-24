@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { Loan } from "src/app/shared/models/loan";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
   templateUrl: "./loan-monitoring-page.component.html",
   styleUrls: ["./loan-monitoring-page.component.scss"],
 })
-export class LoanMonitoringPageComponent implements OnInit {
+export class LoanMonitoringPageComponent implements OnInit, OnDestroy {
   user: User;
   //Loans & Borrows
   allLoans: Array<Loan>;
@@ -33,19 +33,6 @@ export class LoanMonitoringPageComponent implements OnInit {
   //Friendships
   friendshipsDemandsReceived: Array<FriendshipDemand>;
 
-  //ArrayForNavigation
-  // navigationHelperArray = [
-  //   "loansRequests",
-  //   "loansInProgress",
-  //   "loansPending",
-  //   "loansDemandsReturn",
-  //   "waitingFinishedLoans",
-  //   "borrowsInPending",
-  //   "borrowsInProgress",
-  //   "waitingFinishedBorrows",
-  //   "friendshipDemandsReceived",
-  // ];
-  // navigationReceived: number;
   constructor(
     private userService: UserService,
     private loanService: LoanService,
@@ -55,19 +42,16 @@ export class LoanMonitoringPageComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem("TOKEN")) {
       this.getUser();
+      //observable
+      this.userService.userModified.subscribe((user) => {
+        this.getUser();
+        this.userService.connectedUser = user;
+      });
     }
   }
-
-  // openSection(sectionName: string) {
-  //   console.log(sectionName);
-
-  //   this.navigationHelperArray.forEach((name) => {
-  //     if (name === sectionName) {
-  //       console.log(sectionName);
-  //       this.navigationReceived = 2;
-  //     }
-  //   });
-  // }
+  ngOnDestroy() {
+    this.userService.userModified.unsubscribe();
+  }
 
   getUser() {
     this.userService.getMe().subscribe((data: User) => {
@@ -77,7 +61,7 @@ export class LoanMonitoringPageComponent implements OnInit {
       this.determineLoansCategories();
       this.determineBorrowsCategories();
       //Friendships
-      this.friendshipsDemandsReceived = data.friendDemandsReceived;
+      this.friendshipsDemandsReceived = this.userService.friendsDemandsReceived;
       console.log(this.friendshipsDemandsReceived);
     });
   }

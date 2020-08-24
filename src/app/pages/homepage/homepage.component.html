@@ -1,5 +1,14 @@
 <section>
-  <h1>Ne l'achète plus - Emprunte le !</h1>
+  <div class="title-section">
+    <h2>Agis pour l'écologie et tes économies</h2>
+    <h2 class="text">
+      Tu en as assez d'acheter un objet pour ne l'utiliser qu'une seule fois ?
+    </h2>
+    <h1>Ne l'achète plus - Emprunte le !</h1>
+    <button *ngIf="!connectedUser" class="connection-button">
+      - Se connecter - S'inscrire
+    </button>
+  </div>
   <!-- <img src="../../../assets/reading-925589_1920.jpg" alt="" /> -->
   <app-searchbar-container
     (searchResultsItems)="displaySearchResultsItems($event)"

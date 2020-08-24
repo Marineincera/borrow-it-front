@@ -46,12 +46,17 @@ input {
 .valid-button {
   margin-top: 20px;
   border-radius: 50%;
-  background-color: #ff6969;
+  background-color: #eadda6;
   border: none;
   color: white;
   height: 70px;
   width: 70px;
   align-self: center;
+}
+
+.valid-button:hover {
+  color: #eadda6;
+  background-color: white;
 }
 
 p {

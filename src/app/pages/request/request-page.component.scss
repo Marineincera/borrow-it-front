@@ -25,3 +25,8 @@ h2:hover {
   color: #eadda6;
   border: 3px solid #eadda6;
 }
+
+.validation-message {
+  display: flex;
+  flex-direction: column;
+}

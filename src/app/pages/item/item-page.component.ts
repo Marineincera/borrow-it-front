@@ -4,6 +4,7 @@ import { ItemService } from "src/app/shared/services/item.service";
 import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-item-page",
@@ -27,7 +28,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private itemService: ItemService,
-    private userService: UserService
+    private userService: UserService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -73,7 +75,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   }
 
   returnToHomepage() {
-    this.router.navigate(["/homepage"]);
+    // this.router.navigate(["/homepage"]);
+    this._location.back();
   }
 
   requestALoan(id: number) {

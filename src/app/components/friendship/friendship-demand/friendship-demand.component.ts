@@ -100,6 +100,9 @@ export class FriendshipDemandComponent implements OnInit {
       .update(demand.id, newDemand)
       .subscribe((data) => {
         console.log(data);
+        //observable
+        this.userService.determineUserNotifications();
+        this.userService.userModified.next(data);
       });
     this.receivedDemandIsWaiting = {};
     this.sendDemandIsWaiting = {};

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  // align-items: center;
   margin-top: 2.5rem;
 }
 
@@ -53,8 +53,30 @@ span {
   color: #eadda6;
 }
 
-.return:hover {
-  text-decoration: underline overline #eadda6;
+.return {
+  color: #eadda6;
+  cursor: pointer;
+}
+
+.place {
+  margin-left: 7vw;
+}
+
+button {
+  background-color: #eadda6;
+  border: none;
+  color: white;
+  padding: 1vh;
+  border-radius: 5%;
+}
+
+button:hover {
+  background-color: white;
+  color: #eadda6;
+  border: none;
+  border-radius: 5%;
+  border: 3px solid #eadda6;
+  cursor: pointer;
 }
 
 .details {

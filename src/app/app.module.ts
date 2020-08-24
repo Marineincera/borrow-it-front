@@ -49,6 +49,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatBadgeModule } from "@angular/material/badge";
 
 import { MatInputModule } from "@angular/material/input";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
@@ -57,12 +58,14 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
 import { HeaderInterceptor } from "./core/header.interceptor";
 import { PrivateUserComponent } from "./components/user/private-user/private-user.component";
-import { ManagingComponent } from './components/managing/managing.component';
-import { FriendshipDemandComponent } from './components/friendship/friendship-demand/friendship-demand.component';
-import { FriendshipsComponent } from './components/friendship/friendships/friendships.component';
-import { InformationComponent } from './components/common/information/information.component';
-import { SearchbarComponent } from './components/common/searchbar/searchbar.component';
-import { SearchbarContainerComponent } from './components/searchbar-container/searchbar-container.component';
+import { ManagingComponent } from "./components/managing/managing.component";
+import { FriendshipDemandComponent } from "./components/friendship/friendship-demand/friendship-demand.component";
+import { FriendshipsComponent } from "./components/friendship/friendships/friendships.component";
+import { InformationComponent } from "./components/common/information/information.component";
+import { SearchbarComponent } from "./components/common/searchbar/searchbar.component";
+import { SearchbarContainerComponent } from "./components/searchbar-container/searchbar-container.component";
+import { StarsContainerComponent } from './components/common/evaluation/stars-container/stars-container.component';
+import { StarComponent } from './components/common/evaluation/stars-container/star/star.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +110,8 @@ import { SearchbarContainerComponent } from './components/searchbar-container/se
     InformationComponent,
     SearchbarComponent,
     SearchbarContainerComponent,
+    StarsContainerComponent,
+    StarComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -123,6 +128,7 @@ import { SearchbarContainerComponent } from './components/searchbar-container/se
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
+    MatBadgeModule,
 
     MatInputModule,
     MatAutocompleteModule,

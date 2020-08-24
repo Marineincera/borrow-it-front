@@ -25,7 +25,8 @@ h1 {
 }
 
 h1:hover,
-h2:hover {
+h2:hover,
+mat-icon {
   cursor: pointer;
 }
 
@@ -50,4 +51,8 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.notifications {
+  display: flex;
 }

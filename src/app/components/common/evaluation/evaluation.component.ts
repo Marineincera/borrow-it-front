@@ -6,6 +6,7 @@ import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
 import { Tag } from "src/app/shared/models/tag";
 import { TagService } from "src/app/shared/services/tag.service";
+import { UserService } from "src/app/shared/services/user.service";
 
 @Component({
   selector: "app-evaluation",
@@ -22,7 +23,10 @@ export class EvaluationComponent implements OnInit, OnDestroy {
   generalNote: number;
   numberOfNotes: number;
 
-  constructor(private evaluationService: EvaluationService) {}
+  constructor(
+    private evaluationService: EvaluationService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     if (this.evaluations) {
@@ -37,9 +41,9 @@ export class EvaluationComponent implements OnInit, OnDestroy {
   newEvaluation(selected: number) {
     this.newNote = this.evaluationService
       .post({
-        note: selected,
+        note: Number(selected),
         item: this.item.id,
-        user: 2,
+        user: this.userService.connectedUser.id,
       })
       .subscribe((data: Evaluation) => {
         if (data) {

@@ -42,7 +42,13 @@ export class SearchbarComponent implements OnInit {
     let done = false;
     users.forEach((user) => {
       this.userinformations.push(user.pseudo.toLocaleLowerCase());
-      this.userinformations.push(user.city.toLocaleLowerCase());
+      if (
+        !this.userinformations.find(
+          (information) => information === user.city.toLocaleLowerCase()
+        )
+      ) {
+        this.userinformations.push(user.city.toLocaleLowerCase());
+      }
       num = num + 1;
       if (num === users.length) {
         done = true;

@@ -1,14 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { FormControl, FormBuilder } from "@angular/forms";
-import { Observable } from "rxjs";
-import { startWith, map } from "rxjs/operators";
+import { FormBuilder } from "@angular/forms";
 import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
-import { newArray } from "@angular/compiler/src/util";
 import { ItemService } from "src/app/shared/services/item.service";
-import { timeStamp } from "console";
-import { element } from "protractor";
 
 @Component({
   selector: "app-searchbar",
@@ -17,7 +12,6 @@ import { element } from "protractor";
 })
 export class SearchbarComponent implements OnInit {
   @Output() searchResultsItems = new EventEmitter<Array<Item>>();
-  //test
   @Output() searchResultsUsers = new EventEmitter<Array<User>>();
   inputValue: string;
   searchbarForm = this.fb.group({
@@ -37,7 +31,9 @@ export class SearchbarComponent implements OnInit {
 
   ngOnInit() {}
 
+  //step 1:
   displayResultsSearch(value: string) {
+    //step 1: initialize an array with informations about users pseudo and city
     this.getUsersInfos(this.userService.allUsers, value);
   }
 
@@ -54,27 +50,41 @@ export class SearchbarComponent implements OnInit {
       }
     });
     if (done && this.userinformations) {
+      //step 2: Define if the search is about Items or Users.
       this.defineTypeOfItems(value, this.userinformations);
     }
   }
 
   defineTypeOfItems(value: string, infos: Array<string>) {
-    let items = false;
-    let users = false;
+    //If value match with one of the users informations => value is about Users
+    //Else value is about Items
     if (
       infos.find(
         (word) => word.toLocaleLowerCase() === value.toLocaleLowerCase()
       )
     ) {
-      users = true;
+      //step-users-1: Request if value matching data in Database
       this.getUserByKeyword(value);
     } else {
+      //step-items-1: Request if value matching data in Database
       this.getItemsForAll(value);
       this.getItemsForFriends(value);
     }
   }
 
+  getUserByKeyword(value: string) {
+    //step-users-2: API send Users matching
+    this.userService
+      .getUsersByKeyword(value)
+      .subscribe((results: Array<User>) => {
+        if (results.length > 0) {
+          this.initializeResultsArray("users", results);
+        }
+      });
+  }
+
   getItemsForAll(value: string) {
+    //step-items-2: API send Items matching - These Items are visibility enum for "all"
     return this.itemService
       .getItemsByKeywordswithVisibilityForAll(value)
       .subscribe((results: Array<Item>) => {
@@ -84,6 +94,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   getItemsForFriends(value: string) {
+    //step-items-2: API send Items matching - These Items are visibility enum for "friends"
     return this.itemService
       .getItemsByKeywordswithVisibilityForFriends(value)
       .subscribe((results: Array<Item>) => {
@@ -93,6 +104,9 @@ export class SearchbarComponent implements OnInit {
   }
 
   initializeResultsArray(name: string, results?: Array<Item> | Array<User>) {
+    // step 3: Define the type of the results array.
+    // because of the inputs in app-list, it's necessary to know if the results array
+    // to display is a users or a items Array.
     let num = 0;
     if (name === "friends") {
       results.forEach((result) => {
@@ -114,17 +128,8 @@ export class SearchbarComponent implements OnInit {
     }
   }
 
-  getUserByKeyword(value: string) {
-    this.userService
-      .getUsersByKeyword(value)
-      .subscribe((results: Array<User>) => {
-        if (results.length > 0) {
-          this.initializeResultsArray("users", results);
-        }
-      });
-  }
-
   sendResultsToDisplay(name: string, results?: Array<Item> | Array<User>) {
+    //step 4: send the results array to the app-list and initialize back the searchbar value.
     if (name === "friends") {
       this.searchResultsItems.emit(results);
       this.searchbarForm.value.search = "";

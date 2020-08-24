@@ -97,9 +97,32 @@ export class SearchbarComponent implements OnInit {
     return this.itemService
       .getItemsByKeywordswithVisibilityForFriends(value)
       .subscribe((results: Array<Item>) => {
-        this.itemsForFriends = results;
-        this.initializeResultsArray("friends", results);
+        this.areFriendsOrNot(results, this.userService.friends);
       });
+  }
+
+  areFriendsOrNot(items: Array<Item>, friends: Array<User>) {
+    // is the connected user authorized to see items with visibility enum for "friends" ?
+    let firstNum = 0;
+    let secondNum = 0;
+    let array = [];
+    let done = false;
+    items.forEach((item) => {
+      friends.forEach((friend) => {
+        if (item.user.id === friend.id) {
+          array.push(item);
+        }
+        secondNum = secondNum + 1;
+        if (secondNum === friends.length) {
+          done = true;
+        }
+      });
+      firstNum = firstNum + 1;
+      if (done && firstNum === items.length) {
+        this.itemsForFriends = array;
+        this.initializeResultsArray("friends", array);
+      }
+    });
   }
 
   initializeResultsArray(name: string, results?: Array<Item> | Array<User>) {

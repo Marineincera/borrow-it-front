@@ -50,7 +50,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatBadgeModule } from "@angular/material/badge";
-
+import { MatMenuModule } from "@angular/material/menu";
 import { MatInputModule } from "@angular/material/input";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 
@@ -64,8 +64,8 @@ import { FriendshipsComponent } from "./components/friendship/friendships/friend
 import { InformationComponent } from "./components/common/information/information.component";
 import { SearchbarComponent } from "./components/common/searchbar/searchbar.component";
 import { SearchbarContainerComponent } from "./components/searchbar-container/searchbar-container.component";
-import { StarsContainerComponent } from './components/common/evaluation/stars-container/stars-container.component';
-import { StarComponent } from './components/common/evaluation/stars-container/star/star.component';
+import { StarsContainerComponent } from "./components/common/evaluation/stars-container/stars-container.component";
+import { StarComponent } from "./components/common/evaluation/stars-container/star/star.component";
 
 @NgModule({
   declarations: [
@@ -129,6 +129,7 @@ import { StarComponent } from './components/common/evaluation/stars-container/st
     MatIconModule,
     MatTabsModule,
     MatBadgeModule,
+    MatMenuModule,
 
     MatInputModule,
     MatAutocompleteModule,

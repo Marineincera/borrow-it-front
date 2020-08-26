@@ -6,11 +6,11 @@ h1 {
   font-family: "Bellota", cursive;
   font-size: 1.875rem;
   text-align: center;
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
 }
 
 h1:hover {
   cursor: pointer;
-  background-color: #eadda6;
+  background-color: var(--main-color, #eadda6);
   color: white;
 }

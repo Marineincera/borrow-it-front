@@ -23,5 +23,5 @@
 span {
   font-size: 3.125rem;
   font-family: "Amatic SC", cursive;
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
 }

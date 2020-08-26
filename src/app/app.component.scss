@@ -1,2 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Bellota:ital,wght@1,300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
+
+:host {
+  --main-color: #eadda6;
+}
+
+section {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 5% auto;
+}

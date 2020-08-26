@@ -1,30 +1,58 @@
 <section>
-  <div class="title">
-    <h1 (click)="openHomepage()">Borrow It</h1>
-  </div>
+  <h1 class="title" (click)="openHomepage()">Borrow It</h1>
 
-  <div class="account" *ngIf="!user">
-    <h2 (click)="openAuthentification()">Connexion</h2>
-  </div>
-  <div *ngIf="user" class="user">
-    <div class="notifications">
-      <mat-icon
-        *ngIf="user && notifications"
-        matBadge="{{ notifications }}"
-        matBadgeColor="warn"
-        (click)="openLoansMonitoring(user.id)"
-        >notifications</mat-icon
-      >
-      <h2 *ngIf="user" (click)="openLoansMonitoring(user.id)">
-        Tableau de bord
-      </h2>
+  <div class="nav">
+    <!-- <h2 class="account" *ngIf="!user" (click)="openAuthentification()">
+      Connexion
+    </h2> -->
+
+    <div *ngIf="user" class="user">
+      <div class="notifications">
+        <mat-icon
+          *ngIf="user && notifications"
+          matBadge="{{ notifications }}"
+          matBadgeColor="warn"
+          (click)="openLoansMonitoring(user.id)"
+          >notifications</mat-icon
+        >
+        <h2 *ngIf="user" (click)="openLoansMonitoring(user.id)">
+          Tableau de bord
+        </h2>
+      </div>
+      <h2 (click)="openPrivateAccount(user.id)">Mon profil</h2>
+
+      <h2 (click)="signOut()">Se déconnecter</h2>
+      <div class="user-card">
+        <img src="{{ user.avatar }}" alt="user.pseudo" />
+        <h3>{{ user.pseudo }}</h3>
+      </div>
     </div>
-    <h2 (click)="openPrivateAccount(user.id)">Mon profil</h2>
 
-    <h2 (click)="signOut()">Se déconnecter</h2>
-    <div class="user-card">
-      <img src="{{ user.avatar }}" alt="user.pseudo" />
-      <h3>{{ user.pseudo }}</h3>
+    <div class="responsive-menu">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon
+          class="material-icons"
+          *ngIf="user && notifications"
+          matBadge="{{ notifications }}"
+          matBadgeColor="warn"
+        >
+          menu
+        </mat-icon>
+        <mat-icon class="material-icons" *ngIf="user && !notifications">
+          menu
+        </mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="responsive-menu">
+        <button mat-menu-item (click)="openLoansMonitoring(user.id)">
+          Tableau de bord
+        </button>
+        <button mat-menu-item (click)="openPrivateAccount(user.id)">
+          Mon Profil
+        </button>
+        <button mat-menu-item (click)="signOut()">
+          Se déconnecter
+        </button>
+      </mat-menu>
     </div>
   </div>
 </section>

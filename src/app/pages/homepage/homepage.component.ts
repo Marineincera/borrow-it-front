@@ -9,8 +9,8 @@ import { Item } from "src/app/shared/models/item";
 import { ItemService } from "src/app/shared/services/item.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
-import { ViewportScroller } from "@angular/common";
-import { element } from "protractor";
+
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-homepage",
@@ -31,13 +31,17 @@ export class HomepageComponent implements OnInit {
 
   constructor(
     private itemService: ItemService,
-    private _userService: UserService,
-    private viewportScroller: ViewportScroller
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getConnectedUser();
     this.initializeItemsArray();
+  }
+
+  openAuthentification() {
+    this.router.navigate(["auth"]);
   }
 
   initializeItemsArray() {
@@ -56,20 +60,20 @@ export class HomepageComponent implements OnInit {
   }
 
   initializeUsersArray(id: number) {
-    this._userService.getAllUsers().subscribe((data: Array<User>) => {
+    this.userService.getAllUsers().subscribe((data: Array<User>) => {
       const users = data;
       const index = users.findIndex((user) => user.id === id);
       users.splice(index, 1);
       this.users = users;
-      this._userService.allUsers = users;
+      this.userService.allUsers = users;
     });
   }
 
   getConnectedUser() {
     if (localStorage.getItem("TOKEN")) {
-      this._userService.getMe().subscribe((data: User) => {
-        this.connectedUser = this._userService.connectedUser;
-        this.initializeFriendsItemsArray(this._userService.friends);
+      this.userService.getMe().subscribe((data: User) => {
+        this.connectedUser = this.userService.connectedUser;
+        this.initializeFriendsItemsArray(this.userService.friends);
         this.initializeUsersArray(data.id);
       });
     }
@@ -88,7 +92,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getItemsByFriend(friend: User) {
-    this._userService.getOneUser(friend.id).subscribe((data: User) => {
+    this.userService.getOneUser(friend.id).subscribe((data: User) => {
       data.items.forEach((item) => {
         if (item.itemStatus.id === 1) {
           if ((item.visibility && item.visibility === "all") || "friends") {

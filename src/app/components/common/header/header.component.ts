@@ -59,7 +59,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openAuthentification() {
-    this.getConnectedUser();
     this.router.navigate(["auth"]);
   }
 

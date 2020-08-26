@@ -14,7 +14,6 @@ section {
   flex-wrap: wrap;
   padding: 4vw;
 }
-
 .element {
   width: 22vw;
 }
@@ -24,7 +23,7 @@ section {
   font-family: "Amatic SC", cursive;
   text-align: center;
   padding: 5vh;
-  border: 2px solid #eadda6;
+  border: 2px solid var(--main-color, #eadda6);
 }
 
 .more {
@@ -33,9 +32,35 @@ section {
   align-self: center;
 }
 
+.more-responsive {
+  display: none;
+}
+
 .empty {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .list {
+    overflow: overlay;
+    display: flex;
+    padding: 4vw;
+    flex-wrap: nowrap;
+  }
+  // section {
+  //   display: flex;
+  // }
+
+  .more {
+    display: none;
+  }
+
+  .more-responsive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

@@ -1,11 +1,11 @@
 div {
   background-color: white;
   padding: 10vh 10vw;
-  border-radius: 20%;
+  border-radius: 12%;
 }
 
 button {
-  background-color: #eadda6;
+  background-color: var(--main-color, #eadda6);
   border: none;
   color: white;
   padding: 1vh;
@@ -13,7 +13,21 @@ button {
 
 button:hover {
   background-color: white;
-  color: #eadda6;
-  border: 3px solid #eadda6;
+  color: var(--main-color, #eadda6);
+  border: 3px solid var(--main-color, #eadda6);
   cursor: pointer;
+}
+
+input {
+  font-size: 2rem;
+}
+
+mat-form-field {
+  width: 40vw;
+}
+
+@media screen and (max-width: 800px) {
+  mat-form-field {
+    width: 60vw;
+  }
 }

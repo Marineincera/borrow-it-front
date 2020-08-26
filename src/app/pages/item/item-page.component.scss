@@ -21,7 +21,7 @@ h1 {
   font-family: "Bellota", cursive;
   font-size: 1.875rem;
   text-align: center;
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
 }
 
 h2,
@@ -42,7 +42,7 @@ h3 {
 span {
   margin-bottom: 3vh;
   margin-top: 3vh;
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
 }
 
 .span-and-text {
@@ -50,11 +50,11 @@ span {
   align-items: center;
   font-family: "Bellota", cursive;
   font-size: 30px;
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
 }
 
 .return {
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
   cursor: pointer;
 }
 
@@ -63,7 +63,7 @@ span {
 }
 
 button {
-  background-color: #eadda6;
+  background-color: var(--main-color, #eadda6);
   border: none;
   color: white;
   padding: 1vh;
@@ -72,10 +72,10 @@ button {
 
 button:hover {
   background-color: white;
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
   border: none;
   border-radius: 5%;
-  border: 3px solid #eadda6;
+  border: 3px solid var(--main-color, #eadda6);
   cursor: pointer;
 }
 

@@ -39,7 +39,7 @@ h2 {
 }
 
 .matcard:hover {
-  background-color: #eadda6;
+  background-color: var(--main-color, #eadda6);
 }
 
 // .managingLoan {

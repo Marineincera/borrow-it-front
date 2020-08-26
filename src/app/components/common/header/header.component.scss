@@ -1,18 +1,25 @@
 section {
-  background-color: #eadda6;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  background-color: var(--main-color, #eadda6);
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+
+.nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 3vh;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
+  justify-content: flex-end;
+}
+
+.responsive-menu {
+  display: none;
 }
 
 .user {
   display: flex;
   font-family: "Bellota", cursive;
   font-size: 1.875rem;
-  width: 50%;
+  width: 70%;
   justify-content: space-between;
   align-items: center;
 }
@@ -37,7 +44,6 @@ h2 {
 .title {
   display: flex;
   // justify-content: center;
-  width: 70vw;
 }
 
 img {
@@ -55,4 +61,20 @@ img {
 
 .notifications {
   display: flex;
+}
+
+@media screen and (max-width: 800px) {
+  .responsive-menu {
+    display: block;
+  }
+
+  .user {
+    display: none;
+  }
+
+  h1 {
+    line-height: 5vh;
+    font-size: 1.8rem;
+    margin-left: 0.3vw;
+  }
 }

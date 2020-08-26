@@ -15,6 +15,7 @@ export class ListComponent implements OnInit {
   list: Array<any>;
   @Input() itemsList: Array<Item>;
   @Input() usersList: Array<User>;
+  @Input() filterSelected: number;
 
   array: Array<any> = [];
   users = false;
@@ -24,26 +25,26 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     if (this.itemsList) {
       this.filter = 0;
-      this.initializeArray(this.itemsList);
+      this.initializeArray(this.itemsList, this.filterSelected);
     }
     if (this.usersList) {
       console.log(this.usersList);
 
       this.filter = 0;
-      this.initializeArray(this.usersList);
+      this.initializeArray(this.usersList, this.filterSelected);
     }
   }
 
-  initializeArray(list: Array<any>) {
-    this.filter = this.filter + 4;
+  initializeArray(list: Array<any>, filterSelected: number) {
+    this.filter = this.filter + filterSelected;
     const array = [];
-    for (let i = this.filter - 4; i < this.filter; i++) {
+    for (let i = this.filter - filterSelected; i < this.filter; i++) {
       this.array.push(list[i]);
     }
   }
 
   addElementsToList(array) {
-    this.initializeArray(array);
+    this.initializeArray(array, this.filterSelected);
   }
 
   closeList(array: Array<any>) {

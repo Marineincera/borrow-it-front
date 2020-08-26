@@ -14,12 +14,4 @@
       </div>
     </div>
   </div>
-  <div class="more" *ngIf="itemsList && itemsList.length > 4">
-    <p (click)="addElementsToList(itemsList)">Voir plus +</p>
-    <p *ngIf="filter > 4" (click)="closeList(array)">Voir moins -</p>
-  </div>
-  <div class="more" *ngIf="usersList && usersList.length > 4">
-    <p (click)="addElementsToList(usersList)">Voir plus +</p>
-    <p *ngIf="filter > 4" (click)="closeList(array)">Voir moins -</p>
-  </div>
 </section>

@@ -5,7 +5,11 @@
       Tu en as assez d'acheter un objet pour ne l'utiliser qu'une seule fois ?
     </h2>
     <h1>Ne l'achète plus - Emprunte le !</h1>
-    <button *ngIf="!connectedUser" class="connection-button">
+    <button
+      *ngIf="!connectedUser"
+      class="connection-button"
+      (click)="openAuthentification()"
+    >
       - Se connecter - S'inscrire
     </button>
   </div>
@@ -20,24 +24,48 @@
     <app-list
       *ngIf="!searchResultsItems && !searchResultsUsers"
       [itemsList]="items"
+      [filterSelected]="4"
+      class="desktop"
     ></app-list>
     <app-list
       *ngIf="searchResultsItems && !searchResultsUsers"
       [itemsList]="searchResultsItems"
+      [filterSelected]="4"
+      class="desktop"
     ></app-list>
     <app-list
       *ngIf="searchResultsUsers && !searchResultsItems"
       [usersList]="searchResultsUsers"
+      [filterSelected]="4"
+      class="desktop"
+    ></app-list>
+    <app-list
+      *ngIf="!searchResultsItems && !searchResultsUsers"
+      [itemsList]="items"
+      [filterSelected]="10"
+      class="responsive"
+    ></app-list>
+    <app-list
+      *ngIf="searchResultsItems && !searchResultsUsers"
+      [itemsList]="searchResultsItems"
+      [filterSelected]="10"
+      class="responsive"
+    ></app-list>
+    <app-list
+      *ngIf="searchResultsUsers && !searchResultsItems"
+      [usersList]="searchResultsUsers"
+      [filterSelected]="10"
+      class="responsive"
     ></app-list>
   </div>
 
   <h2 *ngIf="friendsItems && friendsItems.length > 0">OBJETS DE MES AMIS</h2>
   <div *ngIf="friendsItems && friendsItems.length > 0" class="items">
-    <app-list [itemsList]="friendsItems"></app-list>
+    <app-list [itemsList]="friendsItems" [filterSelected]="4"></app-list>
   </div>
 
   <h2 *ngIf="users && users.length > 0">MEMBRES</h2>
   <div *ngIf="users && users.length > 0" class="users">
-    <app-list [usersList]="users"></app-list>
+    <app-list [usersList]="users" [filterSelected]="4"></app-list>
   </div>
 </section>

@@ -26,5 +26,5 @@ h1 {
 }
 
 .matcard:hover {
-  background-color: #eadda6;
+  background-color: var(--main-color, #eadda6);
 }

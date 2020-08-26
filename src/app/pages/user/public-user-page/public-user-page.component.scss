@@ -12,16 +12,16 @@ section {
   align-items: center;
   font-family: $font-italic;
   font-size: 30px;
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
 }
 
 .return:hover {
-  text-decoration: underline overline #eadda6;
+  text-decoration: underline overline var(--main-color, #eadda6);
 }
 
 .place {
   font-size: 50px;
-  color: #eadda6;
+  color: var(--main-color, #eadda6);
   text-align: center;
   margin-top: 2vh;
 }

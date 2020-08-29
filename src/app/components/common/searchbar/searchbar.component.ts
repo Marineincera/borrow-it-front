@@ -45,6 +45,24 @@ export class SearchbarComponent implements OnInit {
       );
       if (resultType === "users") {
         this.getUserByKeyword(value);
+      } else {
+        const itemsForAll = await this.getItemsForAll(value);
+        console.log(itemsForAll);
+        if (this.userService.friends.length > 0) {
+          const allItemsForFriends = await this.getItemsForFriends(value);
+          const userFriendsItems = await this.areFriendsOrNot(
+            allItemsForFriends,
+            this.userService.friends
+          );
+          const itemsToSend = await this.initializeResultsArray(
+            "items",
+            allItemsForFriends,
+            userFriendsItems
+          );
+          this.sendResultsToDisplay("items", itemsToSend);
+        } else {
+          this.sendResultsToDisplay("items", itemsForAll);
+        }
       }
     } catch {}
   }
@@ -68,14 +86,12 @@ export class SearchbarComponent implements OnInit {
       }
     });
     if (done && userinformations) {
-      //step 2: Define if the search is about Items or Users.
-      console.log(1);
-
       return userinformations;
     }
   }
 
   defineTypeOfItems(value: string, infos: Array<string>) {
+    //step 2: Define if the search is about Items or Users.
     //If value match with one of the users informations => value is about Users
     //Else value is about Items
     if (
@@ -83,17 +99,13 @@ export class SearchbarComponent implements OnInit {
         (word) => word.toLocaleLowerCase() === value.toLocaleLowerCase()
       )
     ) {
-      //step-users-1: Request if value matching data in Database
-      // this.getUserByKeyword(value);
-      console.log(2);
-
       return "users";
     } else {
-      //step-items-1: Request if value matching data in Database
       return "items";
     }
   }
   getUserByKeyword(value: string) {
+    //step-users-1: Request if value matching data in Database
     //step-users-2: API send Users matching
     return this.userService
       .getUsersByKeyword(value)
@@ -108,23 +120,25 @@ export class SearchbarComponent implements OnInit {
       });
   }
 
-  getItemsForAll(value: string) {
+  async getItemsForAll(value: string) {
+    //step-items-1: Request if value matching data in Database
     //step-items-2: API send Items matching - These Items are visibility enum for "all"
-    return this.itemService
+    // return this.itemService.getItemsByKeywordswithVisibilityForAll(value);
+    return await this.itemService
       .getItemsByKeywordswithVisibilityForAll(value)
-      .subscribe((results: Array<Item>) => {
-        this.itemsForAll = results;
-        this.getItemsForFriends(value);
-        // this.initializeResultsArray("all", results);
+      .toPromise()
+      .then((res: Array<Item>) => {
+        return res;
       });
   }
 
-  getItemsForFriends(value: string) {
+  async getItemsForFriends(value: string) {
     //step-items-2: API send Items matching - These Items are visibility enum for "friends"
-    return this.itemService
+    return await this.itemService
       .getItemsByKeywordswithVisibilityForFriends(value)
-      .subscribe((results: Array<Item>) => {
-        this.areFriendsOrNot(results, this.userService.friends);
+      .toPromise()
+      .then((res: Array<Item>) => {
+        return res;
       });
   }
 
@@ -132,11 +146,12 @@ export class SearchbarComponent implements OnInit {
     // is the connected user authorized to see items with visibility enum for "friends" ?
     let firstNum = 0;
     let secondNum = 0;
-    let array = [];
+    let array: Array<Item> = [];
     let done = false;
-    items.forEach((item) => {
+    let secondDone = false;
+    items.forEach((item: Item) => {
       if (friends && friends.length > 0) {
-        friends.forEach((friend) => {
+        friends.forEach((friend: User) => {
           if (item.user.id === friend.id) {
             array.push(item);
           }
@@ -147,39 +162,55 @@ export class SearchbarComponent implements OnInit {
         });
         firstNum = firstNum + 1;
         if (done && firstNum === items.length) {
-          this.itemsForFriends = array;
-          this.initializeResultsArray("friends");
+          // this.itemsForFriends = array;
+          // this.initializeResultsArray("friends");
+          secondDone = true;
         }
       } else {
-        this.initializeResultsArray("friends");
+        // this.initializeResultsArray("friends");
+        secondDone = true;
       }
     });
+    if (secondDone) {
+      return array;
+    }
   }
 
-  initializeResultsArray(name: string, results?: Array<Item> | Array<User>) {
+  initializeResultsArray(
+    name: string,
+    results?: Array<Item> | Array<User>,
+    resultsBis?: Array<Item>
+  ) {
     // step 3: Define the type of the results array.
     // because of the inputs in app-list, it's necessary to know if the results array
     // to display is a users or a items Array.
     let num = 0;
     let usersDone;
+    let itemsDone;
+    let resultsToSend;
     const userResults: Array<User> = [];
-    if (name === "friends") {
-      this.itemsResults = this.itemsForAll;
-      if (this.itemsForFriends && this.itemsForFriends.length > 0) {
-        this.itemsForFriends.forEach((item) => {
-          if (!this.itemsResults.find((element) => element === item)) {
-            this.itemsResults.push(item);
+    if (name === "items") {
+      resultsToSend = results;
+      if (resultsBis && resultsBis.length > 0) {
+        resultsBis.forEach((item) => {
+          if (!resultsToSend.find((element) => element === item)) {
+            resultsToSend.push(item);
           }
           num = num + 1;
-          if (num === this.itemsForFriends.length) {
-            this.sendResultsToDisplay("friends", this.itemsResults);
+          if (num === resultsBis.length) {
+            // this.sendResultsToDisplay("friends", resultsToSend);
+            itemsDone = true;
           }
         });
       } else {
-        this.sendResultsToDisplay("friends", this.itemsResults);
+        itemsDone = true;
+        // resultsToSend;
+        // this.sendResultsToDisplay("friends", this.itemsResults);
       }
     }
-
+    if (itemsDone) {
+      return resultsToSend;
+    }
     if (name === "users") {
       results.forEach((result) => {
         userResults.push(result);
@@ -189,14 +220,14 @@ export class SearchbarComponent implements OnInit {
         }
       });
     }
-    if (usersDone) {
+    if (usersDone && userResults.length > 0) {
       return userResults;
     }
   }
 
   //step 4: send the results array to the app-list and initialize back the searchbar value.
   sendResultsToDisplay(name: string, results?: Array<Item> | Array<User>) {
-    if (name === "friends") {
+    if (name === "items") {
       this.searchResultsItems.emit(results);
       this.searchbarForm.value.search = "";
       console.log(results);

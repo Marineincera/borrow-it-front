@@ -54,6 +54,7 @@ section {
 @media screen and (max-width: 800px) {
   .list-wrapper {
     display: flex;
+    overflow: overlay;
   }
 
   .four-list {

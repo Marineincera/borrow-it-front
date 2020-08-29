@@ -63,13 +63,14 @@
           <app-evaluation
             [evaluations]="itemToDisplay.evaluations"
             [item]="itemToDisplay"
+            class="evaluation"
           ></app-evaluation>
         </mat-card>
       </div>
     </div>
   </div>
   <app-tags-container
-    *ngIf="itemToDisplay"
+    *ngIf="itemToDisplay.tags.length > 0"
     [tags]="itemToDisplay.tags"
   ></app-tags-container>
 </section>

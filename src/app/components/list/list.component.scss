@@ -9,10 +9,18 @@ section {
   //     "main main main main";
 }
 
-.list {
+.list-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 2vw;
+}
+
+.center-list,
+.four-list {
   display: flex;
   flex-wrap: wrap;
-  padding: 4vw;
+  // padding: 4vw;
+  width: 100%;
 }
 .element {
   width: 22vw;
@@ -44,7 +52,11 @@ section {
 }
 
 @media screen and (max-width: 800px) {
-  .list {
+  .list-wrapper {
+    display: flex;
+  }
+
+  .four-list {
     overflow: overlay;
     display: flex;
     padding: 4vw;
@@ -53,6 +65,12 @@ section {
   // section {
   //   display: flex;
   // }
+
+  .center-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .more {
     display: none;

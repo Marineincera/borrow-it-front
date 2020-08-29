@@ -47,8 +47,8 @@ export class ListComponent implements OnInit {
     this.initializeArray(array, this.filterSelected);
   }
 
-  closeList(array: Array<any>) {
-    array.splice(0, array.length);
+  closeList(array) {
+    array.splice(array.length);
     this.ngOnInit();
   }
 }

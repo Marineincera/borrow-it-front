@@ -203,14 +203,30 @@ export class UserService {
   }
 
   determineUserNotifications(): number {
-    return (
-      this.loansPending.length +
-      this.borrowsInPending.length +
-      this.waitingfinishedLoans.length +
-      this.loansDemandsReturn.length +
-      this.loansRequest.length +
-      this.friendsDemandsReceived.length
-    );
+    let notifications = 0;
+    let done: boolean;
+    if (this.loansPending.length > 0) {
+      notifications = notifications + this.loansPending.length;
+    }
+    if (this.borrowsInPending.length > 0) {
+      notifications = notifications + this.borrowsInPending.length;
+    }
+    if (this.waitingfinishedLoans.length > 0) {
+      notifications = notifications + this.waitingfinishedLoans.length;
+    }
+    if (this.loansDemandsReturn.length > 0) {
+      notifications = notifications + this.loansDemandsReturn.length;
+    }
+    if (this.loansRequest.length > 0) {
+      notifications = notifications + this.loansRequest.length;
+    }
+    if (this.friendsDemandsReceived.length > 0) {
+      notifications = notifications + this.friendsDemandsReceived.length;
+      done = true;
+    }
+    if (done) {
+      return notifications;
+    }
   }
 
   //observable

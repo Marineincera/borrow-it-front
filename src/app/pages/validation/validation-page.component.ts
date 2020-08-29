@@ -48,6 +48,9 @@ export class ValidationPageComponent implements OnInit {
       this.loan,
       ownerOrNot
     );
+    this.userService.getMe().subscribe((data: User) => {
+      this.userService.userModified.next(data);
+    });
   }
 
   async getLoan(id: number) {

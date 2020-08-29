@@ -10,7 +10,7 @@ export class LoanService {
   static URL = "http://localhost:3000/loans";
 
   //observable
-  loanModified = new Subject<Loan>();
+  // loanModified = new Subject<Loan>();
   loan: Loan;
 
   constructor(private service: WshelperService) {}
@@ -41,7 +41,7 @@ export class LoanService {
   }
 
   //observable
-  emitModifiedLoan() {
-    this.loanModified.next(this.loan);
-  }
+  // emitModifiedLoan() {
+  //   this.loanModified.next(this.loan);
+  // }
 }

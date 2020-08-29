@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy, OnChanges } from "@angular/core";
 import { Loan } from "src/app/shared/models/loan";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
@@ -49,8 +49,17 @@ export class LoanMonitoringPageComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  // ngOnChanges() {
+  //   if (this.user) {
+  //     this.getUser();
+  //   }
+  // }
+
   ngOnDestroy() {
-    this.userService.userModified.unsubscribe();
+    if (localStorage.getItem("TOKEN")) {
+      this.userService.userModified.unsubscribe();
+    }
   }
 
   getUser() {

@@ -54,8 +54,8 @@ export class RequestPageComponent implements OnInit {
       category: item.category,
       itemStatus: { id: 2 },
     };
-    this.itemService
-      .update(item.id, newItem)
-      .subscribe((data) => console.log(data));
+    this.itemService.update(item.id, newItem).subscribe((data) => {
+      // this.userService.getMe().subscribe();
+    });
   }
 }

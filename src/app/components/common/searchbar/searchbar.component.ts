@@ -32,7 +32,6 @@ export class SearchbarComponent implements OnInit {
 
   ngOnInit() {}
 
-  //step 1:
   async displayResultsSearch(value: string) {
     try {
       //step 1: initialize an array with informations about users pseudo and city
@@ -45,33 +44,39 @@ export class SearchbarComponent implements OnInit {
         informationsAboutUsers
       );
       if (resultType === "users") {
-        //Users step 1 : if items to display are Users => get Users where pseudo or city === value
-        this.getUserByKeyword(value);
+        // step 3 USERS // get users where pseudo or city === value
+        const users = await this.getUserByKeyword(value);
+        // step 4 USERS // send results as output to display;
+        this.sendResultsToDisplay("users", users);
       } else {
-        //Items step 1 :if items to display are Items => get Items where visibility === all
+        // step 3 ITEMS // get items where visibility === all
         const itemsForAll = await this.getItemsForAll(value);
         //if connected user has friends, get friends items with visibility === friends only
         if (this.userService.friends.length > 0) {
-          //Friends Items step 1: get all items with visibility === friends only;
+          //FRIENDS ITEMS 1: get all items with visibility === friends only;
           const allItemsForFriends = await this.getItemsForFriends(value);
-          // Friends Items step 2: determine friends items only;
+          // FRIENDS ITEMS 2: determine friends items only;
           const userFriendsItems = await this.determineIfFriendsOrNot(
             allItemsForFriends,
             this.userService.friends
           );
-          // Friends Items step 3: create an array with items with visibility for all and friends items with visibility for friends
+          // FRIENDS ITEMS 3: create an array with items with visibility for all and friends items with visibility for friends
           const itemsToSend = itemsForAll.concat(userFriendsItems);
-          //Send results as output to display
+          // step 4 ITEMS // Send results as output to display
           this.sendResultsToDisplay("items", itemsToSend);
         } else {
-          //Send results as output to display
+          // step 4 ITEMS //Send results as output to display
           this.sendResultsToDisplay("items", itemsForAll);
         }
       }
-    } catch {}
+    } catch {
+      this.searchResultsItems.emit([]);
+      this.searchResultsUsers.emit([]);
+    }
   }
 
   getUsersInfos(users: Array<User>) {
+    // Create an array with all users pseudos and cities.
     const userinformations = [];
     let num = 0;
     let done = false;
@@ -95,7 +100,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   defineTypeOfItems(value: string, infos: Array<string>) {
-    //step 2: Define if the search is about Items or Users.
+    //Define if the search is about Items or Users.
     //If value match with one of the users informations => value is about Users
     //Else value is about Items
     if (
@@ -108,21 +113,18 @@ export class SearchbarComponent implements OnInit {
       return "items";
     }
   }
-  getUserByKeyword(value: string) {
-    //step-users-1: Request if value matching data in Database
-    //step-users-2: API send Users matching
-    return this.userService
+  async getUserByKeyword(value: string) {
+    //API send Users where value matching users in Database
+    return await this.userService
       .getUsersByKeyword(value)
-      .subscribe(async (data: Array<User>) => {
-        //send this array to display
-        return await this.sendResultsToDisplay("users", data);
+      .toPromise()
+      .then((res: Array<User>) => {
+        return res;
       });
   }
 
   async getItemsForAll(value: string) {
-    //step-items-1: Request if value matching data in Database
-    //step-items-2: API send Items matching - These Items are visibility enum for "all"
-    // return this.itemService.getItemsByKeywordswithVisibilityForAll(value);
+    //API send Items matching - These Items are visibility enum for "all"
     return await this.itemService
       .getItemsByKeywordswithVisibilityForAll(value)
       .toPromise()
@@ -132,7 +134,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   async getItemsForFriends(value: string) {
-    //step-items-2: API send Items matching - These Items are visibility enum for "friends"
+    // API send Items matching - These Items are visibility enum for "friends"
     return await this.itemService
       .getItemsByKeywordswithVisibilityForFriends(value)
       .toPromise()
@@ -142,7 +144,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   determineIfFriendsOrNot(items: Array<Item>, friends: Array<User>) {
-    // is the connected user authorized to see items with visibility enum for "friends" ?
+    // create an array of friends items with visibility === friends only;
     let firstNum = 0;
     let secondNum = 0;
     let array: Array<Item> = [];
@@ -161,12 +163,9 @@ export class SearchbarComponent implements OnInit {
         });
         firstNum = firstNum + 1;
         if (done && firstNum === items.length) {
-          // this.itemsForFriends = array;
-          // this.initializeResultsArray("friends");
           secondDone = true;
         }
       } else {
-        // this.initializeResultsArray("friends");
         secondDone = true;
       }
     });
@@ -175,13 +174,11 @@ export class SearchbarComponent implements OnInit {
     }
   }
 
-  //step 4: send the results array to the app-list and initialize back the searchbar value.
   sendResultsToDisplay(name: string, results?: Array<Item> | Array<User>) {
+    // send the results array to the app-list and initialize back the searchbar value.
     if (name === "items") {
       this.searchResultsItems.emit(results);
       this.searchbarForm.value.search = "";
-      console.log(results);
-
       this.ngOnInit();
     }
     if (name === "users") {

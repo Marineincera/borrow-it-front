@@ -58,15 +58,15 @@ export class UserService {
   }
 
   delete(id) {
-    return this.service.delete(UserService.URL + "users/delete/" + id);
+    return this.service.delete(UserService.URL + "users/delete/");
   }
 
   update(id, user) {
-    return this.service.put(UserService.URL + "users/modify/" + id, user);
+    return this.service.put(UserService.URL + "users/modify/", user);
   }
 
   getFriendsById(id: number) {
-    return this.service.get(UserService.URL + "users/friends/" + id.toString());
+    return this.service.get(UserService.URL + "users/friends/");
   }
 
   //test

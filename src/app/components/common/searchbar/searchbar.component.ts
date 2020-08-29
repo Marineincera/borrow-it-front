@@ -34,33 +34,37 @@ export class SearchbarComponent implements OnInit {
 
   //step 1:
   async displayResultsSearch(value: string) {
-    //step 1: initialize an array with informations about users pseudo and city
     try {
+      //step 1: initialize an array with informations about users pseudo and city
       const informationsAboutUsers = await this.getUsersInfos(
         this.userService.allUsers
       );
+      //step 2: define if items to display are Items or Users.
       const resultType = await this.defineTypeOfItems(
         value,
         informationsAboutUsers
       );
       if (resultType === "users") {
+        //Users step 1 : if items to display are Users => get Users where pseudo or city === value
         this.getUserByKeyword(value);
       } else {
+        //Items step 1 :if items to display are Items => get Items where visibility === all
         const itemsForAll = await this.getItemsForAll(value);
-        console.log(itemsForAll);
+        //if connected user has friends, get friends items with visibility === friends only
         if (this.userService.friends.length > 0) {
+          //Friends Items step 1: get all items with visibility === friends only;
           const allItemsForFriends = await this.getItemsForFriends(value);
-          const userFriendsItems = await this.areFriendsOrNot(
+          // Friends Items step 2: determine friends items only;
+          const userFriendsItems = await this.determineIfFriendsOrNot(
             allItemsForFriends,
             this.userService.friends
           );
-          const itemsToSend = await this.initializeResultsArray(
-            "items",
-            allItemsForFriends,
-            userFriendsItems
-          );
+          // Friends Items step 3: create an array with items with visibility for all and friends items with visibility for friends
+          const itemsToSend = itemsForAll.concat(userFriendsItems);
+          //Send results as output to display
           this.sendResultsToDisplay("items", itemsToSend);
         } else {
+          //Send results as output to display
           this.sendResultsToDisplay("items", itemsForAll);
         }
       }
@@ -110,13 +114,8 @@ export class SearchbarComponent implements OnInit {
     return this.userService
       .getUsersByKeyword(value)
       .subscribe(async (data: Array<User>) => {
-        //initialize users results array
-        const usersResultsToSend = await this.initializeResultsArray(
-          "users",
-          data
-        );
         //send this array to display
-        return await this.sendResultsToDisplay("users", usersResultsToSend);
+        return await this.sendResultsToDisplay("users", data);
       });
   }
 
@@ -142,7 +141,7 @@ export class SearchbarComponent implements OnInit {
       });
   }
 
-  areFriendsOrNot(items: Array<Item>, friends: Array<User>) {
+  determineIfFriendsOrNot(items: Array<Item>, friends: Array<User>) {
     // is the connected user authorized to see items with visibility enum for "friends" ?
     let firstNum = 0;
     let secondNum = 0;
@@ -173,55 +172,6 @@ export class SearchbarComponent implements OnInit {
     });
     if (secondDone) {
       return array;
-    }
-  }
-
-  initializeResultsArray(
-    name: string,
-    results?: Array<Item> | Array<User>,
-    resultsBis?: Array<Item>
-  ) {
-    // step 3: Define the type of the results array.
-    // because of the inputs in app-list, it's necessary to know if the results array
-    // to display is a users or a items Array.
-    let num = 0;
-    let usersDone;
-    let itemsDone;
-    let resultsToSend;
-    const userResults: Array<User> = [];
-    if (name === "items") {
-      resultsToSend = results;
-      if (resultsBis && resultsBis.length > 0) {
-        resultsBis.forEach((item) => {
-          if (!resultsToSend.find((element) => element === item)) {
-            resultsToSend.push(item);
-          }
-          num = num + 1;
-          if (num === resultsBis.length) {
-            // this.sendResultsToDisplay("friends", resultsToSend);
-            itemsDone = true;
-          }
-        });
-      } else {
-        itemsDone = true;
-        // resultsToSend;
-        // this.sendResultsToDisplay("friends", this.itemsResults);
-      }
-    }
-    if (itemsDone) {
-      return resultsToSend;
-    }
-    if (name === "users") {
-      results.forEach((result) => {
-        userResults.push(result);
-        num = num + 1;
-        if (num === results.length) {
-          usersDone = true;
-        }
-      });
-    }
-    if (usersDone && userResults.length > 0) {
-      return userResults;
     }
   }
 

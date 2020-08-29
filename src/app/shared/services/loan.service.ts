@@ -20,7 +20,12 @@ export class LoanService {
   }
 
   postLoan(loan: Loan) {
-    return this.service.post(LoanService.URL, loan);
+    return this.service.post(LoanService.URL, {
+      borrowedItem: loan.borrowedItem.id,
+      borrower: loan.borrower.id,
+      owner: loan.owner.id,
+      loanStatus: loan.loanStatus,
+    });
   }
 
   getOneLoan(id: number) {
@@ -28,7 +33,7 @@ export class LoanService {
   }
 
   delete(id) {
-    return this.service.delete(LoanService.URL + "delete/" + id);
+    return this.service.delete(LoanService.URL + "/delete/" + id);
   }
 
   update(id, loan) {

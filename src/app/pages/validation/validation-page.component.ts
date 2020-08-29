@@ -36,42 +36,74 @@ export class ValidationPageComponent implements OnInit {
   ngOnInit(): void {
     // get id to display the corresponding loan
     const id = this.route.snapshot.paramMap.get("id");
-    this.getLoan(Number(id));
+    this.initialization(id);
   }
 
-  getLoan(id: number) {
+  async initialization(id: string) {
+    this.loan = await this.getLoan(Number(id));
+    const ownerOrNot: boolean = await this.determineIfOwnerOrBorrower(
+      this.loan
+    );
+    this.validationStatus = await this.determineValidationStatus(
+      this.loan,
+      ownerOrNot
+    );
+  }
+
+  async getLoan(id: number) {
     // get the loan correponding to the id
-    this.loanService.getOneLoan(id).subscribe((data: Loan) => {
-      this.loan = data;
-      this.loanService.loan = data;
-      this.determineIfOwnerOrBorrower(data);
-    });
+    return await this.loanService
+      .getOneLoan(id)
+      .toPromise()
+      .then((res: Loan) => {
+        return res;
+      });
   }
 
-  determineIfOwnerOrBorrower(loan: Loan) {
+  async determineIfOwnerOrBorrower(loan: Loan) {
     //determine if the connected user is the owner or the borrower of the item
+    let owner: boolean;
     if (localStorage.getItem("TOKEN")) {
-      this.userService.getMe().subscribe((data: User) => {
-        if (data.id === loan.owner.id) {
-          this.isOwner = true;
-          this.sendMailToOther = `mailto:${loan.borrower.email}`;
-          this.personToContact = loan.borrower.pseudo;
-          this.validationStatus = this.determineValidationStatus(this.loan);
-        }
-        if (data.id === loan.borrower.id) {
-          this.isBorrower = true;
-          this.sendMailToOther = `mailto:${loan.owner.email}`;
-          this.personToContact = loan.owner.pseudo;
-          this.isOwner = false;
-          this.validationStatus = this.determineValidationStatus(this.loan);
-        }
-      });
+      await this.userService
+        .getMe()
+        .toPromise()
+        .then((res: User) => {
+          if (res.id === loan.owner.id) {
+            this.isOwner = true;
+            this.sendMailToOther = `mailto:${loan.borrower.email}`;
+            this.personToContact = loan.borrower.pseudo;
+            return (owner = true);
+          }
+          if (res.id === loan.borrower.id) {
+            this.isBorrower = true;
+            this.sendMailToOther = `mailto:${loan.owner.email}`;
+            this.personToContact = loan.owner.pseudo;
+            this.isOwner = false;
+            return (owner = false);
+          }
+        });
+      return owner;
+      // this.userService.getMe().subscribe((data: User) => {
+      //   if (data.id === loan.owner.id) {
+      //     this.isOwner = true;
+      //     this.sendMailToOther = `mailto:${loan.borrower.email}`;
+      //     this.personToContact = loan.borrower.pseudo;
+      //     this.validationStatus = this.determineValidationStatus(this.loan);
+      //   }
+      //   if (data.id === loan.borrower.id) {
+      //     this.isBorrower = true;
+      //     this.sendMailToOther = `mailto:${loan.owner.email}`;
+      //     this.personToContact = loan.owner.pseudo;
+      //     this.isOwner = false;
+      //     this.validationStatus = this.determineValidationStatus(this.loan);
+      //   }
+      // });
     }
   }
 
-  determineValidationStatus(loan: Loan) {
+  determineValidationStatus(loan: Loan, ownerOrNot: boolean) {
     //to display a sentence according to the status
-    if (this.isOwner) {
+    if (ownerOrNot) {
       let text = "";
       if (loan.loanStatus.id === 1) {
         text = "Valider le prêt";
@@ -106,24 +138,28 @@ export class ValidationPageComponent implements OnInit {
     }
   }
 
-  changeLoanStatus(loan: Loan) {
+  async changeLoanStatus(loan: Loan) {
     // update the status of the loan
-    const newStatus = this.changementLoanStatus(loan);
-    if (newStatus) {
-      this.loanService
-        .update(loan.id, { loanStatus: { id: newStatus } })
-        .subscribe((data) => {
-          if (newStatus === 6) {
-            this.deleteLoan(loan);
-            this.changeItemAvailability(loan);
+    const newStatus = await this.changementLoanStatus(loan);
+    this.loanService
+      .update(loan.id, { loanStatus: { id: newStatus } })
+      .subscribe(async (data) => {
+        if (newStatus === 6) {
+          const deleteLoan = await this.deleteLoan(loan);
+          if (deleteLoan) {
+            const changeItemAvailability = await this.changeItemAvailability(
+              loan
+            );
             this.router.navigate([
               "loansmonitoring/" + this.userService.connectedUser.id,
             ]);
           } else {
-            location.reload();
+            throw new Error("erreur lors de la suppression du pret");
           }
-        });
-    }
+        } else {
+          location.reload();
+        }
+      });
   }
   changementLoanStatus(loan: Loan) {
     // to get the newStatus when a user wants update the loan
@@ -173,7 +209,12 @@ export class ValidationPageComponent implements OnInit {
   deleteLoan(loan: Loan) {
     //and it must be deleted
 
-    this.loanService.delete(loan.id).subscribe();
+    return this.loanService
+      .delete(loan.id)
+      .toPromise()
+      .then((res) => {
+        return true;
+      });
   }
 
   declineLoan(loan) {

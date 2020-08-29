@@ -112,12 +112,14 @@ export class UserService {
   // recuperation du user grâce au token et stokage dans le service
   public getMe() {
     return this.http.get(UserService.URL + "users/search/me").pipe(
-      tap((user: User) => {
+      tap(async (user: User) => {
         this.connectedUser = user;
         this.loans = user.loans;
-        this.determineLoansCategories(user);
-        this.determineBorrowsCategories(user);
-        this.determineFriendships(user);
+        const loansCategories = await this.determineLoansCategories(user);
+        const borrowsCategories = await this.determineBorrowsCategories(user);
+        const friendships = await this.determineFriendships(user);
+        const notifications = await this.determineUserNotifications();
+        console.log(notifications);
       })
     );
   }
@@ -128,6 +130,8 @@ export class UserService {
     this.loansInProgress = [];
     this.loansDemandsReturn = [];
     this.waitingfinishedLoans = [];
+    let num = 0;
+    let done;
     if (user.loans.length > 0) {
       user.loans.forEach((loan) => {
         if (loan.loanStatus.id === 1) {
@@ -146,7 +150,14 @@ export class UserService {
         if (loan.loanStatus.id === 4) {
           this.waitingfinishedLoans.push(loan);
         }
+        num = num + 1;
+        if (num === user.loans.length) {
+          done = true;
+        }
       });
+      if (done) {
+        return true;
+      }
     }
   }
 
@@ -155,6 +166,8 @@ export class UserService {
     this.borrowsInPending = [];
     this.borrowsInProgress = [];
     this.waitingfinishedBorrows = [];
+    let num = 0;
+    let done;
     if (user.borrows.length > 0) {
       user.borrows.forEach((borrow) => {
         if (borrow.loanStatus.id === 1) {
@@ -172,7 +185,14 @@ export class UserService {
         if (borrow.loanStatus.id === 4) {
           this.waitingfinishedBorrows.push(borrow);
         }
+        num++;
+        if (num === user.borrows.length) {
+          done = true;
+        }
       });
+      if (done) {
+        return true;
+      }
     }
   }
 
@@ -181,6 +201,8 @@ export class UserService {
     this.friendsDemandsReceived = [];
     this.friends = [];
     this.allFriendships = [];
+    let num = 0;
+    let done;
     user.friendDemandsReceived.forEach((demand) => {
       if (demand.status.id === 1) {
         this.friendsDemandsReceived.push(demand);
@@ -199,32 +221,57 @@ export class UserService {
         this.friends.push(demand.userAskedForFriend);
         this.allFriendships.push(demand);
       }
+      num++;
+      if (num === user.friendDemandsReceived.length) {
+        done = true;
+      }
     });
+    if (done) {
+      return true;
+    }
   }
 
   determineUserNotifications(): number {
     let notifications = 0;
-    let done: boolean;
-    if (this.loansPending && this.loansPending.length) {
+    let done = 0;
+    if (this.loansPending && this.loansPending.length > 0) {
       notifications = notifications + this.loansPending.length;
+      done++;
+    } else {
+      done++;
     }
-    if (this.borrowsInPending && this.borrowsInPending.length) {
+    if (this.borrowsInPending && this.borrowsInPending.length > 0) {
       notifications = notifications + this.borrowsInPending.length;
+      done++;
+    } else {
+      done++;
     }
-    if (this.waitingfinishedLoans && this.waitingfinishedLoans.length) {
+    if (this.waitingfinishedLoans && this.waitingfinishedLoans.length > 0) {
       notifications = notifications + this.waitingfinishedLoans.length;
+      done++;
+    } else {
+      done++;
     }
-    if (this.loansDemandsReturn && this.loansDemandsReturn.length) {
+    if (this.loansDemandsReturn && this.loansDemandsReturn.length > 0) {
       notifications = notifications + this.loansDemandsReturn.length;
+      done++;
+    } else {
+      done++;
     }
-    if (this.loansRequest && this.loansRequest.length) {
+    if (this.loansRequest && this.loansRequest.length > 0) {
       notifications = notifications + this.loansRequest.length;
+      done++;
+    } else {
+      done++;
     }
-    if (this.friendsDemandsReceived && this.friendsDemandsReceived.length) {
+    if (this.friendsDemandsReceived && this.friendsDemandsReceived.length > 0) {
       notifications = notifications + this.friendsDemandsReceived.length;
-      done = true;
+      done++;
+      console.log(done);
+    } else {
+      done++;
     }
-    if (done) {
+    if (done === 6) {
       return notifications;
     }
   }

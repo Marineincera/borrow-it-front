@@ -30,7 +30,11 @@
             Changer la visibilité
           </button>
 
-          <mat-form-field appearance="fill" *ngIf="visibilityUpdating">
+          <mat-form-field
+            appearance="fill"
+            *ngIf="visibilityUpdating"
+            class="visibility"
+          >
             <mat-label>Choisis la visibilité souhaitée</mat-label>
             <mat-select [(value)]="chosenVisibilityToUpdate">
               <mat-option

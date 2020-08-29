@@ -11,6 +11,7 @@
     [borrowsInProgress]="borrowsInProgress"
     [waitingfinishedBorrows]="waitingBorrowsToComplete"
     [friendshipDemandsReceived]="friendshipsDemandsReceived"
+    class="managing"
   ></app-managing>
 
   <mat-tab-group *ngIf="loansAnalyseDone && borrowsAnalyseDone">
@@ -94,9 +95,7 @@
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
         <div *ngIf="loansInProgress.length === 0" class="text">
-          <p>
-            Vous ne prêtez aucun objet actuellement.
-          </p>
+          <p>Vous ne prêtez aucun objet actuellement.</p>
         </div>
       </div>
     </mat-tab>
@@ -111,9 +110,7 @@
           <app-private-loan [loan]="loan"></app-private-loan>
         </div>
         <div *ngIf="borrowsInProgress.length === 0" class="text">
-          <p>
-            Vous n'empruntez aucun objet actuellement.
-          </p>
+          <p>Vous n'empruntez aucun objet actuellement.</p>
         </div>
       </div>
     </mat-tab>

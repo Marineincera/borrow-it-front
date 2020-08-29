@@ -13,6 +13,11 @@
 section {
   display: flex;
   flex-direction: column;
+  margin-top: 5vh;
+}
+
+.managing {
+  width: 86%;
 }
 
 .empty {
@@ -20,4 +25,8 @@ section {
   align-items: center;
   justify-content: center;
   height: 15vh;
+}
+
+span {
+  font-size: 2rem;
 }

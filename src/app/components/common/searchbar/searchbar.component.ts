@@ -116,18 +116,22 @@ export class SearchbarComponent implements OnInit {
     let array = [];
     let done = false;
     items.forEach((item) => {
-      friends.forEach((friend) => {
-        if (item.user.id === friend.id) {
-          array.push(item);
+      if (friends && friends.length > 0) {
+        friends.forEach((friend) => {
+          if (item.user.id === friend.id) {
+            array.push(item);
+          }
+          secondNum = secondNum + 1;
+          if (secondNum === friends.length) {
+            done = true;
+          }
+        });
+        firstNum = firstNum + 1;
+        if (done && firstNum === items.length) {
+          this.itemsForFriends = array;
+          this.initializeResultsArray("friends");
         }
-        secondNum = secondNum + 1;
-        if (secondNum === friends.length) {
-          done = true;
-        }
-      });
-      firstNum = firstNum + 1;
-      if (done && firstNum === items.length) {
-        this.itemsForFriends = array;
+      } else {
         this.initializeResultsArray("friends");
       }
     });
@@ -140,8 +144,7 @@ export class SearchbarComponent implements OnInit {
     let num = 0;
     if (name === "friends") {
       this.itemsResults = this.itemsForAll;
-
-      if (this.itemsForFriends.length > 0) {
+      if (this.itemsForFriends && this.itemsForFriends.length > 0) {
         this.itemsForFriends.forEach((item) => {
           if (!this.itemsResults.find((element) => element === item)) {
             this.itemsResults.push(item);
@@ -172,6 +175,8 @@ export class SearchbarComponent implements OnInit {
     if (name === "friends") {
       this.searchResultsItems.emit(results);
       this.searchbarForm.value.search = "";
+      console.log(results);
+
       this.ngOnInit();
     }
     if (name === "users") {

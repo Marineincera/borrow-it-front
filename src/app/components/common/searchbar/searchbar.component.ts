@@ -4,6 +4,8 @@ import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
 import { ItemService } from "src/app/shared/services/item.service";
+import { Observable } from "rxjs";
+import { runInThisContext } from "vm";
 
 @Component({
   selector: "app-searchbar",
@@ -19,8 +21,8 @@ export class SearchbarComponent implements OnInit {
   itemsForAll: Array<Item>;
   itemsForFriends: Array<Item>;
   itemsResults: Array<Item> = [];
-  usersResults = [];
-  userinformations: Array<string>;
+  usersResults: Array<User>;
+  // userinformations: Array<string>;
 
   constructor(
     private userService: UserService,
@@ -31,33 +33,45 @@ export class SearchbarComponent implements OnInit {
   ngOnInit() {}
 
   //step 1:
-  displayResultsSearch(value: string) {
+  async displayResultsSearch(value: string) {
     //step 1: initialize an array with informations about users pseudo and city
-
-    this.getUsersInfos(this.userService.allUsers, value);
+    try {
+      const informationsAboutUsers = await this.getUsersInfos(
+        this.userService.allUsers
+      );
+      const resultType = await this.defineTypeOfItems(
+        value,
+        informationsAboutUsers
+      );
+      if (resultType === "users") {
+        this.getUserByKeyword(value);
+      }
+    } catch {}
   }
 
-  getUsersInfos(users: Array<User>, value: string) {
-    this.userinformations = [];
+  getUsersInfos(users: Array<User>) {
+    const userinformations = [];
     let num = 0;
     let done = false;
     users.forEach((user) => {
-      this.userinformations.push(user.pseudo.toLocaleLowerCase());
+      userinformations.push(user.pseudo.toLocaleLowerCase());
       if (
-        !this.userinformations.find(
+        !userinformations.find(
           (information) => information === user.city.toLocaleLowerCase()
         )
       ) {
-        this.userinformations.push(user.city.toLocaleLowerCase());
+        userinformations.push(user.city.toLocaleLowerCase());
       }
       num = num + 1;
       if (num === users.length) {
         done = true;
       }
     });
-    if (done && this.userinformations) {
+    if (done && userinformations) {
       //step 2: Define if the search is about Items or Users.
-      this.defineTypeOfItems(value, this.userinformations);
+      console.log(1);
+
+      return userinformations;
     }
   }
 
@@ -70,22 +84,27 @@ export class SearchbarComponent implements OnInit {
       )
     ) {
       //step-users-1: Request if value matching data in Database
-      this.getUserByKeyword(value);
+      // this.getUserByKeyword(value);
+      console.log(2);
+
+      return "users";
     } else {
       //step-items-1: Request if value matching data in Database
-      this.getItemsForAll(value);
-      // this.getItemsForFriends(value);
+      return "items";
     }
   }
-
   getUserByKeyword(value: string) {
     //step-users-2: API send Users matching
-    this.userService
+    return this.userService
       .getUsersByKeyword(value)
-      .subscribe((results: Array<User>) => {
-        if (results.length > 0) {
-          this.initializeResultsArray("users", results);
-        }
+      .subscribe(async (data: Array<User>) => {
+        //initialize users results array
+        const usersResultsToSend = await this.initializeResultsArray(
+          "users",
+          data
+        );
+        //send this array to display
+        return await this.sendResultsToDisplay("users", usersResultsToSend);
       });
   }
 
@@ -142,6 +161,8 @@ export class SearchbarComponent implements OnInit {
     // because of the inputs in app-list, it's necessary to know if the results array
     // to display is a users or a items Array.
     let num = 0;
+    let usersDone;
+    const userResults: Array<User> = [];
     if (name === "friends") {
       this.itemsResults = this.itemsForAll;
       if (this.itemsForFriends && this.itemsForFriends.length > 0) {
@@ -161,12 +182,15 @@ export class SearchbarComponent implements OnInit {
 
     if (name === "users") {
       results.forEach((result) => {
-        this.usersResults.push(result);
+        userResults.push(result);
         num = num + 1;
         if (num === results.length) {
-          this.sendResultsToDisplay("users", this.usersResults);
+          usersDone = true;
         }
       });
+    }
+    if (usersDone) {
+      return userResults;
     }
   }
 

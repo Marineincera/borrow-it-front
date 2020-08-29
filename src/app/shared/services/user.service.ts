@@ -205,22 +205,22 @@ export class UserService {
   determineUserNotifications(): number {
     let notifications = 0;
     let done: boolean;
-    if (this.loansPending.length) {
+    if (this.loansPending && this.loansPending.length) {
       notifications = notifications + this.loansPending.length;
     }
-    if (this.borrowsInPending.length) {
+    if (this.borrowsInPending && this.borrowsInPending.length) {
       notifications = notifications + this.borrowsInPending.length;
     }
-    if (this.waitingfinishedLoans.length) {
+    if (this.waitingfinishedLoans && this.waitingfinishedLoans.length) {
       notifications = notifications + this.waitingfinishedLoans.length;
     }
-    if (this.loansDemandsReturn.length) {
+    if (this.loansDemandsReturn && this.loansDemandsReturn.length) {
       notifications = notifications + this.loansDemandsReturn.length;
     }
-    if (this.loansRequest.length) {
+    if (this.loansRequest && this.loansRequest.length) {
       notifications = notifications + this.loansRequest.length;
     }
-    if (this.friendsDemandsReceived.length) {
+    if (this.friendsDemandsReceived && this.friendsDemandsReceived.length) {
       notifications = notifications + this.friendsDemandsReceived.length;
       done = true;
     }

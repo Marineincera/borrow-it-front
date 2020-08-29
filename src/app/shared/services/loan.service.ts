@@ -10,7 +10,7 @@ export class LoanService {
   static URL = "http://localhost:3000/loans";
 
   //observable
-  loanModified = new Subject<Loan>();
+  // loanModified = new Subject<Loan>();
   loan: Loan;
 
   constructor(private service: WshelperService) {}
@@ -20,7 +20,12 @@ export class LoanService {
   }
 
   postLoan(loan: Loan) {
-    return this.service.post(LoanService.URL, loan);
+    return this.service.post(LoanService.URL, {
+      borrowedItem: loan.borrowedItem.id,
+      borrower: loan.borrower.id,
+      owner: loan.owner.id,
+      loanStatus: loan.loanStatus,
+    });
   }
 
   getOneLoan(id: number) {
@@ -28,7 +33,7 @@ export class LoanService {
   }
 
   delete(id) {
-    return this.service.delete(LoanService.URL + "delete/" + id);
+    return this.service.delete(LoanService.URL + "/delete/" + id);
   }
 
   update(id, loan) {
@@ -36,7 +41,7 @@ export class LoanService {
   }
 
   //observable
-  emitModifiedLoan() {
-    this.loanModified.next(this.loan);
-  }
+  // emitModifiedLoan() {
+  //   this.loanModified.next(this.loan);
+  // }
 }

@@ -4,9 +4,9 @@ import { LoanStatus } from "./loan-status";
 
 export class Loan {
   id?: number;
-  borrowedItem: Item;
-  borrower: User;
-  owner: User;
+  borrowedItem?: Item;
+  borrower?: User;
+  owner?: User;
   borrowDate?: Date;
   loanStatus?: LoanStatus;
 

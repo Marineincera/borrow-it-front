@@ -25,10 +25,20 @@ export class PrivateUserComponent implements OnInit, OnDestroy {
     this.openUpdateAvatar = false;
     this.userToDisplay = this.userService.connectedUser;
     //observable
-    this.userService.userModified.subscribe((user) => {
-      this.userService.connectedUser = user;
-      this.userToDisplay = user;
-    });
+    this.getUser();
+
+    if (!this.userToDisplay) {
+      this.getUser();
+    }
+  }
+
+  getUser() {
+    if (!this.userToDisplay) {
+      this.userService.userModified.subscribe((user) => {
+        this.userService.connectedUser = user;
+        this.userToDisplay = user;
+      });
+    }
   }
 
   updateAvatar(id: number) {
@@ -54,7 +64,7 @@ export class PrivateUserComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (!this.userService.connectedUser) {
+    if (!localStorage.getItem("TOKEN")) {
       this.userService.userModified.unsubscribe();
     }
   }

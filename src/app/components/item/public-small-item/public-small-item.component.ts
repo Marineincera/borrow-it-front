@@ -20,17 +20,19 @@ export class PublicSmallItemComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.itemReceived) {
-      this.itemService
-        .getOneItem(this.itemReceived.id)
-        .subscribe((data: Item) => {
-          this.itemToDisplay = data;
-        });
+      // this.itemService
+      //   .getOneItem(this.itemReceived.id)
+      //   .subscribe((data: Item) => {
+      //     this.itemToDisplay = data;
+      //   });
     }
   }
 
   openPublicSmallItem(id: number) {
-    if (!this.loan) {
-      this.router.navigate(["/item/" + id]);
+    if (localStorage.getItem("TOKEN")) {
+      if (!this.loan) {
+        this.router.navigate(["/item/" + id]);
+      }
     }
   }
 }

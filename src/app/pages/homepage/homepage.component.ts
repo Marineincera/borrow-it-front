@@ -45,15 +45,19 @@ export class HomepageComponent implements OnInit {
   }
 
   initializeItemsArray() {
-    this.items = [];
+    let items = [];
     this.itemService.getAllItem().subscribe((data: Array<Item>) => {
       console.log(data);
       let num = 0;
       data.forEach((item) => {
         if (item.itemStatus.id === 1) {
           if (item.visibility && item.visibility === "all") {
-            this.items.push(item);
+            items.push(item);
           }
+        }
+        num++;
+        if (num === data.length) {
+          this.items = items;
         }
       });
     });

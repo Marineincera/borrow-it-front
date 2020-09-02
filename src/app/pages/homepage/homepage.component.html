@@ -18,11 +18,11 @@
     (searchResultsItems)="displaySearchResultsItems($event)"
     (searchResultsUsers)="displaySearchResultsUsers($event)"
   ></app-searchbar-container>
-  <h2 *ngIf="!searchResultsItems && !searchResultsUsers">OBJETS</h2>
+  <h2 *ngIf="!searchResultsItems && !searchResultsUsers && items">OBJETS</h2>
   <h2 *ngIf="searchResultsItems || searchResultsUsers">RESULTATS</h2>
   <div *ngIf="items && items.length > 0" class="items" #results>
     <app-list
-      *ngIf="!searchResultsItems && !searchResultsUsers"
+      *ngIf="!searchResultsItems && !searchResultsUsers && items"
       [itemsList]="items"
       [filterSelected]="4"
       class="desktop"
@@ -40,7 +40,7 @@
       class="desktop"
     ></app-list>
     <app-list
-      *ngIf="!searchResultsItems && !searchResultsUsers"
+      *ngIf="!searchResultsItems && !searchResultsUsers && items"
       [itemsList]="items"
       [filterSelected]="10"
       class="responsive"

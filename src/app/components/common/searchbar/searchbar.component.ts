@@ -70,8 +70,8 @@ export class SearchbarComponent implements OnInit {
         }
       }
     } catch {
-      this.searchResultsItems.emit([]);
-      this.searchResultsUsers.emit([]);
+      let itemsToDisplay = await this.getItemsForAll(value);
+      this.sendResultsToDisplay("items", itemsToDisplay);
     }
   }
 

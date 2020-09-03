@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="right">
-    <div class="users">
+    <div class="users" *ngIf="loan.owner && loan.borrower">
       <div>
         <h2>De</h2>
         <app-public-small-user

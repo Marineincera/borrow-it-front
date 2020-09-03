@@ -18,6 +18,7 @@ export class ValidationPageComponent implements OnInit {
   isOwner: boolean;
   isBorrower: boolean;
   status = "";
+  initDone: boolean;
 
   statusChanged: boolean;
   sendMailToOther: string;
@@ -48,8 +49,11 @@ export class ValidationPageComponent implements OnInit {
       this.loan,
       ownerOrNot
     );
+    console.log(this.loan);
+
     this.userService.getMe().subscribe((data: User) => {
       this.userService.userModified.next(data);
+      this.initDone = true;
     });
   }
 

@@ -17,15 +17,19 @@ export class PublicSmallItemComponent implements OnInit {
   itemToDisplay: Item;
   @Input() loan: Loan;
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private itemService: ItemService
+  ) {}
 
   ngOnInit(): void {
     if (this.itemReceived) {
-      // this.itemService
-      //   .getOneItem(this.itemReceived.id)
-      //   .subscribe((data: Item) => {
-      //     this.itemToDisplay = data;
-      //   });
+      this.itemService
+        .getOneItem(this.itemReceived.id)
+        .subscribe((data: Item) => {
+          this.itemToDisplay = data;
+        });
     }
   }
 

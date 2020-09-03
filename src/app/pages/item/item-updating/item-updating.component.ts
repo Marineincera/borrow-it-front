@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Category } from "src/app/shared/models/category";
 import { CategoryService } from "src/app/shared/services/category.service";
@@ -13,15 +13,17 @@ import { Tag } from "src/app/shared/models/tag";
 import { Observable } from "rxjs";
 
 @Component({
-  selector: "app-item-creation-page",
-  templateUrl: "./item-creation-page.component.html",
-  styleUrls: ["./item-creation-page.component.scss"],
+  selector: "app-item-updating",
+  templateUrl: "./item-updating.component.html",
+  styleUrls: ["./item-updating.component.scss"],
 })
-export class ItemCreationPageComponent implements OnInit {
+export class ItemUpdatingComponent implements OnInit {
+  itemToUpdate: Item;
+
   itemForm = this.fb.group({
-    name: ["", [Validators.required]],
+    name: [""],
     description: [""],
-    category: ["", [Validators.required]],
+    category: [""],
     station: [""],
     image: [""],
     author: [""],
@@ -40,21 +42,23 @@ export class ItemCreationPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private videoGameStationsService: GameConsoleService,
     private itemService: ItemService,
-    private userService: UserService,
-    private tagService: TagService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
+    // Get ID of the selected item
+    const id = this.route.snapshot.paramMap.get("id");
+    this.itemService.getOneItem(Number(id)).subscribe((item: Item) => {
+      this.itemToUpdate = item;
+    });
     if (!this.categoryService.categories) {
       this.getCategories();
     }
-    // if (!this.tagsList) {
-    //   this.getTagsList();
-    // }
   }
 
   getCategories() {
@@ -79,17 +83,7 @@ export class ItemCreationPageComponent implements OnInit {
   //         map((value) => this._filter(value))
   //       );
   //     }
-  //   });
-  // }
-
-  // private _filter(value: any): string[] {
-  //   const filterValue = value.toLowerCase();
-
-  //   const result = this.tagsForForm.filter(
-  //     (option) => option.toLowerCase().indexOf(filterValue) === 0
-  //   );
-  //   return result;
-  // }
+  //   }
 
   getVideoGamesStationsList() {
     this.videoGameStationsService
@@ -110,27 +104,6 @@ export class ItemCreationPageComponent implements OnInit {
     }
   }
 
-  // selectTag(option) {
-  //   this.tagsList.map((element) => {
-  //     if (element.name === option) {
-  //       this.newItemTags.push(element);
-  //     }
-  //   });
-  //   if (option !== undefined) {
-  //     const g = this.tagsForForm.findIndex((element) => element === option);
-
-  //     if (g < 0) {
-  //       const tagToCreate: Tag = {
-  //         name: option,
-  //       };
-  //       this.newItemTags.push(option);
-  //       this.tagService.postTag(tagToCreate).subscribe();
-
-  //       this.getTagsList();
-  //     }
-  //   }
-  // }
-
   // deleteTag(index: number) {
   //   this.newItemTags.splice(index, 1);
   //   console.log(this.newItemTags);
@@ -138,21 +111,23 @@ export class ItemCreationPageComponent implements OnInit {
 
   collectNewItem() {
     const newItem: Item = {
-      title: this.itemForm.value.name,
-      category: this.itemForm.value.category,
-      console: this.itemForm.value.station,
-      image: this.itemForm.value.image,
+      title: this.itemForm.value.name || this.itemToUpdate.title,
+      category: this.itemForm.value.category || this.itemToUpdate.category,
+      console: this.itemForm.value.station || this.itemToUpdate.console,
+      image: this.itemForm.value.image || this.itemToUpdate.image,
       user: this.userService.connectedUser.id,
-      description: this.itemForm.value.description,
-      author: this.itemForm.value.author,
-      city: this.userService.connectedUser.city,
+      description:
+        this.itemForm.value.description || this.itemToUpdate.description,
+      author: this.itemForm.value.author || this.itemToUpdate.author,
+      city: this.userService.connectedUser.city || this.itemToUpdate.city,
       itemStatus: { id: 1 },
       // tags: this.newItemTags,
     };
 
-    this.itemService.postItem(newItem).subscribe((data: Item) => {
-      const id = data.id;
-      this.router.navigate([`/item/${id}`]);
-    });
+    this.itemService
+      .update(this.itemToUpdate.id, newItem)
+      .subscribe((data: Item) => {
+        this.router.navigate([`/item/${this.itemToUpdate.id}`]);
+      });
   }
 }

@@ -48,7 +48,12 @@
           <button *ngIf="!userIsOwner" (click)="requestALoan(itemToDisplay.id)">
             Faire une demande de prêt
           </button>
-          <button *ngIf="userIsOwner">Supprimer</button>
+          <button *ngIf="userIsOwner" (click)="updateItem(itemToDisplay.id)">
+            Modifier
+          </button>
+          <button *ngIf="userIsOwner" (click)="deleteItem(itemToDisplay.id)">
+            Supprimer
+          </button>
 
           <div class="owner">
             <h3>Propriétaire :</h3>

@@ -121,4 +121,13 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       throw new Error("Error during the item updating fonction");
     }
   }
+
+  updateItem(id: number) {
+    this.router.navigate([`/item/update/${id}`]);
+  }
+
+  deleteItem(id: number) {
+    this.itemService.delete(id).subscribe();
+    this.router.navigate(["/homepage"]);
+  }
 }

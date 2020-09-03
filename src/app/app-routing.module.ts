@@ -13,6 +13,7 @@ import { RequestPageComponent } from "./pages/request/request-page.component";
 import { LoanMonitoringPageComponent } from "./pages/loan-monitoring/loan-monitoring-page.component";
 import { PrivateLoanComponent } from "./components/loan/private-loan/private-loan.component";
 import { ValidationPageComponent } from "./pages/validation/validation-page.component";
+import { ItemUpdatingComponent } from "./pages/item/item-updating/item-updating.component";
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: "item/:id", component: ItemPageComponent },
 
   { path: "item/create/new", component: ItemCreationPageComponent },
+  { path: "item/update/:id", component: ItemUpdatingComponent },
 
   { path: "user/:id", component: PublicUserPageComponent },
   { path: "user/account/:id", component: PrivateUserPageComponent },

@@ -66,6 +66,7 @@ import { SearchbarComponent } from "./components/common/searchbar/searchbar.comp
 import { SearchbarContainerComponent } from "./components/searchbar-container/searchbar-container.component";
 import { StarsContainerComponent } from "./components/common/evaluation/stars-container/stars-container.component";
 import { StarComponent } from "./components/common/evaluation/stars-container/star/star.component";
+import { ItemUpdatingComponent } from './pages/item/item-updating/item-updating.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { StarComponent } from "./components/common/evaluation/stars-container/st
     SearchbarContainerComponent,
     StarsContainerComponent,
     StarComponent,
+    ItemUpdatingComponent,
   ],
   imports: [
     AppRoutingModule,

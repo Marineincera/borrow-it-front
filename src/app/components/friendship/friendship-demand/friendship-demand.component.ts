@@ -21,6 +21,7 @@ export class FriendshipDemandComponent implements OnInit {
   friend: boolean;
   connectedUser: User;
   visitedUser: User;
+  demandAccepted: boolean;
 
   friendshipSend: boolean;
 
@@ -106,6 +107,7 @@ export class FriendshipDemandComponent implements OnInit {
       });
     this.receivedDemandIsWaiting = {};
     this.sendDemandIsWaiting = {};
+    this.demandAccepted = true;
   }
 
   deleteFriendship(friendship: FriendshipDemand) {

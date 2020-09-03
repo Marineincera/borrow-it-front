@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import { User } from "src/app/shared/models/user";
 import { Item } from "src/app/shared/models/item";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-public-user-page",
@@ -11,19 +11,22 @@ import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
   styleUrls: ["./public-user-page.component.scss"],
 })
 export class PublicUserPageComponent implements OnInit {
-  userReceived;
+  // userReceived;
   userToDisplay: User;
   items: Array<Item>;
   userConnected;
   usersToConnect: Array<User>;
-  friendship: boolean;
+  // friendship: boolean;
+  availableItems: Array<Item>;
+  unavailableItems: Array<Item>;
 
-  itemsSorted = false;
+  // itemsSorted = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -37,68 +40,106 @@ export class PublicUserPageComponent implements OnInit {
   // }
 
   getItem(id: string) {
-    this.userReceived = this.userService
-      .getOneUser(parseInt(id))
-      .subscribe((data: User) => {
-        this.userToDisplay = data;
-        this.items = data.items;
-        this.getConnectedUser();
-      });
+    this.userService.getOneUser(parseInt(id)).subscribe(async (data: User) => {
+      this.userToDisplay = data;
+      this.items = data.items;
+      const user = await this.getConnectedUser();
+      const friendship = await this.determineIfFriends();
+      const itemsSorted = await this.determineItems(data.items, friendship);
+      console.log(itemsSorted);
+
+      const availabilityItems = await this.determineAvailability(itemsSorted);
+      console.log(availabilityItems);
+
+      this.availableItems = availabilityItems[0];
+      this.unavailableItems = availabilityItems[1];
+    });
   }
 
   getConnectedUser() {
     if (localStorage.getItem("TOKEN")) {
       const token = localStorage.getItem("TOKEN");
-      this.userService.getMe().subscribe((data: User) => {
+      this.userService.getMe().subscribe(async (data: User) => {
         this.userConnected = data;
         this.usersToConnect = [data, this.userToDisplay];
-        this.determineIfFriends();
       });
     }
   }
 
   determineIfFriends() {
+    let num = 0;
+    let done = false;
+    let friendship;
+    let friends;
     if (this.userService.friends) {
-      console.log(this.userService.friends);
+      console.log("friends");
 
       this.userService.friends.forEach((friend) => {
         if (friend.id === this.userToDisplay.id) {
-          this.friendship = true;
+          friendship = true;
         } else {
-          this.friendship = false;
+          friendship = false;
         }
-        if (this.friendship) {
-          this.determineItems(this.items);
+        num++;
+        if (num === this.userService.friends.length) {
+          done = true;
         }
       });
-      if (this.userService.friends.length === 0) {
-        this.friendship = false;
-        this.determineItems(this.items);
-      }
+    }
+    if (done) {
+      return friendship;
     }
   }
 
-  determineItems(items: Array<Item>) {
-    let newItems = [];
+  determineItems(items: Array<Item>, friendship: boolean) {
+    let newItems: Array<Item> = [];
     let num = 0;
-    const i = items.length;
-    items.forEach((item) => {
-      if (this.friendship === true) {
+    let done;
+    items.forEach((item: Item) => {
+      if (friendship === true) {
         if (item.visibility === "friends") {
           newItems.push(item);
         }
+        if (item.visibility === "all") {
+          newItems.push(item);
+        }
       }
-      if (item.visibility === "all") {
-        newItems.push(item);
-      }
+      num++;
+      if (num === items.length) {
+        done = true;
+        // this.itemsSorted = true;
+        // this.items = newItems;
+        // console.log(newItems);
 
-      num = num + 1;
-
-      if (num === i) {
-        this.itemsSorted = true;
-        this.items = newItems;
+        // this.availableItems = this.determineAvailability(newItems)[0];
+        // this.unavailableItems = this.determineAvailability(newItems)[1];
+        // console.log(this.availableItems);
       }
     });
+    if (done) {
+      return newItems;
+    }
+  }
+
+  determineAvailability(array: Array<Item>) {
+    const availableItems = [];
+    const unavailableItems = [];
+    let num = 0;
+    let done;
+    array.forEach((item: Item) => {
+      if (item.itemStatus.id === 1) {
+        availableItems.push(item);
+      } else {
+        unavailableItems.push(item);
+      }
+      num++;
+      if (num === array.length) {
+        done = true;
+      }
+    });
+    if (done) {
+      return [availableItems, unavailableItems];
+    }
   }
 
   // ngOnDestroy() {
@@ -107,6 +148,6 @@ export class PublicUserPageComponent implements OnInit {
   //   }
   // }
   returnToHomepage() {
-    this.router.navigate(["/homepage"]);
+    this.location.back();
   }
 }

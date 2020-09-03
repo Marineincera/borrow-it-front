@@ -29,7 +29,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private itemService: ItemService,
     private userService: UserService,
-    private _location: Location
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
   returnToHomepage() {
     // this.router.navigate(["/homepage"]);
-    this._location.back();
+    this.location.back();
   }
 
   requestALoan(id: number) {

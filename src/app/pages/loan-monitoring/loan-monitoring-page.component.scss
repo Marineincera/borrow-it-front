@@ -10,10 +10,14 @@
   width: 25%;
 }
 
+p {
+  text-align: center;
+}
+
 section {
   display: flex;
   flex-direction: column;
-  margin-top: 5vh;
+  margin-top: 8vh;
 }
 
 .managing {

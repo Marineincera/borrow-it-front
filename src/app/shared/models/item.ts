@@ -14,6 +14,7 @@ export class Item {
   image?: string;
   note?: number;
   user?: User;
+  city?: string;
   category?: Category;
   tags?: Array<Tag>;
   itemStatus?: ItemStatus;

@@ -1,20 +1,20 @@
 <mat-card
-  *ngIf="itemToDisplay"
+  *ngIf="itemReceived"
   class="matcard"
-  (click)="openPublicSmallItem(itemToDisplay.id)"
+  (click)="openPublicSmallItem(itemReceived.id)"
 >
-  <div class="container" *ngIf="itemToDisplay">
+  <div class="container" *ngIf="itemReceived">
     <div class="title">
-      <h1>{{ itemToDisplay.title }}</h1>
+      <h1>{{ itemReceived.title }}</h1>
+      <!-- <h2 *ngIf="itemReceived && itemReceived.author">
+        {{ itemReceived.author }}
+      </h2> -->
     </div>
-    <h2 *ngIf="itemToDisplay && itemToDisplay.author">
-      {{ itemToDisplay.author }}
-    </h2>
 
-    <img src="{{ itemToDisplay.image }}" alt="{{ itemToDisplay.title }}" />
+    <img src="{{ itemReceived.image }}" alt="{{ itemReceived.title }}" />
     <div class="city">
       <span class="material-icons"> place </span>
-      <h2 class="city-name">{{ itemToDisplay.user.city }}</h2>
+      <h2 class="city-name">{{ itemReceived.city }}</h2>
     </div>
   </div>
 </mat-card>

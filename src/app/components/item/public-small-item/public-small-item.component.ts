@@ -24,13 +24,7 @@ export class PublicSmallItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.itemReceived) {
-      this.itemService
-        .getOneItem(this.itemReceived.id)
-        .subscribe((data: Item) => {
-          this.itemToDisplay = data;
-        });
-    }
+  
   }
 
   openPublicSmallItem(id: number) {

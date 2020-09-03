@@ -51,10 +51,22 @@ section {
   width: 100%;
 }
 
+.reponsive {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
   .list-wrapper {
     display: flex;
     overflow: overlay;
+  }
+
+  .reponsive {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
   }
 
   .four-list {

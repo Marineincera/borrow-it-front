@@ -1,14 +1,13 @@
-<section>
+<section *ngIf="user">
   <h1>MON PROFIL</h1>
-
-  <div *ngIf="user" class="user">
+  <div class="user">
     <app-private-user [userToDisplay]="user"></app-private-user>
   </div>
   <a [routerLink]="['/item/create/new']">
     <mat-icon>add</mat-icon>
     Ajouter un objet</a
   >
-  <div *ngIf="user" class="wrapper">
+  <div *ngIf="user" class="wrapper desktop">
     <div *ngIf="availableItems" class="style-container">
       <h2>Mes objets disponibles</h2>
     </div>
@@ -30,6 +29,41 @@
     </div>
     <app-list
       *ngIf="borrows"
+      [itemsList]="borrows"
+      [filterSelected]="4"
+    ></app-list>
+    <div class="style-container">
+      <h2>Tous mes objets</h2>
+    </div>
+    <app-list
+      *ngIf="user"
+      [itemsList]="user.items"
+      [filterSelected]="4"
+    ></app-list>
+  </div>
+
+  <div *ngIf="user" class="wrapper responsive">
+    <div *ngIf="availableItems" class="style-container">
+      <h2>Mes objets disponibles</h2>
+    </div>
+    <app-list
+      *ngIf="availableItems"
+      [itemsList]="availableItems"
+      [filterSelected]="4"
+    ></app-list>
+    <div *ngIf="unavailableItems.length > 0" class="style-container">
+      <h2>Mes objets indisponibles</h2>
+    </div>
+    <app-list
+      *ngIf="unavailableItems.length > 0"
+      [itemsList]="unavailableItems"
+      [filterSelected]="4"
+    ></app-list>
+    <div *ngIf="borrows.length > 0" class="style-container">
+      <h2>Objets empruntés</h2>
+    </div>
+    <app-list
+      *ngIf="borrows.length > 0"
       [itemsList]="borrows"
       [filterSelected]="4"
     ></app-list>

@@ -18,7 +18,7 @@
         </div>
         <mat-card
           class="more-responsive"
-          *ngIf="itemsList && itemsList.length > 4 && filterSelected === 10"
+          *ngIf="itemsList && itemsList.length > 4"
         >
           <p (click)="addElementsToList(itemsList)">Voir plus +</p>
         </mat-card>
@@ -42,7 +42,7 @@
         </div>
         <mat-card
           class="more-responsive"
-          *ngIf="usersList && usersList.length > 4 && filterSelected === 10"
+          *ngIf="usersList && usersList.length > 4"
         >
           <p (click)="addElementsToList(usersList)">Voir plus +</p>
         </mat-card>

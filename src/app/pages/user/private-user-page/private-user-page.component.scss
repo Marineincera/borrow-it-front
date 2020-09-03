@@ -54,20 +54,35 @@ a:hover {
   padding: 1vh;
   border-radius: 5%;
 }
+
+.responsive {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
   // section {
   //   display: grid;
   // }
+
+  .desktop {
+    display: none;
+  }
+
+  .responsive {
+    display: block;
+  }
 
   .lists {
     align-items: center;
   }
 
   h2 {
-    padding: 2vh 1vw;
+    padding: 1vh 1vw;
   }
 
   .style-container {
+    width: 90%;
+    margin-left: 1vw;
     padding: 2vh;
   }
 }

@@ -15,7 +15,6 @@ export class PrivateUserPageComponent implements OnInit {
   user: User;
   availableItems: Array<Item>;
   unavailableItems: Array<Item>;
-  borrows: Array<Loan>;
 
   constructor(private userService: UserService, private route: Router) {}
 
@@ -31,7 +30,6 @@ export class PrivateUserPageComponent implements OnInit {
   }
 
   async itemsOrganization() {
-    this.borrows = this.userService.borrowsInProgress;
     this.availableItems = await this.getAvailabilityItems(this.user, 1);
     this.unavailableItems = await this.getAvailabilityItems(this.user, 2);
     return true;

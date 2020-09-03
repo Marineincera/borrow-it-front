@@ -23,7 +23,13 @@
           <p (click)="addElementsToList(itemsList)">Voir plus +</p>
         </mat-card>
       </div>
-      <p class="more" (click)="addElementsToList(itemsList)">Voir plus +</p>
+      <p
+        *ngIf="itemsList && itemsList.length > 4"
+        class="more"
+        (click)="addElementsToList(itemsList)"
+      >
+        Voir plus +
+      </p>
       <!-- <p *ngIf="filter > 4" class="more" (click)="closeList(itemsList)">
         Voir moins -
       </p> -->

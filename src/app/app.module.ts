@@ -53,6 +53,7 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatInputModule } from "@angular/material/input";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
@@ -66,7 +67,8 @@ import { SearchbarComponent } from "./components/common/searchbar/searchbar.comp
 import { SearchbarContainerComponent } from "./components/searchbar-container/searchbar-container.component";
 import { StarsContainerComponent } from "./components/common/evaluation/stars-container/stars-container.component";
 import { StarComponent } from "./components/common/evaluation/stars-container/star/star.component";
-import { ItemUpdatingComponent } from './pages/item/item-updating/item-updating.component';
+import { ItemUpdatingComponent } from "./pages/item/item-updating/item-updating.component";
+import { SnackbarComponent } from './components/common/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
@@ -114,6 +116,7 @@ import { ItemUpdatingComponent } from './pages/item/item-updating/item-updating.
     StarsContainerComponent,
     StarComponent,
     ItemUpdatingComponent,
+    SnackbarComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -132,6 +135,7 @@ import { ItemUpdatingComponent } from './pages/item/item-updating/item-updating.
     MatTabsModule,
     MatBadgeModule,
     MatMenuModule,
+    MatSnackBarModule,
 
     MatInputModule,
     MatAutocompleteModule,

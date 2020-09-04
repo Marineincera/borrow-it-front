@@ -137,18 +137,21 @@ export class ItemCreationPageComponent implements OnInit {
   // }
 
   collectNewItem() {
-    const newItem: Item = {
+    let newItem: Item = {
       title: this.itemForm.value.name,
       category: this.itemForm.value.category,
-      console: this.itemForm.value.station,
       image: this.itemForm.value.image,
       user: this.userService.connectedUser.id,
       description: this.itemForm.value.description,
       author: this.itemForm.value.author,
       city: this.userService.connectedUser.city,
       itemStatus: { id: 1 },
+
       // tags: this.newItemTags,
     };
+    if (this.itemForm.value.station) {
+      newItem.console = this.itemForm.value.station;
+    }
 
     this.itemService.postItem(newItem).subscribe((data: Item) => {
       const id = data.id;

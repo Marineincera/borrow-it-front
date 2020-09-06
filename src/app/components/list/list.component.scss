@@ -2,25 +2,22 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  //   display: grid;
-  //   grid-template-rows: 15% auto;
-  //   grid-template-areas:
-  //     "title title title title"
-  //     "main main main main";
 }
 
 .list-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 2vw;
+  justify-content: center;
 }
 
 .center-list,
 .four-list {
   display: flex;
   flex-wrap: wrap;
-  // padding: 4vw;
+  margin-left: -0.5vw;
   width: 100%;
+  justify-content: center;
+  margin-bottom: 2vh;
 }
 .element {
   width: 22vw;
@@ -38,6 +35,14 @@ section {
   display: flex;
   margin-bottom: 3vh;
   align-self: center;
+  cursor: pointer;
+}
+
+.more:hover {
+  background-color: var(--main-color, #eadda6);
+  padding: 1vw 1vh;
+  color: white;
+  border-radius: 5%;
 }
 
 .more-responsive {

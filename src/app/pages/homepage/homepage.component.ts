@@ -52,7 +52,13 @@ export class HomepageComponent implements OnInit {
       data.forEach((item) => {
         if (item.itemStatus.id === 1) {
           if (item.visibility && item.visibility === "all") {
-            items.push(item);
+            if (this.connectedUser) {
+              if (item.user.id !== this.connectedUser.id) {
+                items.push(item);
+              }
+            } else {
+              items.push(item);
+            }
           }
         }
         num++;

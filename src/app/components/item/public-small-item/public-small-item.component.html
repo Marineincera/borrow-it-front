@@ -6,9 +6,6 @@
   <div class="container" *ngIf="itemReceived">
     <div class="title">
       <h1>{{ itemReceived.title }}</h1>
-      <!-- <h2 *ngIf="itemReceived && itemReceived.author">
-        {{ itemReceived.author }}
-      </h2> -->
     </div>
 
     <img src="{{ itemReceived.image }}" alt="{{ itemReceived.title }}" />

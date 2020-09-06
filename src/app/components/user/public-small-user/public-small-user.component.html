@@ -11,6 +11,15 @@
         <h2>{{ userReceived.city }}</h2>
       </div>
     </div>
-    <img src="{{ userReceived.avatar }}" alt="" />
+    <img
+      *ngIf="userReceived.avatar"
+      src="{{ userReceived.avatar }}"
+      alt="userReceived.pseudo"
+    />
+    <img
+      *ngIf="!userReceived.avatar"
+      src="../../../../assets/profil-picture-null.png"
+      alt="no profile picture"
+    />
   </div>
 </mat-card>

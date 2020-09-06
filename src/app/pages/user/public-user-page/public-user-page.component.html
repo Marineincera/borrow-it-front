@@ -4,7 +4,16 @@
       arrow_back
     </span>
   </div>
-  <img src="{{ userToDisplay.avatar }}" alt="{{ userToDisplay.pseudo }}" />
+  <img
+    *ngIf="userToDisplay.avatar"
+    src="{{ userToDisplay.avatar }}"
+    alt="{{ userToDisplay.pseudo }}"
+  />
+  <img
+    *ngIf="!userToDisplay.avatar"
+    src="../../../../assets/profil-picture-null.png"
+    alt="{{ userToDisplay.pseudo }}"
+  />
   <app-friendship-demand
     *ngIf="usersToConnect"
     [userToConnect]="userToDisplay"

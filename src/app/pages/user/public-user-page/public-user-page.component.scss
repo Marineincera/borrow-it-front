@@ -57,8 +57,10 @@ h2 {
   justify-content: space-around;
 }
 img {
-  width: 400px;
-  height: 40vh;
+  width: 300px;
+  height: 250px;
+  margin-top: 4vh;
+  margin-bottom: 3vh;
   border-radius: 50%;
 }
 
@@ -98,7 +100,16 @@ img {
   }
 
   img {
-    width: 53vw;
+    width: 300px;
+    height: 250px;
     margin-top: 4vh;
+    margin-bottom: 3vh;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  img {
+    width: 64vw;
+    height: 30vh;
   }
 }

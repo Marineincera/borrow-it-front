@@ -60,7 +60,13 @@
             <mat-card class="owner-card">
               <h3>{{ itemToDisplay.user.pseudo }}</h3>
               <img
+                *ngIf="itemToDisplay.user.avatar"
                 src="{{ itemToDisplay.user.avatar }}"
+                alt="{{ itemToDisplay.user.pseudo }}"
+              />
+              <img
+                *ngIf="!itemToDisplay.user.avatar"
+                src="../../../assets/profil-picture-null.png"
                 alt="{{ itemToDisplay.user.pseudo }}"
               />
             </mat-card>

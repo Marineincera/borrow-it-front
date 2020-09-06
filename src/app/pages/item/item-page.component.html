@@ -23,7 +23,7 @@
             Console : {{ itemToDisplay.console.name }}
           </h3>
           <h3>{{ itemToDisplay.itemStatus.name }}</h3>
-          <h3 *ngIf="userIsOwner">{{ itemToDisplay.visibility }}</h3>
+          <h3 *ngIf="userIsOwner">{{ visibility }}</h3>
           <button *ngIf="userIsOwner" (click)="openUpdatingVisibility()">
             Changer la visibilité
           </button>

@@ -152,6 +152,7 @@ export class ItemCreationPageComponent implements OnInit {
     if (this.itemForm.value.station) {
       newItem.console = this.itemForm.value.station;
     }
+    console.log(newItem);
 
     this.itemService.postItem(newItem).subscribe((data: Item) => {
       const id = data.id;

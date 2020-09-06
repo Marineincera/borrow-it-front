@@ -15,6 +15,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   itemToDisplay: Item;
   itemReceived;
   tags;
+  visibility: string;
 
   surfingUser: User;
   userIsOwner: boolean;
@@ -37,12 +38,19 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     const id = this.route.snapshot.paramMap.get("id");
     this.getItems(id);
   }
+
+  getItems(id: string) {
+    this.itemReceived = this.itemService
+      .getOneItem(parseInt(id))
+      .subscribe((data: Item) => {
+        this.itemToDisplay = data;
+        this.tags = data.tags;
+        this.determineSurfingUser(data);
+      });
+  }
   determineSurfingUser(item: Item) {
     if (this.userService.connectedUser) {
       this.surfingUser = this.userService.connectedUser;
-      // if (item.user.id === this.surfingUser.id) {
-      //   this.userIsOwner = true;
-      // }
       this.determineIfSurfingUserIsItemOwner(this.surfingUser.id, item);
     } else {
       this.userService.getMe().subscribe((data: User) => {
@@ -55,17 +63,20 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   determineIfSurfingUserIsItemOwner(id: number, item: Item) {
     if (item.user.id === id) {
       this.userIsOwner = true;
+      this.determineTitleVisibility(item.visibility);
     }
   }
 
-  getItems(id: string) {
-    this.itemReceived = this.itemService
-      .getOneItem(parseInt(id))
-      .subscribe((data: Item) => {
-        this.itemToDisplay = data;
-        this.tags = data.tags;
-        this.determineSurfingUser(data);
-      });
+  determineTitleVisibility(visibility: string) {
+    if (visibility === "all") {
+      this.visibility = "Visibilité: Tout le monde";
+    }
+    if (visibility === "friends") {
+      this.visibility = "Visibilité: Amis seulement";
+    }
+    if (visibility === "me") {
+      this.visibility = "Visibilité: Moi uniquement";
+    }
   }
 
   ngOnDestroy() {
@@ -75,7 +86,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   }
 
   returnToHomepage() {
-    // this.router.navigate(["/homepage"]);
     this.location.back();
   }
 
@@ -116,6 +126,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       this.itemService.update(id, newItem).subscribe((data: Item) => {
         this.itemToDisplay.visibility = newVisibility;
         this.visibilityUpdating = false;
+        // this.visibility = newVisibility;
+        this.determineTitleVisibility(newVisibility);
       });
     } catch (error) {
       throw new Error("Error during the item updating fonction");

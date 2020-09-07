@@ -1,7 +1,6 @@
-<section>
+<section *ngIf="user">
   <h1>MON PROFIL</h1>
-
-  <div *ngIf="user" class="user">
+  <div class="user">
     <app-private-user [userToDisplay]="user"></app-private-user>
   </div>
   <a [routerLink]="['/item/create/new']">
@@ -9,28 +8,21 @@
     Ajouter un objet</a
   >
   <div *ngIf="user" class="wrapper">
-    <div class="style-container">
+    <div *ngIf="availableItems" class="style-container">
       <h2>Mes objets disponibles</h2>
     </div>
     <app-list
       *ngIf="availableItems"
       [itemsList]="availableItems"
       [filterSelected]="4"
+      class="list"
     ></app-list>
-    <div class="style-container">
+    <div *ngIf="unavailableItems" class="style-container">
       <h2>Mes objets indisponibles</h2>
     </div>
     <app-list
       *ngIf="unavailableItems"
       [itemsList]="unavailableItems"
-      [filterSelected]="4"
-    ></app-list>
-    <div class="style-container">
-      <h2>Objets empruntés</h2>
-    </div>
-    <app-list
-      *ngIf="borrows"
-      [itemsList]="borrows"
       [filterSelected]="4"
     ></app-list>
     <div class="style-container">
@@ -42,5 +34,6 @@
       [filterSelected]="4"
     ></app-list>
   </div>
+
   <app-public-description-user></app-public-description-user>
 </section>

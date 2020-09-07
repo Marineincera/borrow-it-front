@@ -10,7 +10,7 @@ export class StarsContainerComponent implements OnInit {
   numberOfNotes = [];
   notesDone: boolean;
   star = "star";
-  emptyStar = "star_border";
+  emptyStarNumberToDisplay;
 
   constructor() {}
 
@@ -20,10 +20,12 @@ export class StarsContainerComponent implements OnInit {
 
       for (let i = 0; i < this.note; i++) {
         this.numberOfNotes.push(i);
-        console.log(i);
 
         if (i === this.note - 1) {
           this.notesDone = true;
+          const note = i + 1;
+          const emptyStars = 5 - note;
+          this.emptyStarNumberToDisplay = new Array(emptyStars);
         }
       }
     }

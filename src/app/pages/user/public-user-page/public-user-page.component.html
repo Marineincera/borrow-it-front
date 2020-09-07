@@ -1,18 +1,39 @@
-<div class="span-and-text">
-  <span class="material-icons">
-    chevron_left
-  </span>
-  <p (click)="returnToHomepage()" class="return">RETOUR</p>
-</div>
-<div>
-  <app-public-description-user
-    [userToDisplay]="userToDisplay"
-  ></app-public-description-user>
-  <div *ngIf="itemsSorted && items.length > 0">
-    <app-list-select [itemsList]="items"></app-list-select>
+<section *ngIf="userToDisplay">
+  <div class="return">
+    <span class="material-icons" (click)="returnToHomepage()">
+      arrow_back
+    </span>
   </div>
-</div>
-<app-friendship-demand
-  *ngIf="usersToConnect"
-  [userToConnect]="userToDisplay"
-></app-friendship-demand>
+  <img
+    *ngIf="userToDisplay.avatar"
+    src="{{ userToDisplay.avatar }}"
+    alt="{{ userToDisplay.pseudo }}"
+  />
+  <img
+    *ngIf="!userToDisplay.avatar"
+    src="../../../../assets/profil-picture-null.png"
+    alt="{{ userToDisplay.pseudo }}"
+  />
+  <app-friendship-demand
+    *ngIf="usersToConnect"
+    [userToConnect]="userToDisplay"
+  ></app-friendship-demand>
+
+  <div *ngIf="availableItems || unavailableItems" class="lists">
+    <div *ngIf="availableItems" class="items-wrapper">
+      <div class="style-container">
+        <h2>Ses objets disponibles</h2>
+      </div>
+      <app-list [itemsList]="availableItems" [filterSelected]="4"></app-list>
+    </div>
+    <div
+      *ngIf="unavailableItems && unavailableItems.length > 0"
+      class="items-wrapper"
+    >
+      <div class="style-container">
+        <h2>Ses objets indisponibles</h2>
+      </div>
+      <app-list [itemsList]="unavailableItems" [filterSelected]="4"></app-list>
+    </div>
+  </div>
+</section>

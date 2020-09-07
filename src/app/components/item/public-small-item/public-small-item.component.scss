@@ -8,6 +8,8 @@ mat-card {
   display: flex;
   align-items: center;
   width: 20vw;
+  margin-left: 1vw;
+  margin-bottom: 1vh;
 }
 
 .container {
@@ -55,6 +57,13 @@ h2 {
     font-size: 8px;
     // font-family: auto;
     line-height: 12px;
+    margin-bottom: 0px;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   img {

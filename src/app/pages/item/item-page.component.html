@@ -4,8 +4,6 @@
       <span class="material-icons" (click)="returnToHomepage()">
         arrow_back
       </span>
-
-      <!-- <p (click)="returnToHomepage()">RETOUR</p> -->
     </div>
     <div class="span-and-text place">
       <span class="material-icons place"> place </span>
@@ -25,12 +23,16 @@
             Console : {{ itemToDisplay.console.name }}
           </h3>
           <h3>{{ itemToDisplay.itemStatus.name }}</h3>
-          <h3 *ngIf="userIsOwner">{{ itemToDisplay.visibility }}</h3>
+          <h3 *ngIf="userIsOwner">{{ visibility }}</h3>
           <button *ngIf="userIsOwner" (click)="openUpdatingVisibility()">
             Changer la visibilité
           </button>
 
-          <mat-form-field appearance="fill" *ngIf="visibilityUpdating">
+          <mat-form-field
+            appearance="fill"
+            *ngIf="visibilityUpdating"
+            class="visibility"
+          >
             <mat-label>Choisis la visibilité souhaitée</mat-label>
             <mat-select [(value)]="chosenVisibilityToUpdate">
               <mat-option
@@ -46,14 +48,25 @@
           <button *ngIf="!userIsOwner" (click)="requestALoan(itemToDisplay.id)">
             Faire une demande de prêt
           </button>
-          <button *ngIf="userIsOwner">Supprimer</button>
+          <button *ngIf="userIsOwner" (click)="updateItem(itemToDisplay.id)">
+            Modifier
+          </button>
+          <button *ngIf="userIsOwner" (click)="deleteItem(itemToDisplay.id)">
+            Supprimer
+          </button>
 
           <div class="owner">
             <h3>Propriétaire :</h3>
             <mat-card class="owner-card">
               <h3>{{ itemToDisplay.user.pseudo }}</h3>
               <img
+                *ngIf="itemToDisplay.user.avatar"
                 src="{{ itemToDisplay.user.avatar }}"
+                alt="{{ itemToDisplay.user.pseudo }}"
+              />
+              <img
+                *ngIf="!itemToDisplay.user.avatar"
+                src="../../../assets/profil-picture-null.png"
                 alt="{{ itemToDisplay.user.pseudo }}"
               />
             </mat-card>
@@ -63,13 +76,14 @@
           <app-evaluation
             [evaluations]="itemToDisplay.evaluations"
             [item]="itemToDisplay"
+            class="evaluation"
           ></app-evaluation>
         </mat-card>
       </div>
     </div>
   </div>
   <app-tags-container
-    *ngIf="itemToDisplay"
+    *ngIf="itemToDisplay.tags.length > 0"
     [tags]="itemToDisplay.tags"
   ></app-tags-container>
 </section>

@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { ItemService } from "src/app/shared/services/item.service";
 import { LoanStatus } from "src/app/shared/models/loan-status";
 import { Loan } from "src/app/shared/models/loan";
+import { UserService } from "src/app/shared/services/user.service";
 
 @Component({
   selector: "app-public-small-item",
@@ -16,21 +17,21 @@ export class PublicSmallItemComponent implements OnInit {
   itemToDisplay: Item;
   @Input() loan: Loan;
 
-  constructor(private router: Router, private itemService: ItemService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private itemService: ItemService
+  ) {}
 
   ngOnInit(): void {
-    if (this.itemReceived) {
-      this.itemService
-        .getOneItem(this.itemReceived.id)
-        .subscribe((data: Item) => {
-          this.itemToDisplay = data;
-        });
-    }
+  
   }
 
   openPublicSmallItem(id: number) {
-    if (!this.loan) {
-      this.router.navigate(["/item/" + id]);
+    if (this.userService.connectedUser) {
+      if (!this.loan) {
+        this.router.navigate(["/item/" + id]);
+      }
     }
   }
 }

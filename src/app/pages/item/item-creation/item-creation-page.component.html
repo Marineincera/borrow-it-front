@@ -1,4 +1,5 @@
 <section>
+  <h1>Ajoute un nouvel objet</h1>
   <form
     [formGroup]="itemForm"
     (ngSubmit)="collectNewItem()"
@@ -18,6 +19,11 @@
         Le nom est obligatoire
       </div>
     </div>
+
+    <mat-form-field>
+      <mat-label>Auteur</mat-label>
+      <input matInput type="text" formControlName="author" />
+    </mat-form-field>
 
     <mat-form-field>
       <mat-label>Lien de l'image</mat-label>

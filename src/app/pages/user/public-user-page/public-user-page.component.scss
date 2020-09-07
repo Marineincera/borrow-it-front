@@ -5,14 +5,19 @@ section {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-direction: column;
+  margin-top: 9vh;
 }
 
-.span-and-text {
-  display: flex;
-  align-items: center;
-  font-family: $font-italic;
-  font-size: 30px;
+span {
+  margin-bottom: 3vh;
+  margin-top: 3vh;
   color: var(--main-color, #eadda6);
+}
+
+.return {
+  align-self: start;
+  margin-left: 3vw;
 }
 
 .return:hover {
@@ -27,8 +32,9 @@ section {
 }
 
 h2 {
-  font-family: $font-italic;
-  font-size: 40px;
+  font-family: "Bellota", cursive;
+  font-size: 1.875rem;
+  text-align: center;
 }
 
 h1 {
@@ -37,9 +43,73 @@ h1 {
   font-weight: bold;
 }
 
+h2 {
+  color: white;
+  border: 5px solid white;
+  padding: 4vh 5vw;
+  text-align: center;
+}
+
 .user {
   padding: 4vw;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+img {
+  width: 300px;
+  height: 250px;
+  margin-top: 4vh;
+  margin-bottom: 3vh;
+  border-radius: 50%;
+}
+
+.items-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.style-container {
+  padding: 4vh;
+  background-color: var(--main-color, #eadda6);
+  width: 40%;
+  border-radius: 5%;
+  margin-top: 2vh;
+}
+@media screen and (max-width: 800px) {
+  .lists {
+    align-items: center;
+    overflow: overlay;
+    width: 95%;
+  }
+
+  .list {
+    width: 90%;
+  }
+
+  h2 {
+    padding: 1vh 1vw;
+  }
+
+  .style-container {
+    width: 80%;
+    margin-left: 1vw;
+    padding: 2vh;
+  }
+
+  img {
+    width: 300px;
+    height: 250px;
+    margin-top: 4vh;
+    margin-bottom: 3vh;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  img {
+    width: 64vw;
+    height: 30vh;
+  }
 }

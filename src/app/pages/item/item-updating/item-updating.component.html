@@ -1,0 +1,96 @@
+<section>
+  <h1>Modification</h1>
+  <form
+    [formGroup]="itemForm"
+    (ngSubmit)="collectNewItem()"
+    class="newitem-form"
+    *ngIf="itemToUpdate"
+  >
+    <mat-form-field>
+      <mat-label>{{ itemToUpdate.title }}</mat-label>
+      <input matInput type="text" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label *ngIf="itemToUpdate.author">{{
+        itemToUpdate.author
+      }}</mat-label>
+      <mat-label *ngIf="!itemToUpdate.author">Auteur</mat-label>
+
+      <input matInput type="text" formControlName="author" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label *ngIf="itemToUpdate.image">{{ itemToUpdate.image }}</mat-label>
+      <mat-label *ngIf="!itemToUpdate.image">Lien de l'image</mat-label>
+      <input matInput type="text" formControlName="image" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label *ngIf="itemToUpdate.description">{{
+        itemToUpdate.description
+      }}</mat-label>
+      <mat-label *ngIf="!itemToUpdate.description">Description</mat-label>
+      <textarea matInput type="text" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ itemToUpdate.category.name }}</mat-label>
+      <mat-select formControlName="category">
+        <mat-option
+          *ngFor="let category of categories"
+          value="{{ category.id }}"
+          (click)="openVideoGamesStationsList(category.id)"
+          >{{ category.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="videoGamesStations && itemToUpdate.console.name">
+      <mat-label>{{ itemToUpdate.console.name }}</mat-label>
+      <mat-select formControlName="station">
+        <mat-option
+          *ngFor="let station of videoGamesStationsList"
+          value="{{ station.id }}"
+          (click)="openVideoGamesStationsList(station.id)"
+          >{{ station.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <div *ngIf="newItemTags">
+        <ul *ngFor="let tag of newItemTags; let i = index">
+          <li>
+            <div>
+              <button (click)="deleteTag(i)">X</button>
+              {{ tag.name }}
+            </div>
+          </li>
+        </ul>
+      </div> -->
+    <!-- 
+      <mat-form-field class="example-full-width" *ngIf="tagsForForm">
+        <input
+          type="text"
+          placeholder="Ajoute un tag"
+          aria-label="tag"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions | async"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <p (click)="selectTag(myControl.value)">Add</p> -->
+
+    <button type="submit" class="valid-button" [disabled]="!itemForm.valid">
+      Modifier
+    </button>
+  </form>
+</section>

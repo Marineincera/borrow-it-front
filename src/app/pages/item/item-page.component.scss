@@ -9,6 +9,7 @@
 .description {
   display: flex;
   justify-content: space-evenly;
+  grid-area: wrapper-description;
 }
 
 .description-right {
@@ -17,11 +18,16 @@
   width: 50%;
 }
 
+.details {
+  grid-area: description;
+}
+
 h1 {
   font-family: "Bellota", cursive;
   font-size: 1.875rem;
   text-align: center;
   color: var(--main-color, #eadda6);
+  grid-area: title;
 }
 
 h2,
@@ -32,6 +38,7 @@ h3 {
 .item {
   width: 20rem;
   height: 30rem;
+  grid-area: img;
 }
 
 // .left {
@@ -68,6 +75,7 @@ button {
   color: white;
   padding: 1vh;
   border-radius: 5%;
+  margin: 0.5vh;
 }
 
 button:hover {
@@ -108,17 +116,71 @@ button:hover {
   }
 }
 
-// @media screen and (max-width: 1600px) {
-//   .displayer {
-//     flex-direction: column-reverse;
-//   }
+@media screen and (max-width: 800px) {
+  .displayer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-//   .item {
-//     width: 55vw;
-//     height: 100vh;
-//   }
+  .description {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      "title"
+      "img"
+      "description";
+    justify-items: center;
+  }
 
-//   .details {
-//     width: 80%;
-//   }
-// }
+  .description-right {
+    width: 85%;
+  }
+
+  .details {
+    margin-bottom: 8vh;
+  }
+  .item {
+    width: 15rem;
+    height: 25rem;
+  }
+
+  .owner-card {
+    width: auto;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0px;
+  }
+  .span-and-text {
+    display: none;
+  }
+
+  .evaluation {
+    width: 36vw;
+  }
+
+  .visibility {
+    width: 38vw;
+  }
+  h2 {
+    font-size: 1em;
+  }
+
+  .return {
+    display: none;
+  }
+
+  //   .displayer {
+  //     flex-direction: column-reverse;
+  //   }
+
+  //   .item {
+  //     width: 55vw;
+  //     height: 100vh;
+  //   }
+
+  //   .details {
+  //     width: 80%;
+  //   }
+}

@@ -5,16 +5,12 @@
         <h1>{{ loan.borrowedItem.title }}</h1>
       </div>
 
-      <h2>{{ loan.loanStatus.name }}</h2>
-
       <img
         src="{{ loan.borrowedItem.image }}"
         alt="{{ loan.borrowedItem.title }}"
       />
       <div class="city">
-        <span class="material-icons">
-          place
-        </span>
+        <span class="material-icons"> place </span>
         <h2>{{ loan.owner.city }}</h2>
       </div>
     </div>

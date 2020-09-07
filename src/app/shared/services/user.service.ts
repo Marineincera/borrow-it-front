@@ -57,7 +57,7 @@ export class UserService {
     return this.service.get(UserService.URL + "users/" + id.toString());
   }
 
-  delete(id) {
+  delete() {
     return this.service.delete(UserService.URL + "users/delete/");
   }
 
@@ -114,6 +114,9 @@ export class UserService {
     return this.http.get(UserService.URL + "users/search/me").pipe(
       tap(async (user: User) => {
         this.connectedUser = user;
+        if (user.avatar === null) {
+          user.avatar = "../../../assets/profil-picture-null.png";
+        }
         this.loans = user.loans;
         const loansCategories = await this.determineLoansCategories(user);
         const borrowsCategories = await this.determineBorrowsCategories(user);

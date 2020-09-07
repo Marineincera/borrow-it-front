@@ -18,13 +18,13 @@
     (searchResultsItems)="displaySearchResultsItems($event)"
     (searchResultsUsers)="displaySearchResultsUsers($event)"
   ></app-searchbar-container>
-  <h2 *ngIf="!searchResultsItems && !searchResultsUsers">OBJETS</h2>
+  <h2 *ngIf="!searchResultsItems && !searchResultsUsers && items">OBJETS</h2>
   <h2 *ngIf="searchResultsItems || searchResultsUsers">RESULTATS</h2>
   <div *ngIf="items && items.length > 0" class="items" #results>
     <app-list
-      *ngIf="!searchResultsItems && !searchResultsUsers"
+      *ngIf="!searchResultsItems && !searchResultsUsers && items"
       [itemsList]="items"
-      [filterSelected]="4"
+      [filterSelected]="8"
       class="desktop"
     ></app-list>
     <app-list
@@ -40,7 +40,7 @@
       class="desktop"
     ></app-list>
     <app-list
-      *ngIf="!searchResultsItems && !searchResultsUsers"
+      *ngIf="!searchResultsItems && !searchResultsUsers && items"
       [itemsList]="items"
       [filterSelected]="10"
       class="responsive"
@@ -61,11 +61,30 @@
 
   <h2 *ngIf="friendsItems && friendsItems.length > 0">OBJETS DE MES AMIS</h2>
   <div *ngIf="friendsItems && friendsItems.length > 0" class="items">
-    <app-list [itemsList]="friendsItems" [filterSelected]="4"></app-list>
+    <app-list
+      class="desktop"
+      [itemsList]="friendsItems"
+      [filterSelected]="4"
+    ></app-list>
+    <app-list
+      [itemsList]="friendsItems"
+      [filterSelected]="10"
+      class="responsive"
+    ></app-list>
   </div>
 
   <h2 *ngIf="users && users.length > 0">MEMBRES</h2>
   <div *ngIf="users && users.length > 0" class="users">
-    <app-list [usersList]="users" [filterSelected]="4"></app-list>
+    <app-list
+      class="desktop"
+      [usersList]="users"
+      [filterSelected]="4"
+    ></app-list>
+    <app-list
+      *ngIf="users"
+      [usersList]="users"
+      [filterSelected]="10"
+      class="responsive"
+    ></app-list>
   </div>
 </section>

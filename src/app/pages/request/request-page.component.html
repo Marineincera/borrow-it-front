@@ -5,24 +5,24 @@
     [owner]="item.user"]
   ></app-private-loan> -->
   <div class="board">
+    <app-public-small-item [itemReceived]="item"></app-public-small-item>
     <div>
       <app-public-small-user
         [userReceived]="requestUser"
       ></app-public-small-user>
       <app-public-small-user [userReceived]="item.user"></app-public-small-user>
     </div>
-    <div class="validation-message">
-      <h2
-        *ngIf="item.itemStatus.id !== 2"
-        (click)="requestTheLoan(item, requestUser, item.user)"
-      >
-        Valider la demande de prêt
-      </h2>
-      <p *ngIf="requestValidated">Demande de prêt envoyée</p>
-      <p *ngIf="item.itemStatus.id === 2">
-        Ce produit est actuellement indisponible
-      </p>
-    </div>
   </div>
-  <app-public-small-item [itemReceived]="item"></app-public-small-item>
+  <div class="validation-message">
+    <h2
+      *ngIf="item.itemStatus.id !== 2"
+      (click)="requestTheLoan(item, requestUser, item.user)"
+    >
+      Valider la demande de prêt
+    </h2>
+    <p *ngIf="requestValidated">Demande de prêt envoyée</p>
+    <p *ngIf="item.itemStatus.id === 2">
+      Ce produit est actuellement indisponible
+    </p>
+  </div>
 </section>

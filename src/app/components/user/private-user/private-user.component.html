@@ -19,7 +19,7 @@
       ></app-information>
     </div>
   </mat-card>
-  <div class="avatar">
+  <div class="avatar" *ngIf="userToDisplay.avatar">
     <img
       src="{{ userToDisplay.avatar }}"
       alt="{{ userToDisplay.pseudo }}"

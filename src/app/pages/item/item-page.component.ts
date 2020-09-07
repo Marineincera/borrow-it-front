@@ -5,6 +5,7 @@ import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
 import { Location } from "@angular/common";
+import { Evaluation } from "src/app/shared/models/evaluation";
 
 @Component({
   selector: "app-item-page",
@@ -15,6 +16,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   itemToDisplay: Item;
   itemReceived;
   tags;
+  visibility: string;
 
   surfingUser: User;
   userIsOwner: boolean;
@@ -29,33 +31,13 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private itemService: ItemService,
     private userService: UserService,
-    private _location: Location
+    private location: Location
   ) {}
 
   ngOnInit(): void {
     // Get ID of the selected item
     const id = this.route.snapshot.paramMap.get("id");
     this.getItems(id);
-  }
-  determineSurfingUser(item: Item) {
-    if (this.userService.connectedUser) {
-      this.surfingUser = this.userService.connectedUser;
-      // if (item.user.id === this.surfingUser.id) {
-      //   this.userIsOwner = true;
-      // }
-      this.determineIfSurfingUserIsItemOwner(this.surfingUser.id, item);
-    } else {
-      this.userService.getMe().subscribe((data: User) => {
-        this.surfingUser = data;
-        this.determineIfSurfingUserIsItemOwner(data.id, item);
-      });
-    }
-  }
-
-  determineIfSurfingUserIsItemOwner(id: number, item: Item) {
-    if (item.user.id === id) {
-      this.userIsOwner = true;
-    }
   }
 
   getItems(id: string) {
@@ -65,7 +47,46 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         this.itemToDisplay = data;
         this.tags = data.tags;
         this.determineSurfingUser(data);
+        console.log(this.itemToDisplay);
       });
+  }
+
+  determineSurfingUser(item: Item) {
+    if (this.userService.connectedUser) {
+      this.surfingUser = this.userService.connectedUser;
+      this.determineIfSurfingUserIsItemOwner(this.surfingUser.id, item);
+      // this.determineIfItemIsAlreadyEvaluated(item.evaluations);
+    } else {
+      this.userService.getMe().subscribe((data: User) => {
+        this.surfingUser = data;
+        this.determineIfSurfingUserIsItemOwner(data.id, item);
+      });
+    }
+  }
+
+  // determineIfItemIsAlreadyEvaluated(evaluations: Array<Evaluation>) {
+  //   evaluations.forEach((evaluation) => {
+  //     console.log(evaluation.user.id);
+  //   });
+  // }
+
+  determineIfSurfingUserIsItemOwner(id: number, item: Item) {
+    if (item.user.id === id) {
+      this.userIsOwner = true;
+      this.determineTitleVisibility(item.visibility);
+    }
+  }
+
+  determineTitleVisibility(visibility: string) {
+    if (visibility === "all") {
+      this.visibility = "Visibilité: Tout le monde";
+    }
+    if (visibility === "friends") {
+      this.visibility = "Visibilité: Amis seulement";
+    }
+    if (visibility === "me") {
+      this.visibility = "Visibilité: Moi uniquement";
+    }
   }
 
   ngOnDestroy() {
@@ -75,8 +96,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   }
 
   returnToHomepage() {
-    // this.router.navigate(["/homepage"]);
-    this._location.back();
+    this.location.back();
   }
 
   requestALoan(id: number) {
@@ -116,9 +136,19 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       this.itemService.update(id, newItem).subscribe((data: Item) => {
         this.itemToDisplay.visibility = newVisibility;
         this.visibilityUpdating = false;
+        this.determineTitleVisibility(newVisibility);
       });
     } catch (error) {
       throw new Error("Error during the item updating fonction");
     }
+  }
+
+  updateItem(id: number) {
+    this.router.navigate([`/item/update/${id}`]);
+  }
+
+  deleteItem(id: number) {
+    this.itemService.delete(id).subscribe();
+    this.router.navigate(["/homepage"]);
   }
 }

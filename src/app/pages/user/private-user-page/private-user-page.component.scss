@@ -1,7 +1,7 @@
 section {
   display: flex;
   flex-direction: column;
-  margin-top: 6vh;
+  margin-top: 8vh;
 }
 
 h1,
@@ -54,20 +54,19 @@ a:hover {
   padding: 1vh;
   border-radius: 5%;
 }
-@media screen and (max-width: 800px) {
-  // section {
-  //   display: grid;
-  // }
 
+@media screen and (max-width: 800px) {
   .lists {
     align-items: center;
   }
 
   h2 {
-    padding: 2vh 1vw;
+    padding: 1vh 1vw;
   }
 
   .style-container {
+    width: 90%;
+    margin-left: 1vw;
     padding: 2vh;
   }
 }

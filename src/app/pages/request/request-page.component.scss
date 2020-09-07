@@ -4,13 +4,15 @@ div {
 
 .board {
   display: flex;
-  flex-direction: column;
   justify-content: space-evenly;
+  margin-bottom: 5vh;
 }
 
 section {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
+  margin-top: 12vh;
 }
 
 h2 {
@@ -29,4 +31,15 @@ h2:hover {
 .validation-message {
   display: flex;
   flex-direction: column;
+  align-self: center;
+  width: 60%;
+}
+
+p {
+  text-align: center;
+}
+@media screen and (max-width: 800px) {
+  .board {
+    align-items: center;
+  }
 }

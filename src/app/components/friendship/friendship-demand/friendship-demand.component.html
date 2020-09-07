@@ -19,10 +19,15 @@
       <button (click)="deleteFriendship(friendship)">Refuser</button>
     </div>
   </div>
-  <div *ngIf="(sendDemandIsWaiting && !friend) || friendshipSend">
+
+  <div
+    *ngIf="
+      (sendDemandIsWaiting && !friend && !demandAccepted) || friendshipSend
+    "
+  >
     <h1>Vous avez demandé cette personne en ami</h1>
   </div>
-  <div *ngIf="friend" class="delete">
+  <div *ngIf="friend || demandAccepted" class="delete">
     <h1 *ngIf="friend">Vous êtes amis</h1>
     <button (click)="deleteFriendship(friendship)">
       Retirer de la liste d'amis

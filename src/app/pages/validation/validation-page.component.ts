@@ -18,6 +18,7 @@ export class ValidationPageComponent implements OnInit {
   isOwner: boolean;
   isBorrower: boolean;
   status = "";
+  initDone: boolean;
 
   statusChanged: boolean;
   sendMailToOther: string;
@@ -44,13 +45,16 @@ export class ValidationPageComponent implements OnInit {
     const ownerOrNot: boolean = await this.determineIfOwnerOrBorrower(
       this.loan
     );
+    //determine next step
     this.validationStatus = await this.determineValidationStatus(
       this.loan,
       ownerOrNot
     );
-    this.userService.getMe().subscribe((data: User) => {
-      this.userService.userModified.next(data);
-    });
+
+    // this.userService.getMe().subscribe((data: User) => {
+    //   this.userService.userModified.next(data);
+    //   this.initDone = true;
+    // });
   }
 
   async getLoan(id: number) {
@@ -86,21 +90,6 @@ export class ValidationPageComponent implements OnInit {
           }
         });
       return owner;
-      // this.userService.getMe().subscribe((data: User) => {
-      //   if (data.id === loan.owner.id) {
-      //     this.isOwner = true;
-      //     this.sendMailToOther = `mailto:${loan.borrower.email}`;
-      //     this.personToContact = loan.borrower.pseudo;
-      //     this.validationStatus = this.determineValidationStatus(this.loan);
-      //   }
-      //   if (data.id === loan.borrower.id) {
-      //     this.isBorrower = true;
-      //     this.sendMailToOther = `mailto:${loan.owner.email}`;
-      //     this.personToContact = loan.owner.pseudo;
-      //     this.isOwner = false;
-      //     this.validationStatus = this.determineValidationStatus(this.loan);
-      //   }
-      // });
     }
   }
 
@@ -211,7 +200,6 @@ export class ValidationPageComponent implements OnInit {
 
   deleteLoan(loan: Loan) {
     //and it must be deleted
-
     return this.loanService
       .delete(loan.id)
       .toPromise()

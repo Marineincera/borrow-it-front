@@ -4,8 +4,6 @@ import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
 import { ItemService } from "src/app/shared/services/item.service";
-import { Observable } from "rxjs";
-import { runInThisContext } from "vm";
 
 @Component({
   selector: "app-searchbar",
@@ -70,8 +68,8 @@ export class SearchbarComponent implements OnInit {
         }
       }
     } catch {
-      this.searchResultsItems.emit([]);
-      this.searchResultsUsers.emit([]);
+      let itemsToDisplay = await this.getItemsForAll(value);
+      this.sendResultsToDisplay("items", itemsToDisplay);
     }
   }
 

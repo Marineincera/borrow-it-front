@@ -2,17 +2,28 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  //   display: grid;
-  //   grid-template-rows: 15% auto;
-  //   grid-template-areas:
-  //     "title title title title"
-  //     "main main main main";
 }
 
-.list {
+.list-wrapper {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center-list {
+}
+.four-list {
   flex-wrap: wrap;
-  padding: 4vw;
+}
+
+.center-list,
+.four-list {
+  display: flex;
+  // flex-wrap: wrap;
+  margin-left: -0.5vw;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 2vh;
 }
 .element {
   width: 22vw;
@@ -30,6 +41,14 @@ section {
   display: flex;
   margin-bottom: 3vh;
   align-self: center;
+  cursor: pointer;
+}
+
+.more:hover {
+  background-color: var(--main-color, #eadda6);
+  padding: 1vw 1vh;
+  color: white;
+  border-radius: 5%;
 }
 
 .more-responsive {
@@ -43,8 +62,25 @@ section {
   width: 100%;
 }
 
+.reponsive {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
-  .list {
+  .list-wrapper {
+    display: flex;
+    overflow: overlay;
+  }
+
+  .reponsive {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .four-list {
     overflow: overlay;
     display: flex;
     padding: 4vw;
@@ -53,6 +89,12 @@ section {
   // section {
   //   display: flex;
   // }
+
+  .center-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .more {
     display: none;

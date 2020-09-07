@@ -2,11 +2,8 @@
   <h1 class="title" (click)="openHomepage()">Borrow It</h1>
 
   <div class="nav">
-    <!-- <h2 class="account" *ngIf="!user" (click)="openAuthentification()">
-      Connexion
-    </h2> -->
-
     <div *ngIf="user" class="user">
+      <h2 (click)="openHomepage()">Accueil</h2>
       <div class="notifications">
         <mat-icon
           *ngIf="user && notifications"
@@ -43,15 +40,14 @@
         </mat-icon>
       </button>
       <mat-menu #menu="matMenu" class="responsive-menu">
+        <button mat-menu-item (click)="openHomepage()">Accueil</button>
         <button mat-menu-item (click)="openLoansMonitoring(user.id)">
           Tableau de bord
         </button>
         <button mat-menu-item (click)="openPrivateAccount(user.id)">
           Mon Profil
         </button>
-        <button mat-menu-item (click)="signOut()">
-          Se déconnecter
-        </button>
+        <button mat-menu-item (click)="signOut()">Se déconnecter</button>
       </mat-menu>
     </div>
   </div>

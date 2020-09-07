@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="right">
-    <div class="users">
+    <div class="users" *ngIf="loan.owner && loan.borrower">
       <div>
         <h2>De</h2>
         <app-public-small-user
@@ -39,30 +39,32 @@
         ></app-public-small-user>
       </div>
     </div>
-    <h2 class="status-loan">Etat du prêt :</h2>
-    <h2>{{ loan.loanStatus.name }}</h2>
-    <h2 (click)="changeLoanStatus(loan)" class="loan-details">
-      {{ validationStatus }}
-    </h2>
-
-    <a
-      *ngIf="sendMailToOther"
-      href="{{ sendMailToOther }}"
-      (mouseover)="mouseOvered = true"
-      (mouseout)="mouseOvered = false"
-    >
-      <h2
-        *ngIf="isOwner && loan.loanStatus.id === 1"
-        class="loan-details"
-        (click)="declineLoan(loan)"
-      >
-        Refuser le prêt
-      </h2></a
-    >
-    <a *ngIf="sendMailToOther" href="{{ sendMailToOther }}">
-      <h2 *ngIf="loan.loanStatus.id !== 1 || 6" class="loan-details">
-        Contacter {{ personToContact }}
+    <div class="status">
+      <h2 class="status-loan">Etat du prêt :</h2>
+      <h2>{{ loan.loanStatus.name }}</h2>
+      <h2 (click)="changeLoanStatus(loan)" class="loan-details">
+        {{ validationStatus }}
       </h2>
-    </a>
+
+      <a
+        *ngIf="sendMailToOther"
+        href="{{ sendMailToOther }}"
+        (mouseover)="mouseOvered = true"
+        (mouseout)="mouseOvered = false"
+      >
+        <h2
+          *ngIf="isOwner && loan.loanStatus.id === 1"
+          class="loan-details"
+          (click)="declineLoan(loan)"
+        >
+          Refuser le prêt
+        </h2></a
+      >
+      <a *ngIf="sendMailToOther" href="{{ sendMailToOther }}">
+        <h2 *ngIf="loan.loanStatus.id !== 1 || 6" class="loan-details">
+          Contacter {{ personToContact }}
+        </h2>
+      </a>
+    </div>
   </div>
 </div>

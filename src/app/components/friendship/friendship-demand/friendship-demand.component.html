@@ -20,7 +20,11 @@
     </div>
   </div>
 
-  <div *ngIf="(sendDemandIsWaiting && !friend) || friendshipSend">
+  <div
+    *ngIf="
+      (sendDemandIsWaiting && !friend && !demandAccepted) || friendshipSend
+    "
+  >
     <h1>Vous avez demandé cette personne en ami</h1>
   </div>
   <div *ngIf="friend || demandAccepted" class="delete">

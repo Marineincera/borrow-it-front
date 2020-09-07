@@ -5,6 +5,7 @@ import { Item } from "src/app/shared/models/item";
 import { User } from "src/app/shared/models/user";
 import { UserService } from "src/app/shared/services/user.service";
 import { Location } from "@angular/common";
+import { Evaluation } from "src/app/shared/models/evaluation";
 
 @Component({
   selector: "app-item-page",
@@ -46,12 +47,15 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         this.itemToDisplay = data;
         this.tags = data.tags;
         this.determineSurfingUser(data);
+        console.log(this.itemToDisplay);
       });
   }
+
   determineSurfingUser(item: Item) {
     if (this.userService.connectedUser) {
       this.surfingUser = this.userService.connectedUser;
       this.determineIfSurfingUserIsItemOwner(this.surfingUser.id, item);
+      // this.determineIfItemIsAlreadyEvaluated(item.evaluations);
     } else {
       this.userService.getMe().subscribe((data: User) => {
         this.surfingUser = data;
@@ -59,6 +63,12 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  // determineIfItemIsAlreadyEvaluated(evaluations: Array<Evaluation>) {
+  //   evaluations.forEach((evaluation) => {
+  //     console.log(evaluation.user.id);
+  //   });
+  // }
 
   determineIfSurfingUserIsItemOwner(id: number, item: Item) {
     if (item.user.id === id) {
@@ -126,7 +136,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       this.itemService.update(id, newItem).subscribe((data: Item) => {
         this.itemToDisplay.visibility = newVisibility;
         this.visibilityUpdating = false;
-        // this.visibility = newVisibility;
         this.determineTitleVisibility(newVisibility);
       });
     } catch (error) {

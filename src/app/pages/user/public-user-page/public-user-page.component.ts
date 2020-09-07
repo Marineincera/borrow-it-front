@@ -11,12 +11,11 @@ import { Location } from "@angular/common";
   styleUrls: ["./public-user-page.component.scss"],
 })
 export class PublicUserPageComponent implements OnInit {
-  // userReceived;
   userToDisplay: User;
   items: Array<Item>;
   userConnected;
   usersToConnect: Array<User>;
-  // friendship: boolean;
+
   availableItems: Array<Item>;
   unavailableItems: Array<Item>;
 
@@ -34,10 +33,6 @@ export class PublicUserPageComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get("id");
     this.getItem(id);
   }
-  // if (this.userReceived) {
-  //   this.usersToConnect = [this.userConnected, this.userReceived];
-  //   console.log(this.usersToConnect);
-  // }
 
   getItem(id: string) {
     this.userService.getOneUser(parseInt(id)).subscribe(async (data: User) => {
@@ -107,13 +102,6 @@ export class PublicUserPageComponent implements OnInit {
       num++;
       if (num === items.length) {
         done = true;
-        // this.itemsSorted = true;
-        // this.items = newItems;
-        // console.log(newItems);
-
-        // this.availableItems = this.determineAvailability(newItems)[0];
-        // this.unavailableItems = this.determineAvailability(newItems)[1];
-        // console.log(this.availableItems);
       }
     });
     if (done) {
@@ -142,11 +130,6 @@ export class PublicUserPageComponent implements OnInit {
     }
   }
 
-  // ngOnDestroy() {
-  //   if (this.userReceived) {
-  //     this.userReceived.unsuscribe();
-  //   }
-  // }
   returnToHomepage() {
     this.location.back();
   }

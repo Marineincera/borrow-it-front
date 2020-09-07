@@ -1,5 +1,11 @@
-<div *ngIf="notesDone && numberOfNotes" class="stars">
+<div
+  *ngIf="notesDone && numberOfNotes && emptyStarNumberToDisplay"
+  class="stars"
+>
   <div *ngFor="let number of numberOfNotes">
     <app-star [styleStar]="star"></app-star>
+  </div>
+  <div *ngFor="let i of emptyStarNumberToDisplay">
+    <span class="material-icons border"> star_border </span>
   </div>
 </div>

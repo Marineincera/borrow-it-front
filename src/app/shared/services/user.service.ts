@@ -57,7 +57,7 @@ export class UserService {
     return this.service.get(UserService.URL + "users/" + id.toString());
   }
 
-  delete(id) {
+  delete() {
     return this.service.delete(UserService.URL + "users/delete/");
   }
 

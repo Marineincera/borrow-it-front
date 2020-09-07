@@ -10,10 +10,16 @@ section {
   justify-content: center;
 }
 
+.center-list {
+}
+.four-list {
+  flex-wrap: wrap;
+}
+
 .center-list,
 .four-list {
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   margin-left: -0.5vw;
   width: 100%;
   justify-content: center;

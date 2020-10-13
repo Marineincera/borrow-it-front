@@ -1,4 +1,4 @@
-# Personal project - BorrowIt - Front
+# Personal project - BorrowIt - Front - July 2020
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
 This project was created for the Wild Code School final exam. 
